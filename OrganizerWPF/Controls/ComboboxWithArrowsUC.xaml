@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="OrganizerWPF.Controls.ComboboxWithArrowsUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:OrganizerWPF.Controls"
+             mc:Ignorable="d" 
+              Height="20" Width="126"
+             x:Name="NavigationControlRoot72">
+
+
+    <Grid DataContext="{Binding ElementName=NavigationControlRoot72}">
+
+        <Button x:Name="arrowLeft" Width="12" Height="18" HorizontalAlignment="Left"
+                 Style="{StaticResource FlatStyleNoBordersTransparentButton}"
+                
+              
+                Click="arrowLeft_Click">
+            <StackPanel>
+                <Image Source="pack://application:,,,/Resources/arrowLeftS1.png" Stretch="None" SnapsToDevicePixels="True"/>
+            </StackPanel>
+
+        </Button>
+
+        <Button x:Name="arrowRight"  Width="12" Height="18" HorizontalAlignment="Left"
+                Margin="12,0,0,0"
+                 Style="{StaticResource FlatStyleNoBordersTransparentButton}"
+              
+                Click="arrowRight_Click">
+
+            <StackPanel>
+                <Image Source="pack://application:,,,/Resources/arrowRightS1.png" Stretch="None" SnapsToDevicePixels="True"/>
+            </StackPanel>
+        </Button>
+
+
+
+
+        <!--<ComboBox x:Name="listCombobox"    Style="{StaticResource FlatComboBox}"  
+                 
+                  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="26,0,0,0"
+                  Height="20" Width="100"
+                  ItemsSource="{Binding ListOfListObjsForCombobox}" DisplayMemberPath="Item2"  SelectedItem="{Binding SelectedListTuple, Mode=TwoWay}"
+                  SelectionChanged ="listCombobox_SelectionChanged"
+                 
+                />-->
+
+
+        <ComboBox x:Name="listCombobox"     
+                 
+                  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="26,0,0,0"
+                  Height="20" Width="100"
+                  ItemsSource="{Binding ListOfListObjsForCombobox}" DisplayMemberPath="Item2"  SelectedItem="{Binding SelectedListTuple, Mode=TwoWay}"
+                  SelectionChanged ="listCombobox_SelectionChanged"
+                 
+                />
+
+
+    </Grid>
+</UserControl>
+

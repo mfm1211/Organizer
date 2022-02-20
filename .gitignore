@@ -1,0 +1,10 @@
+OrganizerLibrary/bin/
+OrganizerLibrary/obj/
+OrganizerWPF/bin/
+OrganizerWPF/obj/
+OrganizerWPF/Resources/
+DataFiles
+Organizer.EntityFramework/bin/
+Organizer.EntityFramework/Migrations/
+Organizer.EntityFramework/obj/
+/.vs

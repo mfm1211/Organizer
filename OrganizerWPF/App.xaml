@@ -1,0 +1,47 @@
+﻿<Application x:Class="OrganizerWPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:OrganizerWPF"
+             xmlns:viewModels="clr-namespace:OrganizerWPF.ViewModels"
+             xmlns:views="clr-namespace:OrganizerWPF.Views"
+             xmlns:s="clr-namespace:System;assembly=mscorlib"
+             >
+    <!--StartupUri="MainWindow.xaml"-->
+    <Application.Resources>
+      
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:ThemeResourceDictionary LightTheme="Styles/LightThemeDictionary.xaml" 
+                                              DarkTheme="Styles/DarkThemeDictionary.xaml" />
+                <local:ThemeResourceDictionary LightTheme="Styles/LightThemeDictionary.xaml" 
+                                              DarkTheme="Styles/DarkThemeDictionary.xaml" />
+                <ResourceDictionary Source="Styles/MainResourceDictionary.xaml"/>
+                <ResourceDictionary Source="Styles/Converters.xaml"/>
+                <ResourceDictionary Source="Styles/DropdownPanelDictionary.xaml"/>
+                
+                
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
+                <views:HomeView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:EventListViewModel}">
+                <views:EventListView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:SelectionBarViewModel}">
+                <views:SelectionBarView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:RetractableEventListViewModel}">
+                <views:RetractableEventListView/>
+            </DataTemplate>
+
+            <s:Boolean x:Key="TrueValue">True</s:Boolean>
+            <s:Boolean x:Key="False">False</s:Boolean>
+        </ResourceDictionary>
+
+    </Application.Resources>
+</Application>

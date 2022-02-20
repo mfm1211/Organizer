@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+
+    <SolidColorBrush x:Key="NormalBackgroundBrush" Color="White" Opacity="0.9"/>
+
+    <SolidColorBrush x:Key="HighlightedBackgroundBrush" Color="DarkGray" />
+
+
+    <SolidColorBrush x:Key="NormalTextColor" Color="Black"/>
+
+    <SolidColorBrush x:Key="PanelBackColor" Color="White"/>
+
+    <Style TargetType="{x:Type Image}" x:Key="threeDotsImageStyle">
+        <Setter Property="Source" Value="pack://application:,,,/Resources/threeDotsBlackVertical.png"/>
+    </Style>
+
+    <Style TargetType="{x:Type Image}" x:Key="leftArrowImageStyle">
+        <Setter Property="Source" Value="pack://application:,,,/Resources/arrowLeftS1.png"/>
+    </Style>
+
+    <Style TargetType="{x:Type Image}" x:Key="rightArrowImageStyle">
+        <Setter Property="Source" Value="pack://application:,,,/Resources/arrowRightS1.png"/>
+    </Style>
+
+    <Style TargetType="{x:Type Image}" x:Key="downArrowImageStyle">
+        <Setter Property="Source" Value="pack://application:,,,/Resources/arrowDownS1.png"/>
+    </Style>
+
+    <Style TargetType="{x:Type Image}" x:Key="upArrowImageStyle">
+        <Setter Property="Source" Value="pack://application:,,,/Resources/arrowUpS1.png"/>
+    </Style>
+
+    <Style TargetType="{x:Type Image}" x:Key="checkBoxNotActiveImageStyle">
+        <Setter Property="Source" Value="pack://application:,,,/Resources/checkBoxNotActiveImage.png"/>
+    </Style>
+
+</ResourceDictionary>

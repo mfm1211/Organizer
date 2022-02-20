@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="clr-namespace:OrganizerWPF.Converters">
+
+
+
+
+    <converters:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" 
+                                          IsSuccessTrue="True"/>
+
+    <converters:BoolToVisibilityConverter x:Key="boolToVisibilityInverseConverter" 
+                                          IsSuccessTrue="False"/>
+
+
+    <converters:IneqalityResultToBoolConverter x:Key="greaterThanToBoolConverter" 
+                                          IsGraterThanTrue="True"/>
+
+    <converters:IneqalityResultToBoolConverter x:Key="smallerThanToBoolConverter" 
+                                          IsGraterThanTrue="False"/>
+
+    <converters:BoolToWindowVisibilityConverter x:Key="windowVisibilityConverter" />
+
+</ResourceDictionary>
