@@ -94,14 +94,18 @@
                                                                        MenuOpenParameter="{Binding EventObj}"/>-->
 
 
+                                      
+
                                         <controls:ContextMenuButton Grid.Column="2" 
                                                                     HorizontalAlignment="Right" VerticalAlignment="Top"
-                                                                     Tag="{Binding DataContext,  RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}">
+                                                                    ContextDataCustom="{Binding DataContext,  RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                                                    RelativeSourceCustom="{Binding DataContext,  RelativeSource={RelativeSource Self}}"
+                                                                    >
                                             <controls:ContextMenuButton.ContextMenu111>
-                                                <ContextMenu DataContext="{Binding Path=PlacementTarget, RelativeSource={RelativeSource Self}}">
+                                                <ContextMenu >
                                                     <MenuItem Header="Delete" 
-                                                              Command="{Binding DataContext.DeleteItemCommand}"   
-                                                              CommandParameter="{Binding EventObj}"/>
+                                                              Command="{Binding Parent.Tag.DeleteItemCommand, RelativeSource={RelativeSource Self}}"   
+                                                              CommandParameter="{Binding}"/>
                                                     <MenuItem Header="Edit"/>
                                                 </ContextMenu>
                                             </controls:ContextMenuButton.ContextMenu111>

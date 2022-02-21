@@ -49,9 +49,12 @@ namespace OrganizerWPF.ViewModels
         }
 
 
-        private void DeleteItem(EventModel model)
+        private async void DeleteItem(EventModel model)
         {
-            int n = 0;
+            await _eventModelsService.Delete(model.Id);
+            List<EventModel> temp = DisplayedListOfItems.ToList();
+            temp.RemoveAll(m => m.Id== model.Id);
+            DisplayedListOfItems = new ObservableCollection<EventModel>(temp);
 
         }
 

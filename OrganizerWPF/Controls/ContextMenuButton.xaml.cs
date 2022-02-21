@@ -24,6 +24,20 @@ namespace OrganizerWPF.Controls
           typeof(ContextMenuButton),
           new PropertyMetadata(null));
 
+
+        public static DependencyProperty ContextDataCustomProperty =
+    DependencyProperty.Register("ContextDataCustom",
+        typeof(object),
+        typeof(ContextMenuButton),
+        new PropertyMetadata(null));
+
+
+        public static DependencyProperty RelativeSourceCustomProperty =
+DependencyProperty.Register("RelativeSourceCustom",
+    typeof(object),
+    typeof(ContextMenuButton),
+    new PropertyMetadata(null));
+
         public ContextMenu ContextMenu111
         {
             get
@@ -37,18 +51,49 @@ namespace OrganizerWPF.Controls
             }
         }
 
-      
+        public object ContextDataCustom
+        {
+            get
+            {
+                return (object)GetValue(ContextDataCustomProperty);
+            }
+
+            set
+            {
+                SetValue(ContextDataCustomProperty, value);
+            }
+        }
+
+
+
+        public object RelativeSourceCustom
+        {
+            get
+            {
+                return (object)GetValue(RelativeSourceCustomProperty);
+            }
+
+            set
+            {
+                SetValue(RelativeSourceCustomProperty, value);
+            }
+        }
+
+
 
         public ContextMenuButton()
         {
             InitializeComponent();
+           
         }
 
 
         private void MainButton_Click(object sender, RoutedEventArgs e)
         {
+            ContextMenu111.DataContext = RelativeSourceCustom;
             MainButton.ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Left;
             MainButton.ContextMenu.PlacementTarget = MainButton;
+            MainButton.ContextMenu.Tag = ContextDataCustom;
             MainButton.ContextMenu.IsOpen = true;
 
 
