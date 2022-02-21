@@ -8,17 +8,17 @@ namespace OrganizerWPF.ViewModels.Factories
     class OrganizerViewModelFactory : IOrganizerViewModelFactory
     {
 
-        private readonly CreateViewModel<HomeViewModel> _createHomeViewModel;
+        private readonly CreateViewModel<ListOfListsViewModel> _createListOfListsViewModel;
         private readonly CreateViewModel<EventListViewModel> _createEventListViewModel;
         private readonly CreateViewModel<SelectionBarViewModel> _createSelectionBarViewModel;
         private readonly CreateViewModel<RetractableEventListViewModel> _createRetractableEventListViewModel;
 
-        public OrganizerViewModelFactory(CreateViewModel<HomeViewModel> createHomeViewModel, 
+        public OrganizerViewModelFactory(CreateViewModel<ListOfListsViewModel> createListOfListsModel, 
             CreateViewModel<EventListViewModel> createEventListViewModel, 
             CreateViewModel<SelectionBarViewModel> createSelectionBarViewModel,
             CreateViewModel<RetractableEventListViewModel> createRetractableEventListViewModel)
         {
-            _createHomeViewModel = createHomeViewModel;
+            _createListOfListsViewModel = createListOfListsModel;
             _createEventListViewModel = createEventListViewModel;
             _createSelectionBarViewModel = createSelectionBarViewModel;
             _createRetractableEventListViewModel = createRetractableEventListViewModel;
@@ -29,7 +29,7 @@ namespace OrganizerWPF.ViewModels.Factories
             switch (viewType)
             {
                 case ViewType.Home:
-                    return _createHomeViewModel();
+                    return _createListOfListsViewModel();
                 case ViewType.Events:
                     return _createEventListViewModel();
                 case ViewType.SelectionBar:

@@ -295,7 +295,8 @@
     <Grid DataContext="{Binding ElementName=_contextMenuButtonUC}">
         <Button x:Name="MainButton"  
                 Height="23" Width="12"
-      Click="MainButton_Click" >
+      Click="MainButton_Click" 
+                Style="{StaticResource FlatStyleNoBordersTransparentButton}">
             <Button.ContextMenu >
                 <ContextMenu ItemsSource="{Binding Entries}" >
 
@@ -313,8 +314,8 @@
 
 
 
-            <!--<Image x:Name="buttonArrowImage" 
-                   Style="{StaticResource threeDotsImageStyle}"/>-->
+            <Image x:Name="buttonArrowImage" 
+                   Style="{StaticResource threeDotsImageStyle}"/>
 
 
         </Button>

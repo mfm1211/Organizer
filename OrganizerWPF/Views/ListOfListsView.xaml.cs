@@ -16,9 +16,9 @@ namespace OrganizerWPF.Views
     /// <summary>
     /// Interaction logic for HomeView.xaml
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class ListOfListsView : UserControl
     {
-        public HomeView()
+        public ListOfListsView()
         {
             InitializeComponent();
         }

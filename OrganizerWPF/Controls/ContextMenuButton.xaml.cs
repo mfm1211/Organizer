@@ -38,6 +38,13 @@ DependencyProperty.Register("RelativeSourceCustom",
     typeof(ContextMenuButton),
     new PropertyMetadata(null));
 
+
+        public static DependencyProperty HeightProperty =
+   DependencyProperty.Register("Height",
+       typeof(int),
+       typeof(ContextMenuButton),
+       new PropertyMetadata(null));
+
         public ContextMenu ContextMenu111
         {
             get
@@ -78,6 +85,21 @@ DependencyProperty.Register("RelativeSourceCustom",
                 SetValue(RelativeSourceCustomProperty, value);
             }
         }
+
+
+        public int Height
+        {
+            get
+            {
+                return (int)GetValue(HeightProperty);
+            }
+
+            set
+            {
+                SetValue(HeightProperty, value);
+            }
+        }
+
 
 
 

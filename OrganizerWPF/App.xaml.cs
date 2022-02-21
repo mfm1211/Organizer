@@ -76,7 +76,7 @@ namespace OrganizerWPF
             services.AddScoped<RetractableMainViewModel>();
 
 
-            services.AddSingleton<HomeViewModel>();
+            services.AddSingleton<ListOfListsViewModel>();
             services.AddSingleton<SelectionBarViewModel>();
 
             services.AddScoped<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>()));
@@ -87,9 +87,9 @@ namespace OrganizerWPF
 
 
 
-            services.AddSingleton<CreateViewModel<HomeViewModel>>(services =>
+            services.AddSingleton<CreateViewModel<ListOfListsViewModel>>(services =>
             {
-                return () => services.GetRequiredService<HomeViewModel>();
+                return () => services.GetRequiredService<ListOfListsViewModel>();
             });
 
             services.AddSingleton<CreateViewModel<EventListViewModel>>(services =>

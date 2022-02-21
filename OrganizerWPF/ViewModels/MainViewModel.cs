@@ -95,7 +95,7 @@ namespace OrganizerWPF.ViewModels
             {
                 UpdateCurrentViewModel.Execute(ViewType.Home);
             }
-            else if(CurrentViewModel.GetType() == typeof(HomeViewModel))
+            else if(CurrentViewModel.GetType() == typeof(ListOfListsViewModel))
             {
                 UpdateCurrentViewModel.Execute(ViewType.Events);
             }

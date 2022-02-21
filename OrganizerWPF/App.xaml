@@ -23,8 +23,8 @@
                 
             </ResourceDictionary.MergedDictionaries>
 
-            <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
-                <views:HomeView/>
+            <DataTemplate DataType="{x:Type viewModels:ListOfListsViewModel}">
+                <views:ListOfListsView/>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModels:EventListViewModel}">

@@ -3,37 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:OrganizerWPF.Controls"         
+             xmlns:local="clr-namespace:OrganizerWPF.Controls"    
+              xmlns:converters="clr-namespace:OrganizerWPF.Converters"
               x:Name="_contextMenuButton">
+
+    <UserControl.Resources>
+
+        
+    </UserControl.Resources>
     
     <Grid DataContext="{Binding ElementName=_contextMenuButton}">
         
 
             <Button x:Name="MainButton"  
-                Height="23" Width="12"
-      Click="MainButton_Click" ContextMenu ="{Binding ContextMenu111}">
-                <!--<Button.ContextMenu >
-                <ContextMenu ItemsSource="{Binding ContextMenu111}" >
-
-                        --><!--<ContextMenu.ItemContainerStyle>
-                            <Style TargetType="MenuItem">
-                                <Setter Property="Header" Value="{Binding Item2}" />
-                                <Setter Property="Command" Value="{Binding Item3}" />
-                                <Setter Property="CommandParameter" Value ="{Binding Item1}"/>
-
-                            </Style>
-                        </ContextMenu.ItemContainerStyle>--><!--
-
-                    </ContextMenu>
-                </Button.ContextMenu>-->
-
-
-
-                <!--<Image x:Name="buttonArrowImage" 
-                   Style="{StaticResource threeDotsImageStyle}"/>-->
-
-
-            </Button>
+                    Height="23" Width="12"
+                    Click="MainButton_Click" ContextMenu ="{Binding ContextMenu111}"
+                    Style="{StaticResource FlatStyleNoBordersTransparentButton}">
+            <Image Style="{DynamicResource threeDotsImageStyle}"/>
+        </Button>
 
 
         </Grid>

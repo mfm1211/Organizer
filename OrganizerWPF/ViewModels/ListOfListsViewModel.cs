@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OrganizerWPF.ViewModels
 {
-    public class HomeViewModel : ViewModelBase
+    public class ListOfListsViewModel : ViewModelBase
     {
     }
 }

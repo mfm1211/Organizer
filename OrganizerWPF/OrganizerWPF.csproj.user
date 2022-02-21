@@ -16,7 +16,7 @@
     <Compile Update="Views\EventListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\HomeView.xaml.cs">
+    <Compile Update="Views\ListOfListsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\RetractableEventListView.xaml.cs">
@@ -63,7 +63,7 @@
     <Page Update="Views\EventListView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\HomeView.xaml">
+    <Page Update="Views\ListOfListsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\RetractableEventListView.xaml">

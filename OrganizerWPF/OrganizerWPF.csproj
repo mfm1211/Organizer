@@ -16,6 +16,7 @@
     <None Remove="Resources\arrowRightS1.png" />
     <None Remove="Resources\arrowUpB1.png" />
     <None Remove="Resources\arrowUpS1.png" />
+    <None Remove="Resources\plusSign.png" />
     <None Remove="Resources\threeDotsBlackVertical.png" />
     <None Remove="Resources\threeDotsWhiteVertical.png" />
   </ItemGroup>
@@ -56,6 +57,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\arrowUpS1.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\plusSign.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\threeDotsBlackVertical.png">

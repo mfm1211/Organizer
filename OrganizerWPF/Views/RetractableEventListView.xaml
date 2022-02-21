@@ -87,14 +87,7 @@
                                     <Border BorderBrush="{x:Null}" MinHeight="20"  Grid.Column="1">
                                         <TextBlock Text="{Binding Text}" Style="{StaticResource unscratchedChecklistTextbBlock}"/>
                                     </Border>
-                                    <!--<userControls:ContextMenuButtonUC  Grid.Column="2" 
-                                                                       HorizontalAlignment="Right" VerticalAlignment="Top"
-                                                                       Entries= "{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path = DataContext.ListofItemMenuOptions}"
-                                                                       MenuPanelClick = "{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path = DataContext.MenuItemCommand}"                                 
-                                                                       MenuOpenParameter="{Binding EventObj}"/>-->
-
-
-                                      
+                                   
 
                                         <controls:ContextMenuButton Grid.Column="2" 
                                                                     HorizontalAlignment="Right" VerticalAlignment="Top"
@@ -112,51 +105,7 @@
 
                                         </controls:ContextMenuButton>
 
-                                        <!--<Button x:Name="ItemOptionsButton" 
-                                                Grid.Column="2" 
-                                                HorizontalAlignment="Right" VerticalAlignment="Top"
-                                                Height="23" Width="12"
-                                                ContextMenuService.Placement="Left"
-                                                 Tag="{Binding DataContext, 
-                RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" 
-                                                  >
-
-                                            <Button.Style>
-                                                <Style TargetType="{x:Type Button}">
-                                                    <Style.Triggers>
-                                                        <EventTrigger RoutedEvent="Click">
-                                                            <EventTrigger.Actions>
-                                                                <BeginStoryboard>
-                                                                    <Storyboard>
-                                                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="ContextMenu.IsOpen">
-                                                                            <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"/>
-                                                                        </BooleanAnimationUsingKeyFrames>
-                                                                    </Storyboard>
-                                                                </BeginStoryboard>
-                                                            </EventTrigger.Actions>
-                                                        </EventTrigger>
-                                                    </Style.Triggers>
-                                                    
-                                                </Style>
-                                            </Button.Style>
-
-                                            <Button.ContextMenu >
-                                                <ContextMenu DataContext="{Binding Path=PlacementTarget, RelativeSource={RelativeSource Self}}">
-                                                    <MenuItem Header="Delete" 
-                                                               Command="{Binding DataContext.DeleteItemCommand}"   
-                                                              CommandParameter="{Binding EventObj}"/>
-                                                    <MenuItem Header="Edit"/>
-                                                </ContextMenu>
-                                            </Button.ContextMenu>
-
-                                            
-                                            
-
-                                            <Image x:Name="buttonArrowImage" 
-                   Style="{StaticResource threeDotsImageStyle}"/>
-
-
-                                        </Button>-->
+                                      
 
                                     </Grid>
 
@@ -171,10 +120,11 @@
                 </ItemsControl>
 
                     <Button Height="20" Width="20" 
+                            Margin="40,20,0,0"
                             VerticalAlignment="Top" HorizontalAlignment="Left" 
                             Command="{Binding ShowAddItemPanelCommand}">
                         <Button.Style>
-                            <Style TargetType="{x:Type Button}">
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource FlatStyleNoBordersTransparentButton}">
                                 <Setter Property="Visibility" Value="Collapsed" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ElementName=MyItems, 
@@ -187,6 +137,7 @@
                                 </Style.Triggers>
                             </Style>
                         </Button.Style>
+                        <Image Style="{DynamicResource plusSignImage}"/>
                     </Button>
                     
                 </StackPanel>
@@ -203,13 +154,6 @@
             <Grid.Background>
                 <SolidColorBrush Color="Black" Opacity="0.25"/>
             </Grid.Background>
-
-            <!--<Polygon Fill="Black" Opacity="0.25">
-                <Polygon.Points> <Point X="0" Y="0" />  <Point X="0" Y="320" />  <Point X="510" Y="320" />
-                    <Point X="510" Y="20" /> <Point X="490" Y="20" />  <Point X="490" Y="0" />            
-                </Polygon.Points> </Polygon>-->
-
-
 
             <ContentControl Content="{Binding AddEventPanel}" 
                             Visibility="{Binding AddEventPanelVisibility, Converter={StaticResource boolToVisibilityConverter}}"
