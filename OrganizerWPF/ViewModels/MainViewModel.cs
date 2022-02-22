@@ -33,6 +33,8 @@ namespace OrganizerWPF.ViewModels
 
         public ViewModelBase CurrentViewModel => _navigator.CurrentViewModel;
 
+        public string ViewTypeString { get; set; } = "Events";
+
         public MainViewModel(INavigator navigator, IOrganizerViewModelFactory viewModelFactory)
         {
             _navigator = navigator;
@@ -94,10 +96,12 @@ namespace OrganizerWPF.ViewModels
             if(CurrentViewModel.GetType() == typeof(EventListViewModel))
             {
                 UpdateCurrentViewModel.Execute(ViewType.Home);
+                ViewTypeString = "Lists";
             }
             else if(CurrentViewModel.GetType() == typeof(ListOfListsViewModel))
             {
                 UpdateCurrentViewModel.Execute(ViewType.Events);
+                ViewTypeString = "Events";
             }
         }
 

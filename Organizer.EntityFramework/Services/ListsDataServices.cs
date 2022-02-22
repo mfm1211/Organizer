@@ -36,7 +36,18 @@ namespace Organizer.EntityFramework.Services
         {
             using (OrganizerDBContext context = _contextFactory.CreateDbContext())
             {
-                ListModel entity = await context.ListModels.Include(a =>a.EventModels).FirstOrDefaultAsync(c => c.Id == id);
+                ListModel entity = await context.ListModels.FirstOrDefaultAsync(c => c.Id == id);
+
+                return entity;
+            }
+        }
+
+
+        public async Task<ListModel> GetWithItemLists(int id)
+        {
+            using (OrganizerDBContext context = _contextFactory.CreateDbContext())
+            {
+                ListModel entity = await context.ListModels.Include(a => a.EventModels).FirstOrDefaultAsync(c => c.Id == id);
 
                 return entity;
             }
@@ -46,11 +57,23 @@ namespace Organizer.EntityFramework.Services
         {
             using (OrganizerDBContext context = _contextFactory.CreateDbContext())
             {
+                IEnumerable<ListModel> entities = await context.ListModels.ToListAsync();
+
+                return entities;
+            }
+        }
+
+        public async Task<IEnumerable<ListModel>> GetAllWithItemLists()
+        {
+            using (OrganizerDBContext context = _contextFactory.CreateDbContext())
+            {
                 IEnumerable<ListModel> entities = await context.ListModels.Include(a => a.EventModels).ToListAsync();
 
                 return entities;
             }
         }
+
+     
 
         public async Task<ListModel> Update(int id, ListModel entity)
         {

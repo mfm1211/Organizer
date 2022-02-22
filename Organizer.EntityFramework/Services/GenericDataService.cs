@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Organizer.EntityFramework.Services
 {
-    public class GenericDataService<T> : IDataService<T> where T : DomainObject
+    public class GenericDataService<T> : IDataService<T> where T : BaseListItemModel
     {
         private readonly OrganizerDbContextFactory _contextFactory;
         private readonly NonQueryDataService<T> _nonQueryDataService;
@@ -47,8 +47,31 @@ namespace Organizer.EntityFramework.Services
             {
                IEnumerable<T> entities = await context.Set<T>().ToListAsync();
 
+                foreach(T  model in entities)
+                {
+                    ListModel listModel = await context.Set<ListModel>().FirstOrDefaultAsync(c => c.Id == model.ListModelId);
+
+                    model.FontColor = listModel.ColorString;
+                }
+               
+
                 return entities;
             }
+        }
+
+        public async Task<IEnumerable<T>> GetAllWithItemLists()
+        {
+            using (OrganizerDBContext context = _contextFactory.CreateDbContext())
+            {
+                IEnumerable<T> entities = await context.Set<T>().ToListAsync();
+
+                return entities;
+            }
+        }
+
+        public Task<T> GetWithItemLists(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<T> Update(int id, T entity)

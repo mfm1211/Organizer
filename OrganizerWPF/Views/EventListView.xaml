@@ -103,10 +103,10 @@
 
                 <TextBlock  VerticalAlignment="Top" HorizontalAlignment="Left"
                             Text="{Binding DisplayedListOfItems[0].StringStartEndTime}" FontFamily="Calibri" FontSize="11"
-                            Foreground="{StaticResource NormalTextColor}" 
-                            Margin="10,0,0,0"/>
+                            Foreground="Gray" 
+                            Margin="10,3,0,0"/>
 
-                <Grid Margin ="0,1,0,3">
+                <Grid Margin ="0,2,0,3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30"/>
                         <ColumnDefinition Width="*"/>

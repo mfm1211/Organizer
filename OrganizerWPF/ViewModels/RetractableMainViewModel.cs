@@ -32,6 +32,8 @@ namespace OrganizerWPF.ViewModels
 
         public ViewModelBase CurrentViewModel => _navigator.CurrentRetractableViewModel;
 
+        ICommand UpdateCurrentViewModel;
+
 
         public RetractableMainViewModel(INavigator navigator, IOrganizerViewModelFactory viewModelFactory)
         {
@@ -42,10 +44,14 @@ namespace OrganizerWPF.ViewModels
             _navigator.CurrentRetractableViewModelChanged += () => OnPropertyChanged(nameof(CurrentViewModel));
 
             HideWindowCommand = new RelayCommand(HideBigWindow);
+
+
+            
         }
 
         private void HideBigWindow()
         {
+            _navigator.CurrentViewModel = _viewModelFactory.CreateViewModel(ViewType.Events);
             _navigator.RetractableScreenIsVisible = false;
         }
     }

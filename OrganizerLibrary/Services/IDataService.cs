@@ -8,7 +8,12 @@ namespace OrganizerLibrary.Services
     public interface IDataService<T>
     {
         Task<IEnumerable<T>> GetAll();
+
+        Task<IEnumerable<T>> GetAllWithItemLists();
+
         Task<T> Get(int id);
+
+        Task<T> GetWithItemLists(int id);
 
         Task<T> Create(T entity);
 

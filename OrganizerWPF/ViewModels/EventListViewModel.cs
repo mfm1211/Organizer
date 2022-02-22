@@ -19,26 +19,53 @@ namespace OrganizerWPF.ViewModels
         public ObservableCollection<EventModel> DisplayedListOfItems { get; set; } = new ObservableCollection<EventModel>();
 
         private readonly INavigator _navigator;
-
-        private readonly IChosenIndexesStore _chosenIndexesStore;
         public bool PanelSizeIsExpanded => _navigator.ScreenIsExpanded;
 
-        public EventListViewModel(IDataService<EventModel> EventModelsService, INavigator navigator, IChosenIndexesStore chosenIndexesStore)
+        public string NextEventObjString { get; set; }
+
+        public EventListViewModel(IDataService<EventModel> EventModelsService, INavigator navigator)
         {
             _navigator = navigator;
             _eventModelsService = EventModelsService;
             _navigator.ScreenExpansionChanged += () => OnPropertyChanged(nameof(PanelSizeIsExpanded));
-            _chosenIndexesStore = chosenIndexesStore;
             GetEvents();
         }
 
         private async void GetEvents()
         {
             IEnumerable<EventModel> temp = await _eventModelsService.GetAll();
+          
             DisplayedListOfItems = new ObservableCollection<EventModel>(temp);
-            if(_chosenIndexesStore.ChosenListId != -1)
+
+            SetNextEventString();
+
+
+
+        }
+
+        private void SetNextEventString()
+        {
+            if (DisplayedListOfItems.Count > 1)
             {
-                DisplayedListOfItems = new ObservableCollection<EventModel>(DisplayedListOfItems.Where(m => m.ListModelId == _chosenIndexesStore.ChosenListId).ToList());
+                string dateString = "";
+                string textString = "";
+                if ((DisplayedListOfItems[1]).StartTime.Date == DateTime.Today)
+                    dateString = "(Today)";
+                else if ((DisplayedListOfItems[1]).StartTime.Date == DateTime.Today.AddDays(1))
+                    dateString = "(Tommorow)";
+                else
+                    dateString = "(" + (DisplayedListOfItems[1]).StartTime.ToString("dd-MMM  HH:mm") + ")";
+
+                if ((DisplayedListOfItems[1]).Text.Length > 17)
+                    textString = (DisplayedListOfItems[1]).Text.Substring(0, 17) + "...";
+                else
+                    textString = (DisplayedListOfItems[1]).Text;
+
+                NextEventObjString = "Next:  " + dateString + "  " + textString;
+            }
+            else
+            {
+                NextEventObjString = "No other events";
             }
         }
 

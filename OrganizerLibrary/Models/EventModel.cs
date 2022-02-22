@@ -22,6 +22,16 @@ namespace OrganizerLibrary.Models
         /// </summary>
         public bool Important { get; set; }
 
+
+        public string StringStartEndTime
+        {
+            get
+            {
+                return StartTime.ToString("dd-MM-yy    HH:mm") + "-" + EndTime.ToString("HH:mm");
+            }
+        }
+
+
         /// <summary>
         /// Initializes a new a new instance of the <see cref="EventModel"/>
         /// </summary>
