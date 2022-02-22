@@ -3,7 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:OrganizerWPF"
              xmlns:viewModels="clr-namespace:OrganizerWPF.ViewModels"
+             xmlns:viewModelsMain="clr-namespace:OrganizerWPF.ViewModels.MainWindow"
+             xmlns:viewModelsRetractable="clr-namespace:OrganizerWPF.ViewModels.RetractableWindow"
              xmlns:views="clr-namespace:OrganizerWPF.Views"
+             xmlns:viewsMain="clr-namespace:OrganizerWPF.Views.MainWindow"
              xmlns:s="clr-namespace:System;assembly=mscorlib"
              >
     <!--StartupUri="MainWindow.xaml"-->
@@ -23,19 +26,19 @@
                 
             </ResourceDictionary.MergedDictionaries>
 
-            <DataTemplate DataType="{x:Type viewModels:ListOfListsViewModel}">
+            <DataTemplate DataType="{x:Type viewModelsMain:ListOfListsViewModel}">
                 <views:ListOfListsView/>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewModels:EventListViewModel}">
-                <views:EventListView/>
+            <DataTemplate DataType="{x:Type viewModelsMain:EventListViewModel}">
+                <viewsMain:EventListView/>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewModels:SelectionBarViewModel}">
+            <DataTemplate DataType="{x:Type viewModelsMain:SelectionBarViewModel}">
                 <views:SelectionBarView/>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewModels:RetractableEventListViewModel}">
+            <DataTemplate DataType="{x:Type viewModelsRetractable:RetractableEventListViewModel}">
                 <views:RetractableEventListView/>
             </DataTemplate>
 

@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OrganizerLibrary.Models
 {
-    public abstract class BaseListItemModel: DomainObject
+    public abstract class BaseItemModel: DomainObject
     {
-        
-      
-        /// <summary>
-        /// Represents the unique identifier of the Section to which the item belongs
-        /// </summary>
-        public int SectionId { get; set; }
 
         /// <summary>
         /// Represents time when item  starts
@@ -23,18 +19,24 @@ namespace OrganizerLibrary.Models
         /// </summary>
         public DateTime EndTime { get; set; }
 
+        /// <summary>
+        /// Represents the color of the List
+        /// </summary>
+        [NotMapped]
+        public string FontColor { get; set; }
 
         /// <summary>
         /// Represents the unique identifier of the List to which the item belongs
         /// </summary>
-        public int ListModelId{ get; set; }
-
+        [Required]
+        public int ListModelId { get; set; }
 
         /// <summary>
-        /// Represents the color of the List
+        /// Represents the unique identifier of the Section to which the item belongs
         /// </summary>
-        public string FontColor { get; set; }
-       
+        [Required]
+        public int SectionId { get; set; }
+
 
 
     }

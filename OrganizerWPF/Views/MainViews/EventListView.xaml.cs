@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OrganizerWPF.Views
+namespace OrganizerWPF.Views.MainWindow
 {
     /// <summary>
     /// Interaction logic for EventListView.xaml

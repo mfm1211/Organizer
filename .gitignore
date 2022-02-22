@@ -2,6 +2,7 @@ OrganizerLibrary/bin/
 OrganizerLibrary/obj/
 OrganizerWPF/bin/
 OrganizerWPF/obj/
+OrganizerMVC/
 DataFiles
 Organizer.EntityFramework/bin/
 Organizer.EntityFramework/Migrations/

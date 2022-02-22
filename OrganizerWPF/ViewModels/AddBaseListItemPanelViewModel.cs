@@ -17,7 +17,7 @@ namespace OrganizerWPF.ViewModels
 
         private readonly Action<bool> _action;
 
-        public BaseListItemModel CreatedItem { get; set; }
+        public BaseItemModel CreatedItem { get; set; }
 
         public string TextString { get; set; }
 

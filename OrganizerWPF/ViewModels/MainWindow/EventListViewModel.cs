@@ -10,37 +10,27 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 
-namespace OrganizerWPF.ViewModels
+namespace OrganizerWPF.ViewModels.MainWindow
 {
-    public class EventListViewModel:ViewModelBase
+    public class EventListViewModel : BaseItemListViewModel
     {
-        private IDataService<EventModel> _eventModelsService;
-
-        public ObservableCollection<EventModel> DisplayedListOfItems { get; set; } = new ObservableCollection<EventModel>();
-
-        private readonly INavigator _navigator;
-        public bool PanelSizeIsExpanded => _navigator.ScreenIsExpanded;
+        private IDataService<EventModel> _itemModelsService;
 
         public string NextEventObjString { get; set; }
 
-        public EventListViewModel(IDataService<EventModel> EventModelsService, INavigator navigator)
-        {
-            _navigator = navigator;
-            _eventModelsService = EventModelsService;
-            _navigator.ScreenExpansionChanged += () => OnPropertyChanged(nameof(PanelSizeIsExpanded));
+        public EventListViewModel(IDataService<EventModel> eventModelsService, INavigator navigator) : base(navigator)
+        {         
+            _itemModelsService = eventModelsService; 
             GetEvents();
         }
 
         private async void GetEvents()
         {
-            IEnumerable<EventModel> temp = await _eventModelsService.GetAll();
-          
-            DisplayedListOfItems = new ObservableCollection<EventModel>(temp);
+            IEnumerable<EventModel> temp = await _itemModelsService.GetAll();
+            
+            UpdateDisplayedList(temp);
 
             SetNextEventString();
-
-
-
         }
 
         private void SetNextEventString()
@@ -56,10 +46,10 @@ namespace OrganizerWPF.ViewModels
                 else
                     dateString = "(" + (DisplayedListOfItems[1]).StartTime.ToString("dd-MMM  HH:mm") + ")";
 
-                if ((DisplayedListOfItems[1]).Text.Length > 17)
-                    textString = (DisplayedListOfItems[1]).Text.Substring(0, 17) + "...";
+                if (((EventModel)DisplayedListOfItems[1]).Text.Length > 17)
+                    textString = ((EventModel)DisplayedListOfItems[1]).Text.Substring(0, 17) + "...";
                 else
-                    textString = (DisplayedListOfItems[1]).Text;
+                    textString = ((EventModel)DisplayedListOfItems[1]).Text;
 
                 NextEventObjString = "Next:  " + dateString + "  " + textString;
             }

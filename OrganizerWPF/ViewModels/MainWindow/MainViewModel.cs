@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Input;
 
-namespace OrganizerWPF.ViewModels
+namespace OrganizerWPF.ViewModels.MainWindow
 {
     public class MainViewModel : ViewModelBase
     {

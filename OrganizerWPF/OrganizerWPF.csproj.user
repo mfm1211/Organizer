@@ -13,7 +13,7 @@
     <Compile Update="Views\AddBaseListItemPanelView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\EventListView.xaml.cs">
+    <Compile Update="Views\MainViews\EventListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\ListOfListsView.xaml.cs">
@@ -60,7 +60,7 @@
     <Page Update="Views\AddBaseListItemPanelView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\EventListView.xaml">
+    <Page Update="Views\MainViews\EventListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ListOfListsView.xaml">

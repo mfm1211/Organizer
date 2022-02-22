@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OrganizerLibrary.Models
 {
-    public class EventModel : BaseListItemModel
+    public class EventModel : BaseItemModel
     {
 
         /// <summary>

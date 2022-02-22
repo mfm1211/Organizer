@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 
-namespace OrganizerWPF.ViewModels
+namespace OrganizerWPF.ViewModels.MainWindow
 {
     public class ListOfListsViewModel : ViewModelBase
     {

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Organizer.EntityFramework.Services
 {
-    public class GenericDataService<T> : IDataService<T> where T : BaseListItemModel
+    public class GenericDataService<T> : IDataService<T> where T : BaseItemModel
     {
         private readonly OrganizerDbContextFactory _contextFactory;
         private readonly NonQueryDataService<T> _nonQueryDataService;

@@ -1,7 +1,10 @@
 ﻿using OrganizerWPF.State.Navigators;
+using OrganizerWPF.ViewModels.MainWindow;
+using OrganizerWPF.ViewModels.RetractableWindow;
 using System;
 using System.Collections.Generic;
 using System.Text;
+
 
 namespace OrganizerWPF.ViewModels.Factories
 {

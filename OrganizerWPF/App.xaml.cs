@@ -7,6 +7,8 @@ using OrganizerWPF.State.ItemListStates;
 using OrganizerWPF.State.Navigators;
 using OrganizerWPF.ViewModels;
 using OrganizerWPF.ViewModels.Factories;
+using OrganizerWPF.ViewModels.MainWindow;
+using OrganizerWPF.ViewModels.RetractableWindow;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
