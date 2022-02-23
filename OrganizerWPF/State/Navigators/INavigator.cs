@@ -9,6 +9,10 @@ namespace OrganizerWPF.State.Navigators
     {
         Home,
         Events,
+        Checkbox,
+        GoalTracker,
+        TimeTracker,
+        Notes,
         SelectionBar,
         RetractableEvents
     }

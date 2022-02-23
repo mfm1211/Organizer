@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 
-namespace OrganizerWPF.ViewModels.MainWindow
+namespace OrganizerWPF.ViewModels.MainViewModels
 {
     public class EventListViewModel : BaseItemListViewModel
     {

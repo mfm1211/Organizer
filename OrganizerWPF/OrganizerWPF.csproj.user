@@ -13,10 +13,22 @@
     <Compile Update="Views\AddBaseListItemPanelView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\MainViews\CheckBoxListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\MainViews\EventListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\ListOfListsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MainViews\GoalTrackerListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MainViews\NotesListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MainViews\TimeTrackerListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\RetractableEventListView.xaml.cs">
@@ -60,10 +72,22 @@
     <Page Update="Views\AddBaseListItemPanelView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\MainViews\CheckBoxListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\MainViews\EventListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ListOfListsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MainViews\GoalTrackerListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MainViews\NotesListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MainViews\TimeTrackerListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\RetractableEventListView.xaml">

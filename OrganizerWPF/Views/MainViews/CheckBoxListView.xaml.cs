@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace OrganizerWPF.Views.MainViews
 {
     /// <summary>
-    /// Interaction logic for EventListView.xaml
+    /// Interaction logic for CheckBoxListView.xaml
     /// </summary>
-    public partial class EventListView : UserControl
+    public partial class CheckBoxListView : UserControl
     {
-        public EventListView()
+        public CheckBoxListView()
         {
             InitializeComponent();
         }

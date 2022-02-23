@@ -10,10 +10,12 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Input;
 
-namespace OrganizerWPF.ViewModels.MainWindow
+namespace OrganizerWPF.ViewModels.MainViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+
+        List<Type> listOfViewModelsTypes;
 
         public ObservableCollection<Tuple<ViewType, string, ICommand>> ListMenuOptions { get; set; }
 
@@ -53,6 +55,9 @@ namespace OrganizerWPF.ViewModels.MainWindow
             InitializeItemMenuButtons();
 
             UpdateCurrentViewModel.Execute(ViewType.Events);
+
+            listOfViewModelsTypes = new List<Type> { typeof(ListOfListsViewModel), typeof(EventListViewModel),
+            typeof(CheckBoxListViewModel), typeof(TimeTrackerListViewModel),typeof(GoalTrackerListViewModel), typeof(NotesListViewModel)};
         }
 
 
@@ -93,15 +98,42 @@ namespace OrganizerWPF.ViewModels.MainWindow
 
         public void ChangeScreen(string n)
         {
-            if(CurrentViewModel.GetType() == typeof(EventListViewModel))
+            int index = listOfViewModelsTypes.FindIndex(a => a == CurrentViewModel.GetType());
+            if (n == "left") index++;
+            else index--;
+
+            if (index < 0) index = listOfViewModelsTypes.Count - 1;
+            if (index > listOfViewModelsTypes.Count - 1) index = 0;
+
+            if (index == 0)
             {
                 UpdateCurrentViewModel.Execute(ViewType.Home);
                 ViewTypeString = "Lists";
             }
-            else if(CurrentViewModel.GetType() == typeof(ListOfListsViewModel))
+            else if(index == 1)
             {
                 UpdateCurrentViewModel.Execute(ViewType.Events);
                 ViewTypeString = "Events";
+            }
+            else if (index == 2)
+            {
+                UpdateCurrentViewModel.Execute(ViewType.Checkbox);
+                ViewTypeString = "CheckList";
+            }
+            else if (index == 3)
+            {
+                UpdateCurrentViewModel.Execute(ViewType.TimeTracker);
+                ViewTypeString = "Time trackers";
+            }
+            else if (index == 4)
+            {
+                UpdateCurrentViewModel.Execute(ViewType.GoalTracker);
+                ViewTypeString = "Goals";
+            }
+            else if (index == 5)
+            {
+                UpdateCurrentViewModel.Execute(ViewType.Notes);
+                ViewTypeString = "Notes";
             }
         }
 

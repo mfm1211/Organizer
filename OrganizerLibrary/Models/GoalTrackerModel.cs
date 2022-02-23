@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OrganizerLibrary
+namespace OrganizerLibrary.Models
 {
     public class GoalTrackerModel : BaseItemModel
     {

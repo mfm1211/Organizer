@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using OrganizerWPF.State.ItemListStates;
 
-namespace OrganizerWPF.ViewModels.MainWindow
+namespace OrganizerWPF.ViewModels.MainViewModels
 {
     public class SelectionBarViewModel : ViewModelBase
     {

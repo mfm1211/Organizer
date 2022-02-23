@@ -7,8 +7,8 @@ using OrganizerWPF.State.ItemListStates;
 using OrganizerWPF.State.Navigators;
 using OrganizerWPF.ViewModels;
 using OrganizerWPF.ViewModels.Factories;
-using OrganizerWPF.ViewModels.MainWindow;
-using OrganizerWPF.ViewModels.RetractableWindow;
+using OrganizerWPF.ViewModels.MainViewModels;
+using OrganizerWPF.ViewModels.RetractableViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -67,6 +67,14 @@ namespace OrganizerWPF
 
             services.AddSingleton<IDataService<EventModel>, GenericDataService<EventModel>>();
 
+            services.AddSingleton<IDataService<CheckBoxModel>, GenericDataService<CheckBoxModel>>();
+
+            services.AddSingleton<IDataService<TimeTrackerModel>, GenericDataService<TimeTrackerModel>>();
+
+            services.AddSingleton<IDataService<GoalTrackerModel>, GenericDataService<GoalTrackerModel>>();
+
+            services.AddSingleton<IDataService<NotesModel>, GenericDataService<NotesModel>>();
+
             services.AddSingleton<INavigator, Navigator>();
 
             services.AddSingleton<IChosenIndexesStore, ChosenIndexesStore>();
@@ -75,6 +83,7 @@ namespace OrganizerWPF
 
 
             services.AddScoped<MainViewModel>();
+
             services.AddScoped<RetractableMainViewModel>();
 
             services.AddSingleton<SelectionBarViewModel>();
@@ -98,10 +107,33 @@ namespace OrganizerWPF
                 return () => new EventListViewModel(services.GetRequiredService<IDataService<EventModel>>(), 
                     services.GetRequiredService<INavigator>());
             });
+            services.AddSingleton<CreateViewModel<CheckBoxListViewModel>>(services =>
+            {
+                return () => new CheckBoxListViewModel(services.GetRequiredService<IDataService<CheckBoxModel>>(),
+                    services.GetRequiredService<INavigator>());
+            });
+            services.AddSingleton<CreateViewModel<TimeTrackerListViewModel>>(services =>
+            {
+                return () => new TimeTrackerListViewModel(services.GetRequiredService<IDataService<TimeTrackerModel>>(),
+                    services.GetRequiredService<INavigator>());
+            });
+            services.AddSingleton<CreateViewModel<GoalTrackerListViewModel>>(services =>
+            {
+                return () => new GoalTrackerListViewModel(services.GetRequiredService<IDataService<GoalTrackerModel>>(),
+                    services.GetRequiredService<INavigator>());
+            });
+            services.AddSingleton<CreateViewModel<NotesListViewModel>>(services =>
+            {
+                return () => new NotesListViewModel(services.GetRequiredService<IDataService<NotesModel>>(),
+                    services.GetRequiredService<INavigator>());
+            });
             services.AddSingleton<CreateViewModel<SelectionBarViewModel>>(services =>
             {
                 return () => services.GetRequiredService<SelectionBarViewModel>();
             });
+
+
+
             services.AddSingleton<CreateViewModel<RetractableEventListViewModel>>(services =>
             {
                 return () => new RetractableEventListViewModel(services.GetRequiredService<IDataService<EventModel>>(),

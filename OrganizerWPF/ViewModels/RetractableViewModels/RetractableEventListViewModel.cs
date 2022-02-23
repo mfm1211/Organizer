@@ -12,7 +12,7 @@ using System.Linq;
 using System.Windows.Input;
 using OrganizerWPF.Commands;
 
-namespace OrganizerWPF.ViewModels.RetractableWindow
+namespace OrganizerWPF.ViewModels.RetractableViewModels
 {
     class RetractableEventListViewModel:ViewModelBase
     {

@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OrganizerWPF.ViewModels.MainWindow
+namespace OrganizerWPF.ViewModels.MainViewModels
 {
-    class CheckBoxListViewModel : BaseItemListViewModel
+    public class CheckBoxListViewModel : BaseItemListViewModel
     {
         private IDataService<CheckBoxModel> _checkboxModelsService;
 

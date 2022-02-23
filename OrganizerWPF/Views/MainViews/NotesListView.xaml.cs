@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace OrganizerWPF.Views.MainViews
 {
     /// <summary>
-    /// Interaction logic for EventListView.xaml
+    /// Interaction logic for NotesListView.xaml
     /// </summary>
-    public partial class EventListView : UserControl
+    public partial class NotesListView : UserControl
     {
-        public EventListView()
+        public NotesListView()
         {
             InitializeComponent();
         }

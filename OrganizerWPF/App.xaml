@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:OrganizerWPF"
              xmlns:viewModels="clr-namespace:OrganizerWPF.ViewModels"
-             xmlns:viewModelsMain="clr-namespace:OrganizerWPF.ViewModels.MainWindow"
-             xmlns:viewModelsRetractable="clr-namespace:OrganizerWPF.ViewModels.RetractableWindow"
+             xmlns:viewModelsMain="clr-namespace:OrganizerWPF.ViewModels.MainViewModels"
+             xmlns:viewModelsRetractable="clr-namespace:OrganizerWPF.ViewModels.RetractableViewModels"
              xmlns:views="clr-namespace:OrganizerWPF.Views"
-             xmlns:viewsMain="clr-namespace:OrganizerWPF.Views.MainWindow"
+             xmlns:viewsMain="clr-namespace:OrganizerWPF.Views.MainViews"
              xmlns:s="clr-namespace:System;assembly=mscorlib"
              >
     <!--StartupUri="MainWindow.xaml"-->
@@ -32,6 +32,22 @@
 
             <DataTemplate DataType="{x:Type viewModelsMain:EventListViewModel}">
                 <viewsMain:EventListView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelsMain:CheckBoxListViewModel}">
+                <viewsMain:CheckBoxListView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelsMain:TimeTrackerListViewModel}">
+                <viewsMain:TimeTrackerListView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelsMain:GoalTrackerListViewModel}">
+                <viewsMain:GoalTrackerListView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelsMain:NotesListViewModel}">
+                <viewsMain:NotesListView/>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModelsMain:SelectionBarViewModel}">

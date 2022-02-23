@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 
-namespace OrganizerWPF.ViewModels.RetractableWindow
+namespace OrganizerWPF.ViewModels.RetractableViewModels
 {
     public class RetractableMainViewModel : ViewModelBase
     {

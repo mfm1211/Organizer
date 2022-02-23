@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace OrganizerWPF.Views.MainViews
 {
     /// <summary>
-    /// Interaction logic for EventListView.xaml
+    /// Interaction logic for TimeTrackerListView.xaml
     /// </summary>
-    public partial class EventListView : UserControl
+    public partial class TimeTrackerListView : UserControl
     {
-        public EventListView()
+        public TimeTrackerListView()
         {
             InitializeComponent();
         }
