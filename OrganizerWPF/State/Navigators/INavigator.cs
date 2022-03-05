@@ -14,7 +14,8 @@ namespace OrganizerWPF.State.Navigators
         TimeTracker,
         Notes,
         SelectionBar,
-        RetractableEvents
+        RetractableEvents,
+        RetractableListOfLists
     }
 
     public interface INavigator

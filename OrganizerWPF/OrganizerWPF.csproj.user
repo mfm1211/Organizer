@@ -31,7 +31,13 @@
     <Compile Update="Views\MainViews\TimeTrackerListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\RetractableEventListView.xaml.cs">
+    <Compile Update="Views\RetractableViews\AddListPanelView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\RetractableViews\RetractableEventListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\RetractableViews\RetractableListOfListsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\SelectionBarView.xaml.cs">
@@ -69,6 +75,9 @@
     <Page Update="Styles\MainResourceDictionary.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Styles\ScrollBarResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\AddBaseListItemPanelView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -90,7 +99,13 @@
     <Page Update="Views\MainViews\TimeTrackerListView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\RetractableEventListView.xaml">
+    <Page Update="Views\RetractableViews\AddListPanelView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\RetractableViews\RetractableEventListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\RetractableViews\RetractableListOfListsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\SelectionBarView.xaml">

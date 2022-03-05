@@ -11,14 +11,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OrganizerWPF.Views
+namespace OrganizerWPF.Views.RetractableViews
 {
     /// <summary>
-    /// Interaction logic for RetractableEventListView.xaml
+    /// Interaction logic for RetractableListOfListsView.xaml
     /// </summary>
-    public partial class RetractableEventListView : UserControl
+    public partial class RetractableListOfListsView : UserControl
     {
-        public RetractableEventListView()
+        public RetractableListOfListsView()
         {
             InitializeComponent();
         }

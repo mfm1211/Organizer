@@ -14,11 +14,9 @@ using OrganizerWPF.Commands;
 
 namespace OrganizerWPF.ViewModels.RetractableViewModels
 {
-    class RetractableEventListViewModel:ViewModelBase
+    class RetractableEventListViewModel : ViewModelBase
     {
         private IDataService<EventModel> _eventModelsService;
-
-        public ObservableCollection<Tuple<ViewType, string, ICommand>> ListMenuOptions { get; set; }
 
         public ObservableCollection<EventModel> DisplayedListOfItems { get; set; } = new ObservableCollection<EventModel>();
 
@@ -58,17 +56,7 @@ namespace OrganizerWPF.ViewModels.RetractableViewModels
 
         }
 
-        protected void InitializeItemMenuButtons()
-        {
-            Tuple<ViewType, string, ICommand> item1 = new Tuple<ViewType, string, ICommand>(ViewType.Events, "Delete", DeleteItemCommand);
-            Tuple<ViewType, string, ICommand> item2 = new Tuple<ViewType, string, ICommand>(ViewType.Home, "Edit", EditItemCommand);
-
-
-            ListMenuOptions = new ObservableCollection<Tuple<ViewType, string, ICommand>>();
-            ListMenuOptions.Add(item1);
-            ListMenuOptions.Add(item2);
-
-        }
+      
 
 
         private void AddPanelAction(bool eventCreted)

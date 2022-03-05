@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OrganizerLibrary.Models
 {
@@ -23,6 +25,9 @@ namespace OrganizerLibrary.Models
         /// Shows if Checklist is checked
         /// </summary>
         public bool Checked { get; set; }
+
+        [NotMapped]
+        public Bitmap CheckBoxBitmap { get; set; }
 
         /// <summary>
         /// Initializes a new a new instance of the <see cref="CheckBoxModel"/>

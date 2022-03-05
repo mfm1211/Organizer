@@ -78,7 +78,10 @@ namespace OrganizerWPF.ViewModels.MainViewModels
         {
             (new ChangeRetractableScreenVisibilityCommand(_navigator)).Execute(true);
             (new UpdateCurrentViewModelCommand(_navigator, _viewModelFactory)).Execute(ViewType.SelectionBar);
-            _navigator.CurrentRetractableViewModel = _viewModelFactory.CreateViewModel(ViewType.RetractableEvents);
+            if (CurrentViewModel.GetType() == typeof(EventListViewModel))
+                _navigator.CurrentRetractableViewModel = _viewModelFactory.CreateViewModel(ViewType.RetractableEvents);
+            else
+                _navigator.CurrentRetractableViewModel = _viewModelFactory.CreateViewModel(ViewType.RetractableListOfLists);
         }
 
 

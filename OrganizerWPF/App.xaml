@@ -5,6 +5,7 @@
              xmlns:viewModels="clr-namespace:OrganizerWPF.ViewModels"
              xmlns:viewModelsMain="clr-namespace:OrganizerWPF.ViewModels.MainViewModels"
              xmlns:viewModelsRetractable="clr-namespace:OrganizerWPF.ViewModels.RetractableViewModels"
+             xmlns:viewsRetractable="clr-namespace:OrganizerWPF.Views.RetractableViews"
              xmlns:views="clr-namespace:OrganizerWPF.Views"
              xmlns:viewsMain="clr-namespace:OrganizerWPF.Views.MainViews"
              xmlns:s="clr-namespace:System;assembly=mscorlib"
@@ -22,6 +23,7 @@
                 <ResourceDictionary Source="Styles/MainResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Styles/Converters.xaml"/>
                 <ResourceDictionary Source="Styles/DropdownPanelDictionary.xaml"/>
+                <ResourceDictionary Source="Styles/ScrollBarResourceDictionary.xaml"/>
                 
                 
             </ResourceDictionary.MergedDictionaries>
@@ -55,7 +57,11 @@
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModelsRetractable:RetractableEventListViewModel}">
-                <views:RetractableEventListView/>
+                <viewsRetractable:RetractableEventListView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewModelsRetractable:RetractableListOfListsViewModel}">
+                <viewsRetractable:RetractableListOfListsView/>
             </DataTemplate>
 
             <s:Boolean x:Key="TrueValue">True</s:Boolean>

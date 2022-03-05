@@ -1,0 +1,273 @@
+﻿<UserControl x:Class="OrganizerWPF.Views.RetractableViews.RetractableListOfListsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:OrganizerWPF.Views.RetractableViews"
+             xmlns:viewModels="clr-namespace:OrganizerWPF.ViewModels.RetractableViewModels"           
+             xmlns:controls="clr-namespace:OrganizerWPF.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="320" d:DesignWidth="510"
+            >
+
+
+    <UserControl.Resources>
+
+        
+
+
+
+
+    </UserControl.Resources>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
+
+        <!-- ===========================title row =============================-->
+        <TextBlock Text="Lists" FontFamily="Calibri" FontSize="16"  Grid.Row="0" Grid.RowSpan="100"
+                   Width="120" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25,2,0,0" 
+                   Foreground="{StaticResource NormalTextColor}"/>
+
+
+        <!-- ===========================column buttons row =============================-->
+        <Button  x:Name="EventButton"
+                 Grid.Row="1" 
+                 Width="55"  HorizontalAlignment="Left" Margin="280,0,0,0" 
+                 Style="{DynamicResource FlatStyleNoBordersTransparentButton}"               
+                 Command="{Binding NavigateToDifferentScreenWithListIdCommand}"
+                 CommandParameter="{Binding ScreenEventNoId}">
+            <TextBlock  Text="events" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
+           
+        </Button>
+
+
+
+        <Button   x:Name="CheckBoxButton"
+                  Grid.Row="1" 
+                 Width="55"  HorizontalAlignment="Left" Margin="335,0,0,0" 
+                 Style="{DynamicResource FlatStyleNoBordersTransparentButton}">
+            <TextBlock  Text="to do" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
+            
+        </Button>
+
+
+        <Button  x:Name="StatusButton"
+                 Grid.Row="1"
+                 Width="55"  HorizontalAlignment="Left" Margin="390,0,0,0" 
+                 Style="{DynamicResource FlatStyleNoBordersTransparentButton}">
+            <TextBlock  Text="status" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
+            
+        </Button>
+
+        <StackPanel Grid.Row="2" >
+            <DockPanel  Height="230" Margin="30,0,10,0" 
+                   Visibility="{Binding ItemListNotEmpty, Converter={StaticResource boolToVisibilityConverter}}">
+                <DockPanel.Style>
+                    <Style TargetType="{x:Type DockPanel}">
+                        <Setter Property="Visibility" Value="Visible" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=MyItems, Path=Items.Count}" Value="0">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DockPanel.Style>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                    <ItemsControl x:Name="MyItems" ItemsSource="{Binding DisplayedListOfItems}"  >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Width="440" HorizontalAlignment="Left">
+                                        <StackPanel.Style>
+                                            <Style TargetType="{x:Type StackPanel}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=ListButton, Path=IsMouseOver}" Value="True">
+                                                        <Setter Property="Background" Value="{StaticResource HighlightedBackgroundBrush}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <Line  Stroke="LightGray"  StrokeThickness="1" X1="0" X2="420" Y1="0" Y2="0" VerticalAlignment="Top" />
+                                    <Grid Margin ="0,0,0,0">
+                                        <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="55"/>
+                                                <ColumnDefinition Width="55"/>
+                                                <ColumnDefinition Width="55"/>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                        
+                                            <Button  x:Name="ListButton"
+                                                     Grid.Column="0" Width="250" Height="37"
+                                                     HorizontalAlignment="Left"
+                                                     Style="{DynamicResource FlatStyleNoBordersTransparentButton}">
+                                                
+                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                                     <Ellipse HorizontalAlignment="Left"  VerticalAlignment="Center"
+                                                              Height="8" Width="8" StrokeThickness="5" Margin="5,5,5,5"
+                                                              Stroke="{Binding ColorString}" />
+
+                                                     <TextBlock Text="{Binding Name}" Style="{StaticResource unscratchedChecklistTextbBlock}"/>
+
+                                            </StackPanel>
+
+
+                                        </Button>
+
+                                            <StackPanel  Grid.Column="1" Width="55" Height="35">
+                                                <StackPanel.Style>
+                                                    <Style TargetType="{x:Type StackPanel}">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=EventButton, Path=IsMouseOver}" Value="True">
+                                                                <Setter Property="Background" Value="{StaticResource HighlightedBackgroundBrush}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <Button Width="55" Height="35"
+                                                        HorizontalAlignment="Left"
+                                                        Style="{DynamicResource FlatStyleNoBordersTransparentButton}"
+                                                 />
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="2" Width="55" Height="35">
+                                                <StackPanel.Style>
+                                                    <Style TargetType="{x:Type StackPanel}">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=CheckBoxButton, Path=IsMouseOver}" Value="True">
+                                                                <Setter Property="Background" Value="{StaticResource HighlightedBackgroundBrush}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <Button Width="55" Height="35"
+                                                        HorizontalAlignment="Left"
+                                                        Style="{DynamicResource FlatStyleNoBordersTransparentButton}"
+                                                 />
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="3" Width="55" Height="35">
+                                                <StackPanel.Style>
+                                                    <Style TargetType="{x:Type StackPanel}">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=StatusButton, Path=IsMouseOver}" Value="True">
+                                                                <Setter Property="Background" Value="{StaticResource HighlightedBackgroundBrush}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </StackPanel.Style>
+                                                <Button  Width="55" Height="35"
+                                                        HorizontalAlignment="Left"
+                                                        Style="{DynamicResource FlatStyleNoBordersTransparentButton}"
+                                                 />
+                                            </StackPanel>
+
+                                            <controls:ContextMenuButton Grid.Column="4" 
+                                                                    VerticalAlignment="Top"
+                                                                        Margin="10,0,0,0"
+                                                                    ContextDataCustom="{Binding DataContext,  RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                                                    RelativeSourceCustom="{Binding DataContext,  RelativeSource={RelativeSource Self}}"
+                                                                    >
+                                                <controls:ContextMenuButton.ContextMenu111>
+                                                    <ContextMenu >
+                                                        <MenuItem Header="Delete" 
+                                                              Command="{Binding Parent.Tag.DeleteItemCommand, RelativeSource={RelativeSource Self}}"   
+                                                              CommandParameter="{Binding}"/>
+                                                        <MenuItem Header="Edit"/>
+                                                    </ContextMenu>
+                                                </controls:ContextMenuButton.ContextMenu111>
+
+                                            </controls:ContextMenuButton>
+
+                                        </Grid>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                        <!--====plus sign dynamic position==== -->
+                    <Button Height="20" Width="20" 
+                            Margin="60,20,0,0"
+                            VerticalAlignment="Top" HorizontalAlignment="Left" 
+                            Command="{Binding ShowAddPanelCommand}">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource FlatStyleNoBordersTransparentButton}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=MyItems, 
+                                        Path=Items.Count, 
+                                        Converter={StaticResource smallerThanToBoolConverter},
+                                        ConverterParameter=6}" 
+                                                 Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Image Style="{DynamicResource plusSignImage}"/>
+                    </Button>
+                    </StackPanel>
+                </ScrollViewer>
+            </DockPanel>
+        </StackPanel>
+
+        <!--====plus sign static position==== -->
+        <Button Height="20" Width="20" 
+                            Margin="40,5,0,0"
+                            VerticalAlignment="Top" HorizontalAlignment="Left" 
+                            Command="{Binding ShowAddPanelCommand}"
+                            Grid.Row="3">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource FlatStyleNoBordersTransparentButton}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=MyItems, 
+                                        Path=Items.Count, 
+                                        Converter={StaticResource greaterThanToBoolConverter},
+                                        ConverterParameter=5}" 
+                                                 Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Image Style="{DynamicResource plusSignImage}"/>
+        </Button>
+
+
+        <!--====panel add list==== -->
+        <Grid  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="10" Grid.RowSpan="10" 
+               Visibility="{Binding Path=AddListPanelVisibility, Converter={StaticResource boolToVisibilityConverter}}">
+
+
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity="0.25"/>
+            </Grid.Background>
+
+            <ContentControl Content="{Binding AddListPanel}">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type viewModels:AddListPanelViewModel}">
+                        <local:AddListPanelView/>
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
+        </Grid>
+
+
+
+
+    </Grid>
+</UserControl>

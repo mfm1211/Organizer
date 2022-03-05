@@ -31,7 +31,7 @@ namespace OrganizerWPF.ViewModels.MainViewModels
             GetLists();
         }
 
-        private async void GetLists()
+        protected async void GetLists()
         {
             IEnumerable<ListModel> temp = await _listModelsService.GetAllWithItemLists();
             DisplayedListOfItems = new ObservableCollection<ListModel>(temp);

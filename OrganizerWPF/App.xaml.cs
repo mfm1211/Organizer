@@ -86,7 +86,7 @@ namespace OrganizerWPF
 
             services.AddScoped<RetractableMainViewModel>();
 
-            services.AddSingleton<SelectionBarViewModel>();
+            services.AddTransient<SelectionBarViewModel>();
 
             services.AddScoped<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>()));
 
@@ -140,6 +140,11 @@ namespace OrganizerWPF
                     services.GetRequiredService<IDataService<ListModel>>(),
                     services.GetRequiredService<INavigator>(),
                     services.GetRequiredService<IChosenIndexesStore>());
+            });
+            services.AddSingleton<CreateViewModel<RetractableListOfListsViewModel>>(services =>
+            {
+                return () => new RetractableListOfListsViewModel(services.GetRequiredService<IDataService<ListModel>>(),
+                    services.GetRequiredService<INavigator>());
             });
 
             return services.BuildServiceProvider();

@@ -54,6 +54,8 @@ namespace OrganizerLibrary.Models
         public string Description { get; set; }
 
 
+        public byte[] ChechBoxImageByteArray { get; set; }
+
         public ICollection<EventModel> EventModels { get; set; }
 
         public ICollection<CheckBoxModel> CheckBoxModels { get; set; }
