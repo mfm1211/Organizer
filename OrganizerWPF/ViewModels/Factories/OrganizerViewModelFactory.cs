@@ -19,6 +19,7 @@ namespace OrganizerWPF.ViewModels.Factories
         private readonly CreateViewModel<NotesListViewModel> _createNotesListViewModel;
         private readonly CreateViewModel<SelectionBarViewModel> _createSelectionBarViewModel;
         private readonly CreateViewModel<RetractableEventListViewModel> _createRetractableEventListViewModel;
+        private readonly CreateViewModel<RetractableCheckBoxListViewModel> _createRetractableCheckBoxListViewModel;
         private readonly CreateViewModel<RetractableListOfListsViewModel> _createRetractableListOfListViewModel;
 
         public OrganizerViewModelFactory(CreateViewModel<ListOfListsViewModel> createListOfListsModel, 
@@ -29,6 +30,7 @@ namespace OrganizerWPF.ViewModels.Factories
             CreateViewModel<NotesListViewModel> createNotesListViewModel,
             CreateViewModel<SelectionBarViewModel> createSelectionBarViewModel,
             CreateViewModel<RetractableEventListViewModel> createRetractableEventListViewModel,
+            CreateViewModel<RetractableCheckBoxListViewModel> createRetractableCheckBoxListViewModel,
             CreateViewModel<RetractableListOfListsViewModel> createRetractableListOfListViewModel)
         {
             _createListOfListsViewModel = createListOfListsModel;
@@ -39,6 +41,7 @@ namespace OrganizerWPF.ViewModels.Factories
             _createNotesListViewModel = createNotesListViewModel;
             _createSelectionBarViewModel = createSelectionBarViewModel;
             _createRetractableEventListViewModel = createRetractableEventListViewModel;
+            _createRetractableCheckBoxListViewModel = createRetractableCheckBoxListViewModel;
             _createRetractableListOfListViewModel = createRetractableListOfListViewModel;
         }
 
@@ -62,6 +65,8 @@ namespace OrganizerWPF.ViewModels.Factories
                     return _createSelectionBarViewModel();
                 case ViewType.RetractableEvents:
                     return _createRetractableEventListViewModel();
+                 case ViewType.RetractableCheckBoxes:
+                    return _createRetractableCheckBoxListViewModel();
                 case ViewType.RetractableListOfLists:
                     return _createRetractableListOfListViewModel();
                 default:

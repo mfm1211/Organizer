@@ -40,7 +40,7 @@
     </Style>
 
     <Style TargetType="{x:Type Image}" x:Key="checkBoxNotActiveImageStyle">
-        <Setter Property="Source" Value="pack://application:,,,/Resources/arrowUpB1.png"/>
+        <Setter Property="Source" Value="pack://application:,,,/Resources/checkBoxNotActiveImageB1.png"/>
     </Style>
     
     <!--<Style TargetType="{x:Type Image}" x:Key="checkBoxNotActiveImageStyle">

@@ -9,12 +9,13 @@
     <Grid>
 
 
-        <userControls:ComboboxWithArrowsUC x:Name="listCombobox1"    
-                   
-                  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15,0,0,0"
-                  Height="20" Width="120"
-                  ListOfListObjsForCombobox="{Binding ListOfListObjStrings}"  SelectedListTuple="{Binding SelectedListTuple, Mode=TwoWay}"
-                   />
+        <ComboBox x:Name="ComboboxOfLists" Margin="20,20,15,0"
+                      Height="20" Width="110" 
+                       Style="{DynamicResource FlatComboBox}"
+                      ItemsSource="{Binding ListOfListObjsForCombobox}" DisplayMemberPath="Name" 
+                      SelectedItem="{Binding SelectedList, Mode=TwoWay}"
+                     HorizontalAlignment="Left"
+                       VerticalAlignment="Top"/>
 
     </Grid>
 </UserControl>

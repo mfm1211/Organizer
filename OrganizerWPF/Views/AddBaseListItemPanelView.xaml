@@ -31,9 +31,10 @@
 
             <ComboBox x:Name="ComboboxOfLists" Margin="15,0,15,0"
                       Height="20" Width="90" 
-                       Style="{StaticResource FlatComboBox}"
+                       Style="{DynamicResource FlatComboBox}"
                       ItemsSource="{Binding ListOfListObjsForCombobox}" DisplayMemberPath="Name" 
                       SelectedItem="{Binding SelectedList, Mode=TwoWay}"
+                     
                        VerticalAlignment="Top"/>
 
 

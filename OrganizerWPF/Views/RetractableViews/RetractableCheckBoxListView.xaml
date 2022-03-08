@@ -1,0 +1,193 @@
+﻿<UserControl x:Class="OrganizerWPF.Views.RetractableViews.RetractableCheckBoxListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:OrganizerWPF.Views.RetractableViews"
+            xmlns:viewModels="clr-namespace:OrganizerWPF.ViewModels"
+             xmlns:controls="clr-namespace:OrganizerWPF.Controls"
+             xmlns:converters="clr-namespace:OrganizerWPF.Converters" xmlns:local1="clr-namespace:OrganizerWPF.Views"
+             Height="320" Width="510" >
+
+    <UserControl.Resources>
+
+     
+        <converters:BoolToStyleConverter x:Key="boolToStyleConverter"
+                                 SuccessStyle ="{StaticResource scratchedChecklistTextbBlock}"
+                                 FailureStyle="{StaticResource unscratchedChecklistTextbBlock}"/>
+
+
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="22"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
+
+        <!-- =========================== title row =============================-->
+        <TextBlock Text="Checklist" FontFamily="Calibri" FontSize="14"  Grid.Row="0"
+                   Width="120" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25,6,0,0" 
+                   Foreground="{StaticResource NormalTextColor}"/>
+
+
+     
+        <DockPanel Grid.Row="2"  Height="240" Margin="10,10,10,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <ItemsControl x:Name="MyItems" ItemsSource="{Binding DisplayedListOfItems}"  >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:Name="DataDockPanel">
+                                <StackPanel >
+
+                                    <Line  Stroke="LightGray"  StrokeThickness="1" X1="0" X2="460" Y1="5" Y2="5" VerticalAlignment="Top" />
+
+                                    <TextBlock 
+                                    VerticalAlignment="Top" HorizontalAlignment="Left"
+                                    Text="{Binding StringStartEndTime}" FontFamily="Calibri" FontSize="11"
+                                    Margin="10,0,0,0"/>
+
+                                    <Grid Margin ="0,0,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="20"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Height="20" Width="20" Grid.Column="0" Style="{StaticResource FlatStyleNoBordersTransparentButton}" 
+                                                Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path = DataContext.CheckBoxClickedCommand}" 
+                                                CommandParameter="{Binding}">
+                                            <StackPanel>
+                                                <Image Source="{Binding CheckBoxBitmap, Converter={StaticResource bitmapToImageSourceConverter}}" Stretch="None" SnapsToDevicePixels="True" 
+                                                                       Visibility="{Binding Checked, Converter={StaticResource boolToVisibilityConverter}}"/>
+
+                                                <Image Style="{StaticResource checkBoxNotActiveImageStyle}" Stretch="None" SnapsToDevicePixels="True" 
+                                                                       Visibility="{Binding Checked, Converter={StaticResource boolToVisibilityInverseConverter}}"/>
+
+                                            </StackPanel>
+                                        </Button>
+                                        <Border BorderBrush="{x:Null}" MinHeight="20"  Grid.Column="1">
+                                            <TextBlock Text="{Binding Text}" Style="{Binding Checked, Converter={StaticResource boolToStyleConverter}}"/>
+                                        </Border>
+
+
+                                        <controls:ContextMenuButton Grid.Column="2" 
+                                                                    HorizontalAlignment="Right" VerticalAlignment="Top"
+                                                                    ContextDataCustom="{Binding DataContext,  RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                                                    RelativeSourceCustom="{Binding DataContext,  RelativeSource={RelativeSource Self}}"
+                                                                    >
+                                            <controls:ContextMenuButton.ContextMenu111>
+                                                <ContextMenu >
+                                                    <MenuItem Header="Delete" 
+                                                              Command="{Binding Parent.Tag.DeleteItemCommand, RelativeSource={RelativeSource Self}}"   
+                                                              CommandParameter="{Binding}"/>
+                                                    <MenuItem Header="Edit"/>
+                                                </ContextMenu>
+                                            </controls:ContextMenuButton.ContextMenu111>
+
+                                        </controls:ContextMenuButton>
+
+
+
+                                    </Grid>
+
+
+
+
+                                </StackPanel>
+
+
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <TextBlock  Text="No checkboxes to show" Margin="40" Foreground="Gray" >
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=MyItems, Path=Items.Count}" Value="0">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <Button Height="20" Width="20" 
+                            Margin="40,20,0,0"
+                            VerticalAlignment="Top" HorizontalAlignment="Left" 
+                            Command="{Binding ShowAddItemPanelCommand}">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource FlatStyleNoBordersTransparentButton}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=MyItems, 
+                                        Path=Items.Count, 
+                                        Converter={StaticResource smallerThanToBoolConverter},
+                                        ConverterParameter=5}" 
+                                                 Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Image Style="{DynamicResource plusSignImage}"/>
+                    </Button>
+
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+
+        <Button Height="20" Width="20" 
+                Grid.Row="3"
+                Margin="40,5,0,0"
+                VerticalAlignment="Top" HorizontalAlignment="Left" 
+                Command="{Binding ShowAddItemPanelCommand}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource FlatStyleNoBordersTransparentButton}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=MyItems, 
+                                        Path=Items.Count, 
+                                        Converter={StaticResource greaterThanToBoolConverter},
+                                        ConverterParameter=4}" 
+                                                 Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Image Style="{DynamicResource plusSignImage}"/>
+        </Button>
+
+        <!--===== add/edit panel =====-->
+        <Grid  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="10" Grid.RowSpan="10" 
+               Visibility="{Binding Path=AddItemPanelVisibility, Converter={StaticResource boolToVisibilityConverter}}">
+
+
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity="0.25"/>
+            </Grid.Background>
+
+            <ContentControl Content="{Binding AddCheckBoxPanel}" >
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type viewModels:AddBaseListItemPanelViewModel}">
+                        <local1:AddBaseListItemPanelView/>
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
+        </Grid>
+
+
+    </Grid>
+</UserControl>

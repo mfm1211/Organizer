@@ -53,7 +53,6 @@ namespace OrganizerWPF.ViewModels.RetractableViewModels
             List<EventModel> temp = DisplayedListOfItems.ToList();
             temp.RemoveAll(m => m.Id== model.Id);
             DisplayedListOfItems = new ObservableCollection<EventModel>(temp);
-
         }
 
       
@@ -65,7 +64,6 @@ namespace OrganizerWPF.ViewModels.RetractableViewModels
             {
                 GetEvents();
             }
-
 
             AddItemPanelVisibility = false;
         }
