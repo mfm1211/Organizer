@@ -34,6 +34,9 @@
     <Compile Update="Views\RetractableViews\AddListPanelView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\RetractableViews\RetractableCheckBoxListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\RetractableViews\RetractableEventListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -100,6 +103,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\RetractableViews\AddListPanelView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\RetractableViews\RetractableCheckBoxListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\RetractableViews\RetractableEventListView.xaml">

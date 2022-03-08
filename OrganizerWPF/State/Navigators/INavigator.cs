@@ -15,6 +15,11 @@ namespace OrganizerWPF.State.Navigators
         Notes,
         SelectionBar,
         RetractableEvents,
+        RetractableCheckBoxes,
+        RetractableGoalTrackers,
+        RetractableTimeTrackers,
+        RetractableNotes,
+        RetractableList,
         RetractableListOfLists
     }
 

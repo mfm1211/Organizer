@@ -59,7 +59,11 @@
             <DataTemplate DataType="{x:Type viewModelsRetractable:RetractableEventListViewModel}">
                 <viewsRetractable:RetractableEventListView/>
             </DataTemplate>
-            
+
+            <DataTemplate DataType="{x:Type viewModelsRetractable:RetractableCheckBoxListViewModel}">
+                <viewsRetractable:RetractableCheckBoxListView/>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewModelsRetractable:RetractableListOfListsViewModel}">
                 <viewsRetractable:RetractableListOfListsView/>
             </DataTemplate>

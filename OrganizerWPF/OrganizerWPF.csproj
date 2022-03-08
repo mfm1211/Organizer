@@ -16,6 +16,8 @@
     <None Remove="Resources\arrowRightS1.png" />
     <None Remove="Resources\arrowUpB1.png" />
     <None Remove="Resources\arrowUpS1.png" />
+    <None Remove="Resources\checkBoxNotActiveImage.png" />
+    <None Remove="Resources\checkBoxNotActiveImageB1.png" />
     <None Remove="Resources\plusSign.png" />
     <None Remove="Resources\threeDotsBlackVertical.png" />
     <None Remove="Resources\threeDotsWhiteVertical.png" />
@@ -57,6 +59,12 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\arrowUpS1.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\checkBoxNotActiveImage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\checkBoxNotActiveImageB1.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\plusSign.png">

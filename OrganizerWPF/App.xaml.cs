@@ -86,8 +86,6 @@ namespace OrganizerWPF
 
             services.AddScoped<RetractableMainViewModel>();
 
-            services.AddTransient<SelectionBarViewModel>();
-
             services.AddScoped<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>()));
 
             services.AddScoped<RetractableWindow>(s => new RetractableWindow(s.GetRequiredService<RetractableMainViewModel>()));
@@ -110,6 +108,7 @@ namespace OrganizerWPF
             services.AddSingleton<CreateViewModel<CheckBoxListViewModel>>(services =>
             {
                 return () => new CheckBoxListViewModel(services.GetRequiredService<IDataService<CheckBoxModel>>(),
+                    services.GetRequiredService<IDataService<ListModel>>(),
                     services.GetRequiredService<INavigator>());
             });
             services.AddSingleton<CreateViewModel<TimeTrackerListViewModel>>(services =>
@@ -129,7 +128,9 @@ namespace OrganizerWPF
             });
             services.AddSingleton<CreateViewModel<SelectionBarViewModel>>(services =>
             {
-                return () => services.GetRequiredService<SelectionBarViewModel>();
+                return () => new SelectionBarViewModel(services.GetRequiredService<IDataService<ListModel>>(),
+                services.GetRequiredService<INavigator>(), services.GetRequiredService<IChosenIndexesStore>()
+                );
             });
 
 
@@ -137,6 +138,13 @@ namespace OrganizerWPF
             services.AddSingleton<CreateViewModel<RetractableEventListViewModel>>(services =>
             {
                 return () => new RetractableEventListViewModel(services.GetRequiredService<IDataService<EventModel>>(),
+                    services.GetRequiredService<IDataService<ListModel>>(),
+                    services.GetRequiredService<INavigator>(),
+                    services.GetRequiredService<IChosenIndexesStore>());
+            }); 
+            services.AddSingleton<CreateViewModel<RetractableCheckBoxListViewModel>>(services =>
+            {
+                return () => new RetractableCheckBoxListViewModel(services.GetRequiredService<IDataService<CheckBoxModel>>(),
                     services.GetRequiredService<IDataService<ListModel>>(),
                     services.GetRequiredService<INavigator>(),
                     services.GetRequiredService<IChosenIndexesStore>());

@@ -20,4 +20,8 @@
 
     <converters:BoolToWindowVisibilityConverter x:Key="windowVisibilityConverter" />
 
+    <converters:BitmapToImageSourceConverter x:Key="bitmapToImageSourceConverter" />
+    
+    
+
 </ResourceDictionary>
