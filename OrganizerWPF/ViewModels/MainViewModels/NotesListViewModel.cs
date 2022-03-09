@@ -1,5 +1,6 @@
 ﻿using OrganizerLibrary.Models;
 using OrganizerLibrary.Services;
+using OrganizerWPF.State.ItemListStates;
 using OrganizerWPF.State.Navigators;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,8 @@ namespace OrganizerWPF.ViewModels.MainViewModels
     {
         private IDataService<NotesModel> _notesModelsService;
 
-        public NotesListViewModel(IDataService<NotesModel> notesModelsService, INavigator navigator) : base(navigator)
+        public NotesListViewModel(IDataService<NotesModel> notesModelsService, IDataService<ListModel> listModelsService, INavigator navigator, IChosenIndexesStore chosenIndexesStore) :
+            base(navigator, listModelsService, chosenIndexesStore)
         {
             _notesModelsService = notesModelsService;
             GetCheckBoxes();
@@ -22,7 +24,7 @@ namespace OrganizerWPF.ViewModels.MainViewModels
         {
             IEnumerable<NotesModel> listOfItems = await _notesModelsService.GetAll();
 
-            UpdateDisplayedList(listOfItems);
+        //    UpdateDisplayedList(listOfItems);
 
         }
     }

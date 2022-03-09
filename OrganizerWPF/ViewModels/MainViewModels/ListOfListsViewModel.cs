@@ -14,11 +14,11 @@ namespace OrganizerWPF.ViewModels.MainViewModels
 {
     public class ListOfListsViewModel : ViewModelBase
     {
-        private IDataService<ListModel> _listModelsService;
+        protected IDataService<ListModel> _listModelsService;
 
         public ObservableCollection<ListModel> DisplayedListOfItems { get; set; } = new ObservableCollection<ListModel>();
 
-        private readonly INavigator _navigator;
+        protected readonly INavigator _navigator;
     
         public bool PanelSizeIsExpanded => _navigator.ScreenIsExpanded;
 

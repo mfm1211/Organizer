@@ -14,30 +14,23 @@ namespace OrganizerWPF.ViewModels.MainViewModels
 {
     public class SelectionBarViewModel : ViewModelBase
     {
+        private ListModel _selectedList;
         private IDataService<ListModel> _simpleListModelsService;
         private readonly INavigator _navigator;
         private readonly IChosenIndexesStore _chosenIndexesStore;
         public bool PanelSizeIsExpanded => _navigator.ScreenIsExpanded;
 
-        private Tuple<int, string> _selectedListTuple;
-
         public int ChosenListId { get; set; } = -1;
        
-        public List<Tuple<int, string>> ListOfListObjStrings { get; set; } = new List<Tuple<int, string>>();
-
-       
-        public Tuple<int, string> SelectedListTuple
+        public List<ListModel> ListOfListObjsForCombobox { get; set; } = new List<ListModel>();
+     
+        public ListModel SelectedList
         {
-            get { return _selectedListTuple; }
+            get { return _selectedList; }
             set
             {
-                _selectedListTuple = value;
-                if (_selectedListTuple != null)
-                {
-                    ChosenListId = _selectedListTuple.Item1;
-                    ChangeChosenList(ChosenListId);
-                }
-
+                _selectedList = value;
+                ChangeChosenList(_selectedList.Id);
             }
         }
 
@@ -48,13 +41,21 @@ namespace OrganizerWPF.ViewModels.MainViewModels
             _simpleListModelsService = simpleListModelsService;
             _chosenIndexesStore = chosenIndexesStore;
             _navigator.ScreenExpansionChanged += () => OnPropertyChanged(nameof(PanelSizeIsExpanded));
-            dd();
+            GetLists();
         }
 
-        private async void dd()
+        private async void GetLists()
         {
-            IEnumerable<ListModel> temp = await _simpleListModelsService.GetAll();
-            ListOfListObjStrings = temp.Select(listobj => new Tuple<int, string>(listobj.Id, listobj.Name)).ToList();
+            ListModel allLists = new ListModel();
+            allLists.Id = -1;
+            allLists.Name = "All Lists";
+           
+
+            ListOfListObjsForCombobox = new List<ListModel>(await _simpleListModelsService.GetAll());
+
+            ListOfListObjsForCombobox.Insert(0, allLists);
+
+            SelectedList = ListOfListObjsForCombobox[0];
         }
 
      

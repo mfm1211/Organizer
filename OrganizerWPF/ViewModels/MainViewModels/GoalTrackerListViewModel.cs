@@ -1,6 +1,7 @@
 ﻿using OrganizerLibrary;
 using OrganizerLibrary.Models;
 using OrganizerLibrary.Services;
+using OrganizerWPF.State.ItemListStates;
 using OrganizerWPF.State.Navigators;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,8 @@ namespace OrganizerWPF.ViewModels.MainViewModels
     {
         private IDataService<GoalTrackerModel> _goalTrackerModelsService;
 
-        public GoalTrackerListViewModel(IDataService<GoalTrackerModel> goalTrackerModelsService, INavigator navigator) : base(navigator)
+        public GoalTrackerListViewModel(IDataService<GoalTrackerModel> goalTrackerModelsService, IDataService<ListModel> listModelsService, INavigator navigator, IChosenIndexesStore chosenIndexesStore) :
+            base(navigator, listModelsService, chosenIndexesStore)
         {
             _goalTrackerModelsService = goalTrackerModelsService;
             GetGoalTrackers();

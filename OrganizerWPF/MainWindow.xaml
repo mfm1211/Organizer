@@ -7,6 +7,9 @@
         xmlns:behaviors="clr-namespace:OrganizerWPF.Behaviors"
         xmlns:controls="clr-namespace:OrganizerWPF.Controls"
         xmlns:e="http://schemas.microsoft.com/xaml/behaviors"
+         xmlns:views="clr-namespace:OrganizerWPF.Views"
+         xmlns:viewsMain="clr-namespace:OrganizerWPF.Views.MainViews"
+         xmlns:viewModelsMain="clr-namespace:OrganizerWPF.ViewModels.MainViewModels"
         Width="262"
         Height="100"
         WindowStyle="None"
@@ -45,6 +48,36 @@
                                  SuccessStyle ="{StaticResource upArrowImageStyle}"
                                  FailureStyle="{StaticResource downArrowImageStyle}"/>
 
+       
+            <DataTemplate DataType="{x:Type viewModelsMain:ListOfListsViewModel}">
+                <views:ListOfListsView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelsMain:EventListViewModel}">
+                <viewsMain:EventListView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelsMain:CheckBoxListViewModel}">
+                <viewsMain:CheckBoxListView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelsMain:TimeTrackerListViewModel}">
+                <viewsMain:TimeTrackerListView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelsMain:GoalTrackerListViewModel}">
+                <viewsMain:GoalTrackerListView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelsMain:NotesListViewModel}">
+                <viewsMain:NotesListView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModelsMain:SelectionBarViewModel}">
+                <views:SelectionBarView/>
+            </DataTemplate>
+
+       
 
     </Window.Resources>
 

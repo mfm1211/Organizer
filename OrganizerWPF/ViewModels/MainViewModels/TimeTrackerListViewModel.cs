@@ -1,5 +1,6 @@
 ﻿using OrganizerLibrary.Models;
 using OrganizerLibrary.Services;
+using OrganizerWPF.State.ItemListStates;
 using OrganizerWPF.State.Navigators;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,8 @@ namespace OrganizerWPF.ViewModels.MainViewModels
     {
         private IDataService<TimeTrackerModel> _timeTrackerModelsService;
 
-        public TimeTrackerListViewModel(IDataService<TimeTrackerModel> timeTrackerModelsService, INavigator navigator) : base(navigator)
+        public TimeTrackerListViewModel(IDataService<TimeTrackerModel> timeTrackerModelsService, IDataService<ListModel> listModelsService, INavigator navigator, IChosenIndexesStore chosenIndexesStore) :
+            base(navigator, listModelsService, chosenIndexesStore)
         {
             _timeTrackerModelsService = timeTrackerModelsService;
             GetTimeTrackers();

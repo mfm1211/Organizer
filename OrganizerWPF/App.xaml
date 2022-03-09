@@ -28,42 +28,10 @@
                 
             </ResourceDictionary.MergedDictionaries>
 
-            <DataTemplate DataType="{x:Type viewModelsMain:ListOfListsViewModel}">
-                <views:ListOfListsView/>
-            </DataTemplate>
+           
+           
 
-            <DataTemplate DataType="{x:Type viewModelsMain:EventListViewModel}">
-                <viewsMain:EventListView/>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type viewModelsMain:CheckBoxListViewModel}">
-                <viewsMain:CheckBoxListView/>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type viewModelsMain:TimeTrackerListViewModel}">
-                <viewsMain:TimeTrackerListView/>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type viewModelsMain:GoalTrackerListViewModel}">
-                <viewsMain:GoalTrackerListView/>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type viewModelsMain:NotesListViewModel}">
-                <viewsMain:NotesListView/>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type viewModelsMain:SelectionBarViewModel}">
-                <views:SelectionBarView/>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type viewModelsRetractable:RetractableEventListViewModel}">
-                <viewsRetractable:RetractableEventListView/>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type viewModelsRetractable:RetractableCheckBoxListViewModel}">
-                <viewsRetractable:RetractableCheckBoxListView/>
-            </DataTemplate>
-
+          
             <DataTemplate DataType="{x:Type viewModelsRetractable:RetractableListOfListsViewModel}">
                 <viewsRetractable:RetractableListOfListsView/>
             </DataTemplate>

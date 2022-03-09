@@ -43,6 +43,9 @@
     <Compile Update="Views\RetractableViews\RetractableListOfListsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\RetractableViews\RetractableNotesListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\SelectionBarView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -112,6 +115,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\RetractableViews\RetractableListOfListsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\RetractableViews\RetractableNotesListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\SelectionBarView.xaml">

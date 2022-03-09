@@ -9,16 +9,28 @@
         ResizeMode="NoResize"
         xmlns:viewModels="clr-namespace:OrganizerWPF.ViewModels" 
         xmlns:views="clr-namespace:OrganizerWPF.Views"
+        xmlns:viewModelsMain="clr-namespace:OrganizerWPF.ViewModels.MainViewModels"
+        xmlns:viewsRetractable="clr-namespace:OrganizerWPF.Views.RetractableViews"
         mc:Ignorable="d"
         Title="RetractableWindow" 
         Background="{StaticResource NormalBackgroundBrush}"
         ShowInTaskbar="False"
         Width="510" Height="320"
         Visibility ="{Binding WindowVisibility, Mode=TwoWay, Converter={StaticResource windowVisibilityConverter}}">
-    
-    
-    
-    
+
+
+    <Window.Resources>
+
+        <DataTemplate DataType="{x:Type viewModelsMain:CheckBoxListViewModel}">
+            <viewsRetractable:RetractableCheckBoxListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModelsMain:EventListViewModel}">
+            <viewsRetractable:RetractableEventListView/>
+        </DataTemplate>
+
+    </Window.Resources>
+
     <Grid>
 
         <ContentControl  Grid.Row="1" Content="{Binding CurrentViewModel}"/>

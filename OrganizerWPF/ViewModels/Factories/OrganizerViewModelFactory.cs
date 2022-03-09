@@ -18,8 +18,6 @@ namespace OrganizerWPF.ViewModels.Factories
         private readonly CreateViewModel<GoalTrackerListViewModel> _createGoalTrackerListViewModel;
         private readonly CreateViewModel<NotesListViewModel> _createNotesListViewModel;
         private readonly CreateViewModel<SelectionBarViewModel> _createSelectionBarViewModel;
-        private readonly CreateViewModel<RetractableEventListViewModel> _createRetractableEventListViewModel;
-        private readonly CreateViewModel<RetractableCheckBoxListViewModel> _createRetractableCheckBoxListViewModel;
         private readonly CreateViewModel<RetractableListOfListsViewModel> _createRetractableListOfListViewModel;
 
         public OrganizerViewModelFactory(CreateViewModel<ListOfListsViewModel> createListOfListsModel, 
@@ -29,8 +27,6 @@ namespace OrganizerWPF.ViewModels.Factories
             CreateViewModel<GoalTrackerListViewModel> createGoalTrackerListViewModel,
             CreateViewModel<NotesListViewModel> createNotesListViewModel,
             CreateViewModel<SelectionBarViewModel> createSelectionBarViewModel,
-            CreateViewModel<RetractableEventListViewModel> createRetractableEventListViewModel,
-            CreateViewModel<RetractableCheckBoxListViewModel> createRetractableCheckBoxListViewModel,
             CreateViewModel<RetractableListOfListsViewModel> createRetractableListOfListViewModel)
         {
             _createListOfListsViewModel = createListOfListsModel;
@@ -40,8 +36,6 @@ namespace OrganizerWPF.ViewModels.Factories
             _createGoalTrackerListViewModel = createGoalTrackerListViewModel;
             _createNotesListViewModel = createNotesListViewModel;
             _createSelectionBarViewModel = createSelectionBarViewModel;
-            _createRetractableEventListViewModel = createRetractableEventListViewModel;
-            _createRetractableCheckBoxListViewModel = createRetractableCheckBoxListViewModel;
             _createRetractableListOfListViewModel = createRetractableListOfListViewModel;
         }
 
@@ -63,10 +57,12 @@ namespace OrganizerWPF.ViewModels.Factories
                     return _createNotesListViewModel();             
                 case ViewType.SelectionBar:
                     return _createSelectionBarViewModel();
-                case ViewType.RetractableEvents:
-                    return _createRetractableEventListViewModel();
-                 case ViewType.RetractableCheckBoxes:
-                    return _createRetractableCheckBoxListViewModel();
+                //case ViewType.RetractableNotes:
+                //    return _createRetractableNotesListViewModel();
+                //case ViewType.RetractableGoalTrackers:
+                //    return _createRetractableGoalTrackerListViewModel();
+                //case ViewType.RetractableTimeTrackers:
+                //    return _createRetractableTimeTrackerListViewModel();
                 case ViewType.RetractableListOfLists:
                     return _createRetractableListOfListViewModel();
                 default:

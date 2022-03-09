@@ -4,6 +4,7 @@ using OrganizerWPF;
 using OrganizerWPF.Commands;
 using OrganizerWPF.State.Navigators;
 using OrganizerWPF.ViewModels.Factories;
+using OrganizerWPF.ViewModels.RetractableViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,7 @@ namespace OrganizerWPF.ViewModels.MainViewModels
     {
 
         List<Type> listOfViewModelsTypes;
+        List<Type> listOfRetractableViewModelsTypes;
 
         public ObservableCollection<Tuple<ViewType, string, ICommand>> ListMenuOptions { get; set; }
 
@@ -42,46 +44,63 @@ namespace OrganizerWPF.ViewModels.MainViewModels
             _navigator = navigator;
             _viewModelFactory = viewModelFactory;
 
-            _navigator.CurrentViewModelChanged += ()=> OnPropertyChanged(nameof(CurrentViewModel));
+            _navigator.CurrentViewModelChanged += ()=> { OnPropertyChanged(nameof(CurrentViewModel)); ChangeTitle(); };
             _navigator.ScreenExpansionChanged += () => OnPropertyChanged(nameof(ScreenIsExanded));
 
             ChangeSizeCommand = new RelayCommand(ChangeSizeOfWindow);
+
+
 
             ArrowClickCommandCommand = new RelayCommandWithParameter(param => ChangeScreen((string)param));
 
             UpdateCurrentViewModel = new UpdateCurrentViewModelCommand(_navigator, _viewModelFactory);
 
             ChangeRetractableScreenVisibility = new RelayCommand(MakeRetractabelpanelVisible); 
-            InitializeItemMenuButtons();
 
             UpdateCurrentViewModel.Execute(ViewType.Events);
 
-            listOfViewModelsTypes = new List<Type> { typeof(ListOfListsViewModel), typeof(EventListViewModel),
-            typeof(CheckBoxListViewModel), typeof(TimeTrackerListViewModel),typeof(GoalTrackerListViewModel), typeof(NotesListViewModel)};
+            listOfViewModelsTypes = new List<Type> { typeof(ListOfListsViewModel), 
+                typeof(EventListViewModel),
+                typeof(CheckBoxListViewModel), 
+                typeof(TimeTrackerListViewModel),
+                typeof(GoalTrackerListViewModel), 
+                typeof(NotesListViewModel)};
+
+            listOfRetractableViewModelsTypes = new List<Type> { typeof(RetractableListOfListsViewModel),
+                typeof(EventListViewModel),
+                typeof(CheckBoxListViewModel)}
+               ;
         }
 
 
-        protected void InitializeItemMenuButtons()
-        {
-            Tuple<ViewType, string, ICommand> item1 = new Tuple<ViewType, string, ICommand>(ViewType.Events, "Events", UpdateCurrentViewModel);
-            Tuple<ViewType, string, ICommand> item2 = new Tuple<ViewType, string, ICommand>(ViewType.Home, "Home", UpdateCurrentViewModel);
-           
-
-            ListMenuOptions = new ObservableCollection<Tuple<ViewType, string, ICommand>>();
-            ListMenuOptions.Add(item1);
-            ListMenuOptions.Add(item2);
-         
-        }
-
+     
 
         private void MakeRetractabelpanelVisible()
         {
-            (new ChangeRetractableScreenVisibilityCommand(_navigator)).Execute(true);
-            (new UpdateCurrentViewModelCommand(_navigator, _viewModelFactory)).Execute(ViewType.SelectionBar);
+            ViewType mainViewType;
+            ViewType retractableViewType;
+
             if (CurrentViewModel.GetType() == typeof(EventListViewModel))
-                _navigator.CurrentRetractableViewModel = _viewModelFactory.CreateViewModel(ViewType.RetractableEvents);
+            {
+                mainViewType = ViewType.SelectionBar;
+                retractableViewType = ViewType.Events;
+            }
+            else if (CurrentViewModel.GetType() == typeof(CheckBoxListViewModel))
+            {
+                mainViewType = ViewType.SelectionBar;
+                retractableViewType = ViewType.Checkbox;
+            }
             else
-                _navigator.CurrentRetractableViewModel = _viewModelFactory.CreateViewModel(ViewType.RetractableListOfLists);
+            {
+                mainViewType = ViewType.SelectionBar;
+                retractableViewType = ViewType.RetractableListOfLists;
+            }
+
+            (new ChangeRetractableScreenVisibilityCommand(_navigator)).Execute(true);
+
+            _navigator.CurrentRetractableViewModel = _viewModelFactory.CreateViewModel(retractableViewType);
+
+            (new UpdateCurrentViewModelCommand(_navigator, _viewModelFactory)).Execute(mainViewType);
         }
 
 
@@ -98,46 +117,81 @@ namespace OrganizerWPF.ViewModels.MainViewModels
            
         }
 
+        private void ChangeTitle()
+        {
+            if(CurrentViewModel.GetType() == typeof(EventListViewModel)) ViewTypeString = "Events";
+            else if (CurrentViewModel.GetType() == typeof(CheckBoxListViewModel)) ViewTypeString = "CheckList";
+            else if (CurrentViewModel.GetType() == typeof(ListOfListsViewModel)) ViewTypeString = "Lists";
+            else if (CurrentViewModel.GetType() == typeof(TimeTrackerListViewModel)) ViewTypeString = "Time trackers";
+            else if (CurrentViewModel.GetType() == typeof(GoalTrackerListViewModel)) ViewTypeString = "Goals";
+            else if (CurrentViewModel.GetType() == typeof(NotesListViewModel)) ViewTypeString = "Notes";
+            else if (CurrentViewModel.GetType() == typeof(SelectionBarViewModel)) ViewTypeString = "Selecton Bar";
+
+        }
 
         public void ChangeScreen(string n)
         {
-            int index = listOfViewModelsTypes.FindIndex(a => a == CurrentViewModel.GetType());
-            if (n == "left") index++;
-            else index--;
+            int offset = -1;
+            if (n == "left") offset=1;
+           
+            if (_navigator.RetractableScreenIsVisible == false)
+            {
+                int index = listOfViewModelsTypes.FindIndex(a => a == CurrentViewModel.GetType());
+                index = index + offset;
 
-            if (index < 0) index = listOfViewModelsTypes.Count - 1;
-            if (index > listOfViewModelsTypes.Count - 1) index = 0;
+                if (index < 0) index = listOfViewModelsTypes.Count - 1;
+                if (index > listOfViewModelsTypes.Count - 1) index = 0;
 
-            if (index == 0)
-            {
-                UpdateCurrentViewModel.Execute(ViewType.Home);
-                ViewTypeString = "Lists";
+                switch (index)
+                {
+                    case 0:
+                        UpdateCurrentViewModel.Execute(ViewType.Home); break;
+                    case 1:
+                        UpdateCurrentViewModel.Execute(ViewType.Events); break;
+                    case 2:
+                        UpdateCurrentViewModel.Execute(ViewType.Checkbox); break;
+                    case 3:
+                        UpdateCurrentViewModel.Execute(ViewType.TimeTracker); break;
+                    case 4:
+                        UpdateCurrentViewModel.Execute(ViewType.GoalTracker); break;
+                    case 5:
+                        UpdateCurrentViewModel.Execute(ViewType.Notes); break;
+
+                }
             }
-            else if(index == 1)
+            else
             {
-                UpdateCurrentViewModel.Execute(ViewType.Events);
-                ViewTypeString = "Events";
+                int index = listOfRetractableViewModelsTypes.FindIndex(a => a == _navigator.CurrentRetractableViewModel.GetType());
+
+                index = index + offset;
+
+                if (index < 0) index = listOfRetractableViewModelsTypes.Count - 1;
+                if (index > listOfRetractableViewModelsTypes.Count - 1) index = 0;
+
+                ViewType retractableView = ViewType.RetractableListOfLists;
+                switch (index)
+                {
+                    case 0:
+                        retractableView = ViewType.RetractableListOfLists;  break;
+                    case 1:
+                        retractableView = ViewType.Events; break;
+                    case 2:
+                        retractableView = ViewType.Checkbox; break;
+                    case 3:
+                        //retractableView = ViewType.RetractableTimeTrackers;
+                        break;
+                    case 4:
+                        //retractableView = ViewType.RetractableGoalTrackers;
+                        break;
+                    case 5:
+                        //retractableView = ViewType.RetractableNotes;
+                        break;
+
+                }
+
+                _navigator.CurrentRetractableViewModel = _viewModelFactory.CreateViewModel(retractableView);
             }
-            else if (index == 2)
-            {
-                UpdateCurrentViewModel.Execute(ViewType.Checkbox);
-                ViewTypeString = "CheckList";
-            }
-            else if (index == 3)
-            {
-                UpdateCurrentViewModel.Execute(ViewType.TimeTracker);
-                ViewTypeString = "Time trackers";
-            }
-            else if (index == 4)
-            {
-                UpdateCurrentViewModel.Execute(ViewType.GoalTracker);
-                ViewTypeString = "Goals";
-            }
-            else if (index == 5)
-            {
-                UpdateCurrentViewModel.Execute(ViewType.Notes);
-                ViewTypeString = "Notes";
-            }
+          
         }
 
       

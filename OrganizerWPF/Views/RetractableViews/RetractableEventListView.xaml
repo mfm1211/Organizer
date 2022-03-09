@@ -36,22 +36,9 @@
         </ContentControl>-->
 
 
-        <TextBlock  Grid.Row="2" Text="No events to show" Margin="40" Foreground="Gray" >
+     
 
-            <TextBlock.Style>
-                <Style TargetType="{x:Type TextBlock}">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=MyItems, Path=Items.Count}" Value="0">
-                            <Setter Property="Visibility" Value="Visible" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-
-        </TextBlock>
-
-        <DockPanel Grid.Row="2"  Height="220" Margin="10">
+        <DockPanel Grid.Row="2"  Height="240" Margin="10,10,10,0">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                 <ItemsControl x:Name="MyItems" ItemsSource="{Binding DisplayedListOfItems}"  >
@@ -119,8 +106,21 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
+                    <TextBlock  Text="No events to show" Margin="40" Foreground="Gray" >
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=MyItems, Path=Items.Count}" Value="0">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
                     <Button Height="20" Width="20" 
-                            Margin="40,20,0,0"
+                            Margin="40,10,0,0"
                             VerticalAlignment="Top" HorizontalAlignment="Left" 
                             Command="{Binding ShowAddItemPanelCommand}">
                         <Button.Style>
@@ -147,6 +147,31 @@
 
 
 
+
+        <Button Height="20" Width="20" 
+                            Margin="40,5,0,0"
+                            VerticalAlignment="Top" HorizontalAlignment="Left" 
+                            Command="{Binding ShowAddItemPanelCommand}"
+                            Grid.Row="3">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource FlatStyleNoBordersTransparentButton}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=MyItems, 
+                                        Path=Items.Count, 
+                                        Converter={StaticResource greaterThanToBoolConverter},
+                                        ConverterParameter=4}" 
+                                                 Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Image Style="{DynamicResource plusSignImage}"/>
+        </Button>
+
+
+        <!--===== add/edit panel =====-->
         <Grid  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="10" Grid.RowSpan="10" 
                Visibility="{Binding Path=AddItemPanelVisibility, Converter={StaticResource boolToVisibilityConverter}}">
 
@@ -155,7 +180,7 @@
                 <SolidColorBrush Color="Black" Opacity="0.25"/>
             </Grid.Background>
 
-            <ContentControl Content="{Binding AddEventPanel}" 
+            <ContentControl Content="{Binding AddItemPanel}" 
                             Visibility="{Binding AddEventPanelVisibility, Converter={StaticResource boolToVisibilityConverter}}"
                         Grid.Row="1">
                 <ContentControl.Resources>

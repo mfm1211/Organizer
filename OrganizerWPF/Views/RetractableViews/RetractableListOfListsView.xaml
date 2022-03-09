@@ -184,7 +184,7 @@
                                                 <controls:ContextMenuButton.ContextMenu111>
                                                     <ContextMenu >
                                                         <MenuItem Header="Delete" 
-                                                              Command="{Binding Parent.Tag.DeleteItemCommand, RelativeSource={RelativeSource Self}}"   
+                                                              Command="{Binding Parent.Tag.DeleteListCommand, RelativeSource={RelativeSource Self}}"   
                                                               CommandParameter="{Binding}"/>
                                                         <MenuItem Header="Edit"/>
                                                     </ContextMenu>

@@ -1,4 +1,5 @@
-﻿using OrganizerLibrary.Models;
+﻿using OrganizerLibrary;
+using OrganizerLibrary.Models;
 using OrganizerLibrary.Services;
 using OrganizerWPF.Commands;
 using System;
@@ -15,14 +16,15 @@ namespace OrganizerWPF.ViewModels
 
         public ICommand CancelCommand { get; set; }
 
-        private readonly Action<bool> _action;
+        private Action<bool> _action;
 
         public BaseItemModel CreatedItem { get; set; }
 
         public string TextString { get; set; }
 
-        private IDataService<EventModel> _eventModelsService;
+        private IDataService<ListModel> _listModelsService;
 
+        private bool ListOfListsIsEmpty = false;
         public List<ListModel> ListOfListObjsForCombobox { get; set; } = new List<ListModel>();
 
         public ListModel SelectedList
@@ -37,71 +39,101 @@ namespace OrganizerWPF.ViewModels
         }
 
         public AddBaseListItemPanelViewModel(Action<bool> action, IDataService<ListModel> listModelsService, IDataService<EventModel> eventModelsService)
-        {
-            _eventModelsService = eventModelsService;
+        {            
+            InitializeCommon(action, listModelsService);
 
-            AddItemCommand = new RelayCommand(CreateNewItem);
-
-            CancelCommand = new RelayCommand(CreateCancelEvent);
-
-            _action = action;
-
-            GetLists(listModelsService);
+            AddItemCommand = new RelayCommand(() => CreateNewEvent(eventModelsService));
         }
+
+        public AddBaseListItemPanelViewModel(Action<bool> action, IDataService<ListModel> listModelsService, IDataService<CheckBoxModel> checkoxModelsService)
+        {          
+            InitializeCommon(action, listModelsService);
+
+            AddItemCommand = new RelayCommand(() => CreateNewCheckBox(checkoxModelsService));
+        }
+
+        public AddBaseListItemPanelViewModel(Action<bool> action, IDataService<ListModel> listModelsService, IDataService<BaseItemModel> checkoxModelsService)
+        {
+            InitializeCommon(action, listModelsService);
+
+          //  AddItemCommand = new RelayCommand(() => CreateNewCheckBox(checkoxModelsService));
+        }
+
+
+        private void InitializeCommon(Action<bool> action, IDataService<ListModel> listModelsService)
+        {
+            _listModelsService = listModelsService;
+            GetLists(listModelsService);
+            CancelCommand = new RelayCommand(TriggerCancelEvent);
+            _action = action;
+        }
+
 
         private async void GetLists(IDataService<ListModel> listModelsService)
         {
             ListOfListObjsForCombobox =  new List<ListModel>(await listModelsService.GetAll());
-           
+            if(ListOfListObjsForCombobox.Count == 0)
+            {
+                ListModel othersList = new ListModel();
+                othersList.ColorString = "#FAFAFA";
+                othersList.Name = "Others";
+                othersList.ChechBoxImageByteArray = DrawImages.DrawCheckBox(1, "#FAFAFA");
+              
+                ListOfListObjsForCombobox.Add(othersList);              
+                ListOfListsIsEmpty = true;
+            }
+            SelectedList = ListOfListObjsForCombobox[0];
         }
 
-        private async void CreateNewItem()
+        private async void CreateNewEvent(IDataService<EventModel> service)
         {
+            CreateListIfItDoesNotExist();
 
             CreatedItem = new EventModel();
             CreatedItem.ListModelId = SelectedList.Id;
-           // CreatedItem.SectionId = SelectedSection.Id;
+            CreatedItem.SectionId = 0;
             CreatedItem.StartTime = DateTime.Now;
             CreatedItem.EndTime = DateTime.Now;
+            ((EventModel)CreatedItem).Text = TextString;
 
-            if (CreatedItem.GetType() == typeof(EventModel))
-            {
-                ((EventModel)CreatedItem).Text = TextString;
+            await service.Create((EventModel)CreatedItem);
+            
+            _action.Invoke(true);
+        }
 
-                await _eventModelsService.Create((EventModel)CreatedItem);
-            }
-           
+        private async void CreateNewCheckBox(IDataService<CheckBoxModel> service)
+        {
+            CreateListIfItDoesNotExist();
 
+            CreatedItem = new CheckBoxModel();
+            CreatedItem.ListModelId = SelectedList.Id;
+            CreatedItem.SectionId = 0;
+            CreatedItem.StartTime = DateTime.Now;
+            CreatedItem.EndTime = DateTime.Now;
+            ((CheckBoxModel)CreatedItem).Text = TextString;
+            ((CheckBoxModel)CreatedItem).Checked = false;
+            await service.Create((CheckBoxModel)CreatedItem);
 
             _action.Invoke(true);
         }
-        private void CreateCancelEvent()
+
+
+        private async void CreateListIfItDoesNotExist()
+        {
+            if (ListOfListsIsEmpty == true)
+            {
+                ListModel temp = await _listModelsService.Create(ListOfListObjsForCombobox[0]);
+                ListOfListObjsForCombobox[0].Id = temp.Id;
+            }
+        }
+
+        private void TriggerCancelEvent()
         {
             _action.Invoke(false);
         }
 
 
-        //private List<SubListModel> GetSectionViewModels(int listobjId)
-        //{
-        //    List<SubListModel> output = new List<SubListModel>();
-
-        //    List<SubListModel> listOfModels = GlobalConfig.Connections.GetAllSubList();
-
-        //    foreach (SubListModel li in listOfModels)
-        //    {
-        //        if (li.ListId == listobjId)
-        //        {
-        //            output.Add(li);
-        //        }
-
-        //    }
-        //    if (output.Count > 0)
-        //    {
-        //        SelectedSection = output[0];
-        //    }
-
-        //    return output;
-        //}
+       
 
     }
 }
