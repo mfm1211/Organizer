@@ -29,6 +29,18 @@
             <viewsRetractable:RetractableEventListView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModelsMain:NotesListViewModel}">
+            <viewsRetractable:RetractableNotesListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModelsMain:GoalTrackerListViewModel}">
+            <viewsRetractable:RetractableGoalTrackerListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModelsMain:TimeTrackerListViewModel}">
+            <viewsRetractable:RetractableTimeTrackerListView/>
+        </DataTemplate>
+
     </Window.Resources>
 
     <Grid>

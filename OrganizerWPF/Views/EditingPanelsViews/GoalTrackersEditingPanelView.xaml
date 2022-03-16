@@ -1,9 +1,10 @@
-﻿<UserControl x:Class="OrganizerWPF.Views.AddBaseListItemPanelView"
+﻿<UserControl x:Class="OrganizerWPF.Views.EditingPanelsViews.GoalTrackersEditingPanelView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:OrganizerWPF.Views"
+             xmlns:local="clr-namespace:OrganizerWPF.Views.EditingPanelsViews"
+             mc:Ignorable="d" 
              Background="#303030"
              BorderThickness="1"
              BorderBrush="Black"
@@ -107,7 +108,5 @@
                 Style="{StaticResource FlatStyleButton}"
                 Command="{Binding AddItemCommand}"
                />
-
-
     </Grid>
 </UserControl>

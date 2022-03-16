@@ -13,6 +13,12 @@
     <Compile Update="Views\AddBaseListItemPanelView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\EditingPanelsViews\GoalTrackersEditingPanelView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\EditingPanelsViews\PanelAddEditNoteView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\MainViews\CheckBoxListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -40,10 +46,16 @@
     <Compile Update="Views\RetractableViews\RetractableEventListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\RetractableViews\RetractableGoalTrackerListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\RetractableViews\RetractableListOfListsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\RetractableViews\RetractableNotesListView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\RetractableViews\RetractableTimeTrackerListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\SelectionBarView.xaml.cs">
@@ -58,6 +70,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\ContextMenuButtonUC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\GoalTrackerCounterUC.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
@@ -87,6 +102,12 @@
     <Page Update="Views\AddBaseListItemPanelView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\EditingPanelsViews\GoalTrackersEditingPanelView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\EditingPanelsViews\PanelAddEditNoteView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\MainViews\CheckBoxListView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -114,10 +135,16 @@
     <Page Update="Views\RetractableViews\RetractableEventListView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\RetractableViews\RetractableGoalTrackerListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\RetractableViews\RetractableListOfListsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\RetractableViews\RetractableNotesListView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\RetractableViews\RetractableTimeTrackerListView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\SelectionBarView.xaml">

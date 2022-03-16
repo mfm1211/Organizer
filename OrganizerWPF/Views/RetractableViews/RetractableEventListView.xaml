@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OrganizerWPF.Views"
              xmlns:viewModels="clr-namespace:OrganizerWPF.ViewModels"
+             xmlns:editingPanels="clr-namespace:OrganizerWPF.ViewModels.EditingPanels"
              xmlns:controls="clr-namespace:OrganizerWPF.Controls"
              Height="320" Width="510" >
     <Grid>
@@ -181,10 +182,9 @@
             </Grid.Background>
 
             <ContentControl Content="{Binding AddItemPanel}" 
-                            Visibility="{Binding AddEventPanelVisibility, Converter={StaticResource boolToVisibilityConverter}}"
-                        Grid.Row="1">
+                               Grid.Row="1">
                 <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type viewModels:AddBaseListItemPanelViewModel}">
+                    <DataTemplate DataType="{x:Type editingPanels:EventsEditingPanelViewModel}">
                         <local:AddBaseListItemPanelView/>
                     </DataTemplate>
                 </ContentControl.Resources>

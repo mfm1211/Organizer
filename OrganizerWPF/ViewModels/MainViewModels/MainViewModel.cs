@@ -68,8 +68,11 @@ namespace OrganizerWPF.ViewModels.MainViewModels
 
             listOfRetractableViewModelsTypes = new List<Type> { typeof(RetractableListOfListsViewModel),
                 typeof(EventListViewModel),
-                typeof(CheckBoxListViewModel)}
-               ;
+                typeof(CheckBoxListViewModel),
+                typeof(TimeTrackerListViewModel),
+                typeof(GoalTrackerListViewModel),
+                typeof(NotesListViewModel)};
+            ;
         }
 
 
@@ -77,22 +80,17 @@ namespace OrganizerWPF.ViewModels.MainViewModels
 
         private void MakeRetractabelpanelVisible()
         {
-            ViewType mainViewType;
+            ViewType mainViewType = ViewType.SelectionBar;
             ViewType retractableViewType;
 
-            if (CurrentViewModel.GetType() == typeof(EventListViewModel))
-            {
-                mainViewType = ViewType.SelectionBar;
-                retractableViewType = ViewType.Events;
-            }
-            else if (CurrentViewModel.GetType() == typeof(CheckBoxListViewModel))
-            {
-                mainViewType = ViewType.SelectionBar;
-                retractableViewType = ViewType.Checkbox;
-            }
+            if (CurrentViewModel.GetType() == typeof(EventListViewModel)) retractableViewType = ViewType.Events;          
+            else if (CurrentViewModel.GetType() == typeof(CheckBoxListViewModel)) retractableViewType = ViewType.Checkbox;
+            else if (CurrentViewModel.GetType() == typeof(GoalTrackerListViewModel)) retractableViewType = ViewType.GoalTracker;
+            else if (CurrentViewModel.GetType() == typeof(TimeTrackerListViewModel)) retractableViewType = ViewType.TimeTracker;
+            else if (CurrentViewModel.GetType() == typeof(NotesListViewModel)) retractableViewType = ViewType.Notes;
             else
             {
-                mainViewType = ViewType.SelectionBar;
+               
                 retractableViewType = ViewType.RetractableListOfLists;
             }
 
@@ -178,14 +176,11 @@ namespace OrganizerWPF.ViewModels.MainViewModels
                     case 2:
                         retractableView = ViewType.Checkbox; break;
                     case 3:
-                        //retractableView = ViewType.RetractableTimeTrackers;
-                        break;
+                        retractableView = ViewType.TimeTracker; break;
                     case 4:
-                        //retractableView = ViewType.RetractableGoalTrackers;
-                        break;
+                        retractableView = ViewType.GoalTracker; break;
                     case 5:
-                        //retractableView = ViewType.RetractableNotes;
-                        break;
+                        retractableView = ViewType.Notes; break;
 
                 }
 

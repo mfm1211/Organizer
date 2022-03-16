@@ -2,14 +2,16 @@
 using OrganizerLibrary.Models;
 using OrganizerLibrary.Services;
 using OrganizerWPF.Commands;
+using OrganizerWPF.ViewModels.WrappedModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace OrganizerWPF.ViewModels
+namespace OrganizerWPF.ViewModels.EditingPanels
 {
-    public class AddBaseListItemPanelViewModel:ViewModelBase
+    public class AddBaseListItemPanelViewModel<T>:ViewModelBase
     {
         private ListModel _selectedList;
         public ICommand AddItemCommand { get; set; }
@@ -20,7 +22,8 @@ namespace OrganizerWPF.ViewModels
 
         public BaseItemModel CreatedItem { get; set; }
 
-        public string TextString { get; set; }
+        public string MainTextString { get; set; }
+        public string SecondaryTextString { get; set; }
 
         private IDataService<ListModel> _listModelsService;
 
@@ -38,34 +41,15 @@ namespace OrganizerWPF.ViewModels
             }
         }
 
-        public AddBaseListItemPanelViewModel(Action<bool> action, IDataService<ListModel> listModelsService, IDataService<EventModel> eventModelsService)
-        {            
-            InitializeCommon(action, listModelsService);
 
-            AddItemCommand = new RelayCommand(() => CreateNewEvent(eventModelsService));
-        }
-
-        public AddBaseListItemPanelViewModel(Action<bool> action, IDataService<ListModel> listModelsService, IDataService<CheckBoxModel> checkoxModelsService)
-        {          
-            InitializeCommon(action, listModelsService);
-
-            AddItemCommand = new RelayCommand(() => CreateNewCheckBox(checkoxModelsService));
-        }
-
-        public AddBaseListItemPanelViewModel(Action<bool> action, IDataService<ListModel> listModelsService, IDataService<BaseItemModel> checkoxModelsService)
-        {
-            InitializeCommon(action, listModelsService);
-
-          //  AddItemCommand = new RelayCommand(() => CreateNewCheckBox(checkoxModelsService));
-        }
-
-
-        private void InitializeCommon(Action<bool> action, IDataService<ListModel> listModelsService)
+        public AddBaseListItemPanelViewModel(Action<bool> action, IDataService<ListModel> listModelsService, IDataService<T> service)
         {
             _listModelsService = listModelsService;
             GetLists(listModelsService);
             CancelCommand = new RelayCommand(TriggerCancelEvent);
             _action = action;
+
+            AddItemCommand = new RelayCommand(() => CreateNewItem(service));
         }
 
 
@@ -85,37 +69,77 @@ namespace OrganizerWPF.ViewModels
             SelectedList = ListOfListObjsForCombobox[0];
         }
 
-        private async void CreateNewEvent(IDataService<EventModel> service)
+        private async void CreateNewItem(IDataService<T> service)
         {
             CreateListIfItDoesNotExist();
 
+            if(typeof(T) == typeof(EventModel))
+                await CreateNewEvent(service as IDataService<EventModel>);
+            else if(typeof(T) == typeof(CheckBoxModel))
+                await CreateNewCheckBox(service as IDataService<CheckBoxModel>);
+            else if (typeof(T) == typeof(NotesModel))
+                await CreateNewNote(service as IDataService<NotesModel>);
+            else if (typeof(T) == typeof(GoalTrackerModel))
+                await CreateNewGoal(service as IDataService<GoalTrackerModel>);
+
+            _action.Invoke(true);
+        }
+
+
+
+
+
+        private async Task<EventModel> CreateNewEvent(IDataService<EventModel> service)
+        {         
             CreatedItem = new EventModel();
             CreatedItem.ListModelId = SelectedList.Id;
             CreatedItem.SectionId = 0;
             CreatedItem.StartTime = DateTime.Now;
             CreatedItem.EndTime = DateTime.Now;
-            ((EventModel)CreatedItem).Text = TextString;
-
+            ((EventModel)CreatedItem).Text = MainTextString;
             await service.Create((EventModel)CreatedItem);
-            
-            _action.Invoke(true);
+
+            return (EventModel)CreatedItem;
         }
 
-        private async void CreateNewCheckBox(IDataService<CheckBoxModel> service)
+        private async Task<CheckBoxModel> CreateNewCheckBox(IDataService<CheckBoxModel> service)
         {
-            CreateListIfItDoesNotExist();
-
             CreatedItem = new CheckBoxModel();
             CreatedItem.ListModelId = SelectedList.Id;
             CreatedItem.SectionId = 0;
             CreatedItem.StartTime = DateTime.Now;
             CreatedItem.EndTime = DateTime.Now;
-            ((CheckBoxModel)CreatedItem).Text = TextString;
+            ((CheckBoxModel)CreatedItem).Text = MainTextString;
             ((CheckBoxModel)CreatedItem).Checked = false;
             await service.Create((CheckBoxModel)CreatedItem);
 
-            _action.Invoke(true);
+            return (CheckBoxModel)CreatedItem;
         }
+
+        private async Task<NotesModel> CreateNewNote(IDataService<NotesModel> service)
+        {
+            CreatedItem.ListModelId = SelectedList.Id;
+            CreatedItem.SectionId = 0;
+            CreatedItem.StartTime = DateTime.Now;
+            CreatedItem.EndTime = DateTime.Now;
+            ((NotesModel)CreatedItem).Pined = false;
+            await service.Create((NotesModel)CreatedItem);
+
+            return (NotesModel)CreatedItem;
+        }
+
+        private async Task<GoalTrackerModel> CreateNewGoal(IDataService<GoalTrackerModel> service)
+        {
+            CreatedItem.ListModelId = SelectedList.Id;
+            CreatedItem.SectionId = 0;
+            CreatedItem.StartTime = DateTime.Now.AddDays(-140);
+            CreatedItem.EndTime = DateTime.Now;
+            ((GoalTrackerModel)CreatedItem).ListOfData = new byte[2000];
+            await service.Create((GoalTrackerModel)CreatedItem);
+
+            return (GoalTrackerModel)CreatedItem;
+        }
+
 
 
         private async void CreateListIfItDoesNotExist()
@@ -133,7 +157,7 @@ namespace OrganizerWPF.ViewModels
         }
 
 
-       
+     
 
     }
 }

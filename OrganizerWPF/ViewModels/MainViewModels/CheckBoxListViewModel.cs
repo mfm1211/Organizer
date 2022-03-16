@@ -12,6 +12,7 @@ using OrganizerWPF.Commands;
 using OrganizerWPF.ViewModels.WrappedModels;
 using OrganizerWPF.State.ItemListStates;
 using System.Collections.ObjectModel;
+using OrganizerWPF.ViewModels.EditingPanels;
 
 namespace OrganizerWPF.ViewModels.MainViewModels
 {
@@ -21,9 +22,7 @@ namespace OrganizerWPF.ViewModels.MainViewModels
 
         public ICommand CheckBoxClickedCommand { get; }
 
-        
-
-        
+        public CheckBoxesEditingPanelViewModel AddItemPanel { get; set; }
 
         public CheckBoxListViewModel(IDataService<CheckBoxModel> checkboxModelsService, IDataService<ListModel> listModelsService, INavigator navigator, IChosenIndexesStore chosenIndexesStore) : 
             base(navigator, listModelsService, chosenIndexesStore)
@@ -37,21 +36,16 @@ namespace OrganizerWPF.ViewModels.MainViewModels
 
             DeleteItemCommand = new RelayCommandWithParameter((param) => DeleteItem<CheckBoxModel>((CheckBoxViewModel)param, checkboxModelsService));
             
-            AddItemPanel = new AddBaseListItemPanelViewModel((param) => AddPanelAction((bool)param), listModelsService, checkboxModelsService);
+            AddItemPanel = new CheckBoxesEditingPanelViewModel((param) => AddPanelAction((bool)param), listModelsService, checkboxModelsService);
 
         }
 
 
         protected async void GetCheckBoxes()
         {
-            List<CheckBoxModel> listOfItems = (await _checkboxModelsService.GetAll()).ToList();
+            List<CheckBoxModel> listOfItems = await GetItemsForGivenList<CheckBoxModel>(_checkboxModelsService);
             IEnumerable<ListModel> listOfLists = await _listModelsService.GetAll();
             List<CheckBoxViewModel> tempViewModel = new List<CheckBoxViewModel>();
-
-            if (_chosenIndexesStore.ChosenListId != -1)
-            {
-                listOfItems = new List<CheckBoxModel>(listOfItems.Where(m => m.ListModelId == _chosenIndexesStore.ChosenListId).ToList());
-            }
 
             foreach (CheckBoxModel item in listOfItems)
             {

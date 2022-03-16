@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="OrganizerWPF.Views.EditingPanelsViews.PanelAddEditNoteView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:OrganizerWPF.Views.EditingPanelsViews"
+             Height="320" Width="510"
+             Background="#101010">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock  Text="Text" FontSize="11"
+                   Margin="5"
+                   Foreground="{StaticResource NormalBorderBrush}"/>
+            <TextBox  Width="240"  Height="18" Margin="4,0,0,0"
+                 Background="#303030"
+                 Foreground="White"
+                 HorizontalAlignment="Left"
+                 Text="{Binding CreatedItem.Title}"/>
+
+            <ComboBox Margin="15,0,0,0"               
+                      Height="20" Width="90" 
+                       Style="{DynamicResource FlatComboBox}"
+                      ItemsSource="{Binding ListOfListObjsForCombobox}" DisplayMemberPath="Name" 
+                      SelectedItem="{Binding SelectedList, Mode=TwoWay}"
+                       VerticalAlignment="Center"/>
+
+            <ComboBox Margin="5,0,0,0"               
+                      Height="20" Width="90" 
+                       Style="{DynamicResource FlatComboBox}"
+                    
+                       VerticalAlignment="Center"/>
+
+        </StackPanel>
+       
+
+     
+
+        <TextBlock Grid.Row="3" Text="Content" FontSize="11"
+                   Margin="5"
+                   Foreground="{StaticResource NormalBorderBrush}"/>
+
+
+        <TextBox Grid.Row="4" Width="490" Height="220" Margin="10,5,10,0"
+                 TextWrapping="Wrap"  AcceptsReturn="True" 
+                 Background="#303030"
+                 Foreground="White"
+                 HorizontalAlignment="Left"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 Text="{Binding CreatedItem.Text}"/>
+
+        <Button Grid.Row="5" Width="80" Margin="5,5,120,5" Height="22"
+                HorizontalAlignment="Right"
+                Style="{StaticResource FlatStyleNoBordersTransparentButton}"
+                Command="{Binding AddItemCommand}">
+            <TextBlock Text="Add note" />
+        </Button>
+
+        <Button Grid.Row="5" Width="80" Margin="5,5,20,5"  Height="22"
+                HorizontalAlignment="Right"
+                Style="{StaticResource FlatStyleNoBordersTransparentButton}"
+                Command="{Binding CancelCommand}">
+            <TextBlock Text="Return" />
+        </Button>
+
+    </Grid>
+</UserControl>

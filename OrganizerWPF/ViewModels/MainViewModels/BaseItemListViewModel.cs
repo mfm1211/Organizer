@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace OrganizerWPF.ViewModels.MainViewModels
@@ -29,8 +30,6 @@ namespace OrganizerWPF.ViewModels.MainViewModels
 
         public ObservableCollection<BaseItemViewModel> DisplayedListOfItems { get; set; } = new ObservableCollection<BaseItemViewModel>();
 
-        public AddBaseListItemPanelViewModel AddItemPanel { get; set; }
-
         public BaseItemListViewModel(INavigator navigator, IDataService<ListModel> listModelsService, IChosenIndexesStore chosenIndexesStore)
         {
             _navigator = navigator;
@@ -39,6 +38,7 @@ namespace OrganizerWPF.ViewModels.MainViewModels
             _navigator.ScreenExpansionChanged += () => OnPropertyChanged(nameof(PanelSizeIsExpanded));
 
             ShowAddItemPanelCommand = new RelayCommand(() => AddItemPanelVisibility = true);
+            
         }
 
 
@@ -49,6 +49,19 @@ namespace OrganizerWPF.ViewModels.MainViewModels
             List<BaseItemViewModel> temp = DisplayedListOfItems.ToList();
             temp.RemoveAll(m => m.Id == model.Id);
             DisplayedListOfItems = new ObservableCollection<BaseItemViewModel>(temp);
+        }
+
+
+        protected async Task<List<T>> GetItemsForGivenList<T>(IDataService<T> dataService)
+        {
+            List<T> listOfModels = (await dataService.GetAll()).ToList();
+
+            if (_chosenIndexesStore.ChosenListId != -1)
+            {
+                listOfModels = new List<T>(listOfModels.Where(m => (m as BaseItemModel).ListModelId == _chosenIndexesStore.ChosenListId).ToList());
+            }
+            
+            return listOfModels;
         }
 
         protected void UpdateDisplayedList(IEnumerable<BaseItemViewModel> list)

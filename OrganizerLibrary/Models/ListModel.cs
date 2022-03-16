@@ -53,7 +53,7 @@ namespace OrganizerLibrary.Models
         [MaxLength(200)]
         public string Description { get; set; }
 
-
+        [MaxLength(300)]
         public byte[] ChechBoxImageByteArray { get; set; }
 
         public ICollection<EventModel> EventModels { get; set; }

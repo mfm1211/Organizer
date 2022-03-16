@@ -3,10 +3,177 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:OrganizerWPF.Views.RetractableViews"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:local="clr-namespace:OrganizerWPF.Views.RetractableViews" 
+             xmlns:panelsAddEdit="clr-namespace:OrganizerWPF.Views.EditingPanelsViews"
+             xmlns:editingPanels="clr-namespace:OrganizerWPF.ViewModels.EditingPanels"
+             Height="320" Width="510">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="22"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
+
+        <!-- =========================== title row =============================-->
+        <TextBlock Text="Notes" FontFamily="Calibri" FontSize="14"  Grid.Row="0"
+                   Width="120" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25,6,0,0" 
+                   Foreground="{StaticResource NormalTextColor}"/>
+
+
+
+        <!-- =========================== list of items =============================-->
+        <DockPanel Grid.Row="2"  Height="240" Margin="10,10,10,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <ItemsControl x:Name="MyItems" ItemsSource="{Binding DisplayedListOfItems}"  >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:Name="DataDockPanel">
+                                <StackPanel Background="#303030" Width="210"   Margin="10" >
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel.Style>
+                                        <Style TargetType="{x:Type StackPanel}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=NotesButton, Path=IsMouseOver}" Value="True">
+                                                    <Setter Property="Background" Value="{StaticResource HighlightedBackgroundBrush}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </StackPanel.Style>
+
+                                    <Button x:Name="NotesButton" Width="190" Height="35" Style="{DynamicResource FlatStyleNoBordersTransparentButton}" 
+                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path = DataContext.EditItemCommand}"
+                                        CommandParameter="{Binding}">
+                                        <!--<TextBlock 
+                                    VerticalAlignment="Top" HorizontalAlignment="Left"
+                                    Text="{Binding StringStartEndTime}" FontFamily="Calibri" FontSize="11"
+                                    Margin="10,0,0,0"/>-->
+
+                                        <Grid Margin ="0,0,0,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="20"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Rectangle HorizontalAlignment="Left"  VerticalAlignment="Center"
+                                                       Grid.Column="0"
+                                             Fill="#FFFFFF00"
+                                             Height="38"
+                                             Width="2"
+                                           
+                                             Stroke="{Binding FontColor}"
+                                             />
+                                                <Border BorderBrush="{x:Null}" MinHeight="20" Grid.Column="1" >
+                                                <TextBlock Text="{Binding Title}" Style="{StaticResource unscratchedChecklistTextbBlock}"/>
+                                            </Border>
+
+                                        </Grid>
+
+                                    </Button>
+                                        <StackPanel Width="18">
+                                            <Button Width="18" Height="18"
+                                                   Style="{DynamicResource FlatStyleNoBordersTransparentButton}">
+                                                
+                                            </Button>
+                                            <Button Width="18" Height="18"
+                                                   Style="{DynamicResource FlatStyleNoBordersTransparentButton}">
+
+                                            </Button>
+                                        </StackPanel>
+                                        
+                                </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <TextBlock  Text="No notes to show" Margin="40" Foreground="Gray" >
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=MyItems, Path=Items.Count}" Value="0">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <Button Height="20" Width="20" 
+                            Margin="40,10,0,0"
+                            VerticalAlignment="Top" HorizontalAlignment="Left" 
+                            Command="{Binding ShowAddItemPanelCommand}">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource FlatStyleNoBordersTransparentButton}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=MyItems, 
+                                        Path=Items.Count, 
+                                        Converter={StaticResource smallerThanToBoolConverter},
+                                        ConverterParameter=7}" 
+                                                 Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Image Style="{DynamicResource plusSignImage}"/>
+                    </Button>
+
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+
+        <Button Height="20" Width="20" 
+                Grid.Row="3"
+                Margin="40,5,0,0"
+                VerticalAlignment="Top" HorizontalAlignment="Left" 
+                Command="{Binding ShowAddItemPanelCommand}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource FlatStyleNoBordersTransparentButton}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=MyItems, 
+                                        Path=Items.Count, 
+                                        Converter={StaticResource greaterThanToBoolConverter},
+                                        ConverterParameter=6}" 
+                                                 Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Image Style="{DynamicResource plusSignImage}"/>
+        </Button>
+
+
+        <!--===== add/edit panel =====-->
+        <Grid  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="10" Grid.RowSpan="10" 
+               Visibility="{Binding Path=AddItemPanelVisibility, Converter={StaticResource boolToVisibilityConverter}}">
+
+
+            <Grid.Background>
+                <SolidColorBrush Color="Black" Opacity="0.25"/>
+            </Grid.Background>
+
+            <ContentControl Content="{Binding AddItemPanel}"  Grid.Row="1">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type editingPanels:NotesEditingPanelViewModel}">
+                        <panelsAddEdit:PanelAddEditNoteView/>
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
+        </Grid>
+
+
     </Grid>
 </UserControl>

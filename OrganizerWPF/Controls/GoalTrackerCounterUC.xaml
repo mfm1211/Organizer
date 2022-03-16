@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="OrganizerWPF.Controls.GoalTrackerCounterUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:OrganizerWPF.Controls"
+              xmlns:converters="clr-namespace:OrganizerWPF.Converters"
+             mc:Ignorable="d" 
+              Height="22" Width="56"
+              x:Name="NavigationControlRoot7">
+
+
+
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Button}" x:Key="mainButtonStyle">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
+
+       
+
+        <converters:IntToVisibilityConverter x:Key="intToVisibilityConverter"
+                                 />
+
+        <converters:IntToVisibilityConverter x:Key="intToVisibilityInverseConverter"
+                                 InverseConverting="true"/>
+
+
+
+    </UserControl.Resources>
+
+
+   
+    <Grid  DataContext="{Binding ElementName=NavigationControlRoot7}">
+
+        <Button x:Name="RightButton" Height="20" Width="18" HorizontalAlignment="Right" Visibility="Collapsed"
+                Style="{StaticResource FlatStyleNoBordersTransparentButton}"
+                MouseLeave="Buttons_MouseLeave"
+                PreviewMouseDown="RightButton_MouseDown">
+            <StackPanel>
+                <Image Source="pack://application:,,,/Resources/arrowRightS1.png" Stretch="None" SnapsToDevicePixels="True"/>
+            </StackPanel>
+        </Button>
+
+
+
+
+
+        <Button x:Name="LeftButton" Height="20" Width="18" HorizontalAlignment="Left" Visibility="Collapsed"
+                Style="{StaticResource FlatStyleNoBordersTransparentButton}"
+                MouseLeave="Buttons_MouseLeave"
+                PreviewMouseDown="LeftButton_MouseDown">
+            <StackPanel>
+                <Image Source="pack://application:,,,/Resources/arrowLeftS1.png" Stretch="None" SnapsToDevicePixels="True"/>
+            </StackPanel>
+        </Button>
+
+
+        <Button x:Name="MainButton" Height="20" Width="20"               
+                Visibility="{Binding CheckboxVisibility, Converter={StaticResource boolToVisibilityInverseConverter}}"
+                Style="{StaticResource mainButtonStyle}"
+                MouseEnter="Button_MouseEnter" MouseLeave="Buttons_MouseLeave">
+
+            <StackPanel  >
+                <TextBlock Text="{Binding DisplayedNumber}"                        
+                       Visibility="{Binding DisplayedNumber, Converter={StaticResource intToVisibilityConverter}}"
+                       FontFamily="Calibri"
+                       FontWeight="Bold"
+                       >
+                
+               
+            </TextBlock>
+                <Image  Visibility="{Binding DisplayedNumber, Converter={StaticResource intToVisibilityInverseConverter}}"
+                    Source="pack://application:,,,/Resources/NullNumberImage.png" Stretch="None" SnapsToDevicePixels="True"/>
+
+            </StackPanel>
+
+        </Button>
+
+
+
+
+        <Button x:Name="CheckboxButton" Height="20" Width="20" 
+                Style="{StaticResource FlatStyleNoBordersTransparentButton}" 
+                Visibility="{Binding CheckboxVisibility, Converter={StaticResource boolToVisibilityConverter}}" 
+                Click="CheckboxButton_Click">
+
+            <StackPanel>
+                <StackPanel.Style>
+                    <Style TargetType="{x:Type StackPanel}">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DisplayedNumber, 
+                                        Converter={StaticResource smallerThanToBoolConverter},
+                                        ConverterParameter=1}" 
+                                                 Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <Image Source="pack://application:,,,/Resources/checkBoxNotActiveImage.png" Stretch="None" SnapsToDevicePixels="True"/>
+            </StackPanel>
+           
+        </Button>
+
+
+       
+
+
+    </Grid>
+</UserControl>

@@ -12,6 +12,7 @@ using System.Linq;
 using OrganizerWPF.ViewModels.WrappedModels;
 using System.Windows.Input;
 using OrganizerWPF.Commands;
+using OrganizerWPF.ViewModels.EditingPanels;
 
 namespace OrganizerWPF.ViewModels.MainViewModels
 {
@@ -19,9 +20,10 @@ namespace OrganizerWPF.ViewModels.MainViewModels
     {
         private IDataService<EventModel> _eventModelsService;
 
-      
-    
+       
         public string NextEventObjString { get; set; }
+
+        public EventsEditingPanelViewModel AddItemPanel { get; set; }
 
         public EventListViewModel(IDataService<EventModel> eventModelsService, IDataService<ListModel> listModelsService, INavigator navigator, IChosenIndexesStore chosenIndexesStore) :
             base(navigator, listModelsService, chosenIndexesStore)
@@ -31,18 +33,13 @@ namespace OrganizerWPF.ViewModels.MainViewModels
 
             chosenIndexesStore.ChosenListIdChanged += GetEvents;
             
-            AddItemPanel = new AddBaseListItemPanelViewModel((param) => AddPanelAction((bool)param), listModelsService, eventModelsService);
+            AddItemPanel = new EventsEditingPanelViewModel((param) => AddPanelAction((bool)param), listModelsService, eventModelsService);
             DeleteItemCommand = new RelayCommandWithParameter((param) => DeleteItem<EventModel>((EventViewModel)param, eventModelsService));
         }
 
         private async void GetEvents()
         {
-            List<EventModel> listOfModels = (await _eventModelsService.GetAll()).ToList();
-
-            if (_chosenIndexesStore.ChosenListId != -1)
-            {
-                listOfModels = new List<EventModel>(listOfModels.Where(m => m.ListModelId == _chosenIndexesStore.ChosenListId).ToList());
-            }
+            List<EventModel> listOfModels =  await GetItemsForGivenList<EventModel>(_eventModelsService);
 
             List<EventViewModel> tempViewModel = new List<EventViewModel>();
 

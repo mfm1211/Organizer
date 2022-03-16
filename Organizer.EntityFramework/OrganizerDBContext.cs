@@ -21,6 +21,10 @@ namespace Organizer.EntityFramework
 
         public DbSet<NotesModel> NotesModels { get; set; }
 
+        public DbSet<GoalTrackerModel> GoalTrackerModels { get; set; }
+
+        public DbSet<TimeTrackerModel> TimeTrackerModels { get; set; }
+
 
     }
 }
