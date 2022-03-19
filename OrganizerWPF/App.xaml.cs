@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Organizer.EntityFramework;
 using Organizer.EntityFramework.Services;
+using OrganizerDataFilesConnection;
+using OrganizerDataFilesConnection.Services;
 using OrganizerLibrary.Models;
 using OrganizerLibrary.Services;
 using OrganizerWPF.State.ItemListStates;
@@ -63,17 +65,17 @@ namespace OrganizerWPF
 
             services.AddSingleton<OrganizerDbContextFactory>();
 
-            services.AddSingleton<IDataService<ListModel>, ListsDataServices>();
+            services.AddSingleton<IDataService<ListModel>, TextFilesDataService<ListModel>>();
 
-            services.AddSingleton<IDataService<EventModel>, GenericDataService<EventModel>>();
+            services.AddSingleton<IDataService<EventModel>, TextFilesItemsDataService<EventModel>>();
 
-            services.AddSingleton<IDataService<CheckBoxModel>, GenericDataService<CheckBoxModel>>();
+            services.AddSingleton<IDataService<CheckBoxModel>, TextFilesItemsDataService<CheckBoxModel>>();
 
-            services.AddSingleton<IDataService<TimeTrackerModel>, GenericDataService<TimeTrackerModel>>();
+            services.AddSingleton<IDataService<TimeTrackerModel>, TextFilesItemsDataService<TimeTrackerModel>>();
 
-            services.AddSingleton<IDataService<GoalTrackerModel>, GenericDataService<GoalTrackerModel>>();
+            services.AddSingleton<IDataService<GoalTrackerModel>, TextFilesItemsDataService<GoalTrackerModel>>();
 
-            services.AddSingleton<IDataService<NotesModel>, GenericDataService<NotesModel>>();
+            services.AddSingleton<IDataService<NotesModel>, TextFilesItemsDataService<NotesModel>>();
 
             services.AddSingleton<INavigator, Navigator>();
 

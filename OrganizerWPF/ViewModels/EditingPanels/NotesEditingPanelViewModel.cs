@@ -15,9 +15,9 @@ namespace OrganizerWPF.ViewModels.EditingPanels
             CreatedItem = new NotesModel();
         }
 
-        public void PopulatePanelVithData(NotesViewModel note)
+        public async void PopulatePanelVithData(NotesViewModel note)
         {
-            CreatedItem = note.NotesObj;
+            CreatedItem = await _service.GetExtended(note.Id);
         }
     }
 }

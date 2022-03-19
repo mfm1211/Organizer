@@ -59,7 +59,7 @@ namespace Organizer.EntityFramework.Services
             }
         }
 
-        public async Task<IEnumerable<T>> GetAllWithItemLists()
+        public async Task<IEnumerable<T>> GetAllExtended()
         {
             using (OrganizerDBContext context = _contextFactory.CreateDbContext())
             {
@@ -69,7 +69,7 @@ namespace Organizer.EntityFramework.Services
             }
         }
 
-        public Task<T> GetWithItemLists(int id)
+        public Task<T> GetExtended(int id)
         {
             throw new NotImplementedException();
         }

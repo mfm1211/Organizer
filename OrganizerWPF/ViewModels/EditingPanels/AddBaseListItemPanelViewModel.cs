@@ -28,6 +28,9 @@ namespace OrganizerWPF.ViewModels.EditingPanels
         private IDataService<ListModel> _listModelsService;
 
         private bool ListOfListsIsEmpty = false;
+
+        protected IDataService<T> _service;
+
         public List<ListModel> ListOfListObjsForCombobox { get; set; } = new List<ListModel>();
 
         public ListModel SelectedList
@@ -48,7 +51,7 @@ namespace OrganizerWPF.ViewModels.EditingPanels
             GetLists(listModelsService);
             CancelCommand = new RelayCommand(TriggerCancelEvent);
             _action = action;
-
+            _service = service;
             AddItemCommand = new RelayCommand(() => CreateNewItem(service));
         }
 

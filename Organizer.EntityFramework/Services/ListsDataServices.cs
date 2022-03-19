@@ -43,7 +43,7 @@ namespace Organizer.EntityFramework.Services
         }
 
 
-        public async Task<ListModel> GetWithItemLists(int id)
+        public async Task<ListModel> GetExtended(int id)
         {
             using (OrganizerDBContext context = _contextFactory.CreateDbContext())
             {
@@ -63,7 +63,7 @@ namespace Organizer.EntityFramework.Services
             }
         }
 
-        public async Task<IEnumerable<ListModel>> GetAllWithItemLists()
+        public async Task<IEnumerable<ListModel>> GetAllExtended()
         {
             using (OrganizerDBContext context = _contextFactory.CreateDbContext())
             {

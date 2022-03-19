@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Organizer.EntityFramework\Organizer.EntityFramework.csproj" />
+    <ProjectReference Include="..\OrganizerDataFilesConnection\OrganizerDataFilesConnection.csproj" />
     <ProjectReference Include="..\OrganizerLibrary\OrganizerLibrary.csproj" />
   </ItemGroup>
 

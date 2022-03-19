@@ -9,11 +9,11 @@ namespace OrganizerLibrary.Services
     {
         Task<IEnumerable<T>> GetAll();
 
-        Task<IEnumerable<T>> GetAllWithItemLists();
+        Task<IEnumerable<T>> GetAllExtended();
 
         Task<T> Get(int id);
 
-        Task<T> GetWithItemLists(int id);
+        Task<T> GetExtended(int id);
 
         Task<T> Create(T entity);
 

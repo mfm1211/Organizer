@@ -81,12 +81,6 @@ namespace OrganizerWPF.ViewModels.MainViewModels
         }
 
 
-
-      
-
-
-
-
         private void AddPanelAction(bool eventCreted)
         {
             if (eventCreted)

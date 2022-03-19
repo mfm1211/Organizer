@@ -33,7 +33,7 @@ namespace OrganizerWPF.ViewModels.MainViewModels
 
         protected async void GetLists()
         {
-            IEnumerable<ListModel> temp = await _listModelsService.GetAllWithItemLists();
+            IEnumerable<ListModel> temp = await _listModelsService.GetAllExtended();
             DisplayedListOfItems = new ObservableCollection<ListModel>(temp);
            
         }
