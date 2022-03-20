@@ -67,6 +67,8 @@ namespace OrganizerWPF
 
             services.AddSingleton<IDataService<ListModel>, TextFilesDataService<ListModel>>();
 
+            services.AddSingleton<IDataService<SectionModel>, TextFilesSectionsDataService>();
+
             services.AddSingleton<IDataService<EventModel>, TextFilesItemsDataService<EventModel>>();
 
             services.AddSingleton<IDataService<CheckBoxModel>, TextFilesItemsDataService<CheckBoxModel>>();
@@ -140,6 +142,7 @@ namespace OrganizerWPF
             services.AddSingleton<CreateViewModel<SelectionBarViewModel>>(services =>
             {
                 return () => new SelectionBarViewModel(services.GetRequiredService<IDataService<ListModel>>(),
+                    services.GetRequiredService<IDataService<SectionModel>>(),
                 services.GetRequiredService<INavigator>(), services.GetRequiredService<IChosenIndexesStore>()
                 );
             });

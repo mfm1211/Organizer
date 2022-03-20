@@ -7,4 +7,6 @@ DataFiles
 Organizer.EntityFramework/bin/
 Organizer.EntityFramework/Migrations/
 Organizer.EntityFramework/obj/
+OrganizerDataFilesConnection/bin/
+OrganizerDataFilesConnection/obj/
 /.vs

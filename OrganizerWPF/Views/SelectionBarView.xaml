@@ -7,15 +7,96 @@
              xmlns:userControls="clr-namespace:OrganizerWPF.Controls"
               Width="262" Height="182">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
 
+        <CheckBox Grid.Row="2"  Margin="15,5,0,8"
+                  Content="Important"
+                  Foreground="Gray" FontSize="11"
+                  />
 
-        <ComboBox x:Name="ComboboxOfLists" Margin="20,20,15,0"
-                      Height="20" Width="110" 
+        <TextBlock Grid.Row="3" Text="Select list"
+                   Foreground="Gray" FontSize="11"
+                   Margin="15,0,0,0"
+                   />
+
+        <TextBlock Grid.Row="3" Text="Select section"
+                   Foreground="Gray" FontSize="11"
+                     Visibility="{Binding ComboboxOfSectionsVisibility, Converter={StaticResource boolToVisibilityConverter}}"
+                    Margin="132,0,0,0"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="4"
+                    Visibility="{Binding PanelSizeIsExpanded, Converter={StaticResource boolToVisibilityInverseConverter}}">
+        <ComboBox Margin="20,3,15,0"
+                      Height="20" Width="100" 
                        Style="{DynamicResource FlatComboBox}"
                       ItemsSource="{Binding ListOfListObjsForCombobox}" DisplayMemberPath="Name" 
                       SelectedItem="{Binding SelectedList, Mode=TwoWay}"
                      HorizontalAlignment="Left"
                        VerticalAlignment="Top"/>
 
+        
+        
+        <ComboBox Margin="5,3,15,0"
+                      Height="20" Width="100" 
+                  Visibility="{Binding ComboboxOfSectionsVisibility, Converter={StaticResource boolToVisibilityConverter}}"
+                       Style="{DynamicResource FlatComboBox}"
+                      ItemsSource="{Binding ListOfSectionsForCombobox}" DisplayMemberPath="Name" 
+                      SelectedItem="{Binding SelectedSection, Mode=TwoWay}"
+                     HorizontalAlignment="Left"
+                       VerticalAlignment="Top"/>
+        </StackPanel>
+
+
+        <StackPanel  Grid.Row="4"
+                    Visibility="{Binding PanelSizeIsExpanded, Converter={StaticResource boolToVisibilityConverter}}">
+
+
+            <DockPanel  Height="170" Margin="10,0,0,0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="MyItems" ItemsSource="{Binding ListOfListObjsForCombobox}"  >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel >
+                                    <Grid Margin ="0,0,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="20"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button  Grid.Column="0" Width="150" Height="24"
+                                                 HorizontalAlignment="Left"
+                                                 Style="{DynamicResource FlatStyleNoBordersTransparentButton}"
+                                                 Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path = DataContext.ChangeListCommand}"
+                                                 CommandParameter="{Binding Id}">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                                <Ellipse HorizontalAlignment="Left"  VerticalAlignment="Center"
+                                             Fill="#FFFFFF00"
+                                             Height="8"  Width="8" StrokeThickness="5"
+                                             Stroke="{Binding ColorString}"
+                                             Margin="5,5,5,5"/>
+
+                                                <TextBlock Text="{Binding Name}" Style="{StaticResource unscratchedChecklistTextbBlock}"/>
+
+                                            </StackPanel>
+                                        </Button>
+                                    </Grid>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </DockPanel>
+
+        </StackPanel>
     </Grid>
 </UserControl>
