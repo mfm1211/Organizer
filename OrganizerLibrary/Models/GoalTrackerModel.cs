@@ -15,8 +15,8 @@ namespace OrganizerLibrary.Models
 
         public bool CheckboxOn { get; set; }
 
-        [MaxLength(2000)]
-        public byte[] ListOfData { get; set; }
+      
+        public int[] ListOfData { get; set; }
 
 
         /// <summary>

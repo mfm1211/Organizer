@@ -8,6 +8,7 @@ using OrganizerWPF.ViewModels.EditingPanels;
 using OrganizerWPF.ViewModels.WrappedModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Input;
 
@@ -20,7 +21,10 @@ namespace OrganizerWPF.ViewModels.MainViewModels
         public GoalTrackersEditingPanelViewModel AddItemPanel { get; set; }
 
         public ICommand UpdateGoalTrackerCommand { get; set; }
- 
+
+        public ObservableCollection<string> ListOfDayNames { get; set; } = new ObservableCollection<string>();
+
+
         public GoalTrackerListViewModel(IDataService<GoalTrackerModel> goalTrackerModelsService, IDataService<ListModel> listModelsService, INavigator navigator, IChosenIndexesStore chosenIndexesStore) :
             base(navigator, listModelsService, chosenIndexesStore)
         {
@@ -30,12 +34,14 @@ namespace OrganizerWPF.ViewModels.MainViewModels
             UpdateGoalTrackerCommand = new RelayCommandWithParameter((param) => UpdateTracker(param as GoalTrackerViewModel));
 
             AddItemPanel = new GoalTrackersEditingPanelViewModel((param) => AddPanelAction((bool)param), listModelsService, _goalTrackerModelsService);
+
+            SetDayNames();
         }
 
 
         private async void GetGoalTrackers()
         {
-            IEnumerable<GoalTrackerModel> listOfItems = await _goalTrackerModelsService.GetAll();
+            IEnumerable<GoalTrackerModel> listOfItems = await _goalTrackerModelsService.GetAllExtended();
 
             List<GoalTrackerViewModel> tempViewModel = new List<GoalTrackerViewModel>();
 
@@ -49,9 +55,9 @@ namespace OrganizerWPF.ViewModels.MainViewModels
 
         }
 
-        private void UpdateTracker(GoalTrackerViewModel temp)
+        private async void UpdateTracker(GoalTrackerViewModel temp)
         {
-
+            await _goalTrackerModelsService.Update(temp.GoalTracker.Id, temp.GoalTracker);
         }
 
         private void AddPanelAction(bool eventCreted)
@@ -62,6 +68,17 @@ namespace OrganizerWPF.ViewModels.MainViewModels
             }
 
             AddItemPanelVisibility = false;
+        }
+
+
+        private void SetDayNames()
+        {
+            for(int i=0;i>-4;i--)
+            {
+                string s = DateTime.Now.AddDays(i).DayOfWeek.ToString().Substring(0,3);
+
+                ListOfDayNames.Add(s);
+            }
         }
     }
 }

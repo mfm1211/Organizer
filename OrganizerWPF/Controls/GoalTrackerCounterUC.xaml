@@ -14,7 +14,7 @@
 
     <UserControl.Resources>
         <Style TargetType="{x:Type Button}" x:Key="mainButtonStyle">
-            <Setter Property="Background" Value="White"/>
+            <Setter Property="Background" Value="{DynamicResource PanelBackColor}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -26,14 +26,14 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Background" Value="{DynamicResource PanelBackColor}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
 
 
 
-       
+
 
         <converters:IntToVisibilityConverter x:Key="intToVisibilityConverter"
                                  />
@@ -46,7 +46,7 @@
     </UserControl.Resources>
 
 
-   
+
     <Grid  DataContext="{Binding ElementName=NavigationControlRoot7}">
 
         <Button x:Name="RightButton" Height="20" Width="18" HorizontalAlignment="Right" Visibility="Collapsed"
@@ -54,7 +54,7 @@
                 MouseLeave="Buttons_MouseLeave"
                 PreviewMouseDown="RightButton_MouseDown">
             <StackPanel>
-                <Image Source="pack://application:,,,/Resources/arrowRightS1.png" Stretch="None" SnapsToDevicePixels="True"/>
+                <Image Style="{DynamicResource rightArrowImageStyle}" Stretch="None" SnapsToDevicePixels="True"/>
             </StackPanel>
         </Button>
 
@@ -67,27 +67,28 @@
                 MouseLeave="Buttons_MouseLeave"
                 PreviewMouseDown="LeftButton_MouseDown">
             <StackPanel>
-                <Image Source="pack://application:,,,/Resources/arrowLeftS1.png" Stretch="None" SnapsToDevicePixels="True"/>
+                <Image Style="{DynamicResource leftArrowImageStyle}"  Stretch="None" SnapsToDevicePixels="True"/>
             </StackPanel>
         </Button>
 
 
         <Button x:Name="MainButton" Height="20" Width="20"               
-                Visibility="{Binding CheckboxVisibility, Converter={StaticResource boolToVisibilityInverseConverter}}"
+                Visibility="{Binding CommandParameter.CheckboxOn, Converter={StaticResource boolToVisibilityInverseConverter}}"
                 Style="{StaticResource mainButtonStyle}"
                 MouseEnter="Button_MouseEnter" MouseLeave="Buttons_MouseLeave">
 
             <StackPanel  >
-                <TextBlock Text="{Binding DisplayedNumber}"                        
+                <TextBlock Text="{Binding DisplayedNumber}"                       
                        Visibility="{Binding DisplayedNumber, Converter={StaticResource intToVisibilityConverter}}"
                        FontFamily="Calibri"
                        FontWeight="Bold"
+                       Foreground="{Binding CommandParameter.FontColor}"
                        >
-                
-               
-            </TextBlock>
-                <Image  Visibility="{Binding DisplayedNumber, Converter={StaticResource intToVisibilityInverseConverter}}"
-                    Source="pack://application:,,,/Resources/NullNumberImage.png" Stretch="None" SnapsToDevicePixels="True"/>
+
+
+                </TextBlock>
+                <!--<Image  Visibility="{Binding DisplayedNumber, Converter={StaticResource intToVisibilityInverseConverter}}"
+                    Source="pack://application:,,,/Resources/NullNumberImage.png" Stretch="None" SnapsToDevicePixels="True"/>-->
 
             </StackPanel>
 
@@ -98,7 +99,7 @@
 
         <Button x:Name="CheckboxButton" Height="20" Width="20" 
                 Style="{StaticResource FlatStyleNoBordersTransparentButton}" 
-                Visibility="{Binding CheckboxVisibility, Converter={StaticResource boolToVisibilityConverter}}" 
+                Visibility="{Binding CommandParameter.CheckboxOn, Converter={StaticResource boolToVisibilityConverter}}" 
                 Click="CheckboxButton_Click">
 
             <StackPanel>
@@ -117,11 +118,11 @@
                 </StackPanel.Style>
                 <Image Source="pack://application:,,,/Resources/checkBoxNotActiveImage.png" Stretch="None" SnapsToDevicePixels="True"/>
             </StackPanel>
-           
+
         </Button>
 
 
-       
+
 
 
     </Grid>

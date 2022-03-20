@@ -26,10 +26,24 @@
 
 
 
-
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="223,10,10,3">
+            <TextBlock Text="{Binding ListOfDayNames[0]}" FontFamily="Calibri" FontSize="12" Width="61" 
+                       VerticalAlignment="Top" HorizontalAlignment="Left" 
+                       Foreground="Gray"/>
+            <TextBlock Text="{Binding ListOfDayNames[1]}" FontFamily="Calibri" FontSize="12" Width="61" 
+                       VerticalAlignment="Top" HorizontalAlignment="Left"
+                       Foreground="Gray"/>
+            <TextBlock Text="{Binding ListOfDayNames[2]}" FontFamily="Calibri" FontSize="12" Width="61"  
+                       VerticalAlignment="Top" HorizontalAlignment="Left"
+                       Foreground="Gray"/>
+            <TextBlock Text="{Binding ListOfDayNames[3]}" FontFamily="Calibri" FontSize="12" Width="61"  
+                       VerticalAlignment="Top" HorizontalAlignment="Left"
+                       Foreground="Gray"/>
+          
+        </StackPanel>
 
         <!-- =========================== list of items =============================-->
-        <DockPanel Grid.Row="2"  Height="240" Margin="10,10,10,0">
+        <DockPanel Grid.Row="2"  Height="240" Margin="10,0,10,0">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <ItemsControl x:Name="MyItems" ItemsSource="{Binding DisplayedListOfItems}"  >
@@ -40,7 +54,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate x:Name="DataDockPanel">
-                                <StackPanel Background="#303030" Width="420"   Margin="10" >
+                                <StackPanel Background="{StaticResource PanelBackColor}" Width="420"   Margin="10,0,10,20" >
                                     <StackPanel Orientation="Horizontal" Width="420">
                                         <StackPanel.Style>
                                             <Style TargetType="{x:Type StackPanel}">
@@ -52,41 +66,48 @@
                                             </Style>
                                         </StackPanel.Style>
 
-                                   
-                                       
+
+                                        <Rectangle HorizontalAlignment="Left"  VerticalAlignment="Center"
+                                             Fill="#FFFFFF00"
+                                             Height="30"
+                                             Width="2"
+                                              Stroke="{Binding FontColor}"
+                                             />
+
                                         <Button x:Name="NotesButton" Width="150" Height="30" HorizontalAlignment="Left"
                                                 Style="{DynamicResource FlatStyleNoBordersTransparentButton}" 
                                         Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path = DataContext.EditItemCommand}"
                                         CommandParameter="{Binding}">
-                                            <!--<TextBlock 
-                                    VerticalAlignment="Top" HorizontalAlignment="Left"
-                                    Text="{Binding StringStartEndTime}" FontFamily="Calibri" FontSize="11"
-                                    Margin="10,0,0,0"/>-->
 
-                                            <Grid Margin ="0,0,0,0">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="20"/>
-                                                    <ColumnDefinition Width="150"/>
-                                                    <ColumnDefinition Width="20"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Rectangle HorizontalAlignment="Left"  VerticalAlignment="Center"
-                                                       Grid.Column="0"
-                                             Fill="#FFFFFF00"
-                                             Height="38"
-                                             Width="2"
-                                           
-                                             Stroke="{Binding FontColor}"
-                                             />
-                                                <Border BorderBrush="{x:Null}" MinHeight="20" Grid.Column="1" >
-                                                    <TextBlock Text="{Binding Title}" Style="{StaticResource unscratchedChecklistTextbBlock}"/>
-                                                </Border>
-
-                                            </Grid>
-
+                                            <TextBlock Margin="5" Text="{Binding Name}" Style="{StaticResource unscratchedChecklistTextbBlock}"/>
                                         </Button>
 
+
+
+
+                                      <controls:GoalTrackerCounterUC CommandParameter="{Binding}"
+                                                                       ChangeDisplayedNumber="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path = DataContext.UpdateGoalTrackerCommand}"
+                                                                       DisplayedNumber="{Binding GoalTracker.ListOfData[99],Mode=OneWay}"
+                                                                       IndexNumber="99"
+                                                                     Margin="5,0,0,0"/>
+
                                         <controls:GoalTrackerCounterUC CommandParameter="{Binding}"
-                                                                       ChangeDisplayedNumber="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path = DataContext.UpdateGoalTrackerCommand}"/>
+                                                                       ChangeDisplayedNumber="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path = DataContext.UpdateGoalTrackerCommand}"
+                                                                       DisplayedNumber="{Binding GoalTracker.ListOfData[98],Mode=OneWay}"
+                                                                       IndexNumber="98"
+                                                                       Margin="5,0,0,0"/>
+
+                                        <controls:GoalTrackerCounterUC CommandParameter="{Binding}"
+                                                                       ChangeDisplayedNumber="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path = DataContext.UpdateGoalTrackerCommand}"
+                                                                       DisplayedNumber="{Binding GoalTracker.ListOfData[97],Mode=OneWay}"
+                                                                       IndexNumber="97"
+                                                                       Margin="5,0,0,0"/>
+
+                                        <controls:GoalTrackerCounterUC CommandParameter="{Binding}"
+                                                                       ChangeDisplayedNumber="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path = DataContext.UpdateGoalTrackerCommand}"
+                                                                       DisplayedNumber="{Binding GoalTracker.ListOfData[96],Mode=OneWay}"
+                                                                       IndexNumber="96"
+                                                                       Margin="5,0,0,0"/>
 
                                         <StackPanel Width="18" HorizontalAlignment="Right">
                                         <Button Width="18" Height="18"

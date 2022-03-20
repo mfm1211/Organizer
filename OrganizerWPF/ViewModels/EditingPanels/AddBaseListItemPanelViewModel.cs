@@ -137,7 +137,7 @@ namespace OrganizerWPF.ViewModels.EditingPanels
             CreatedItem.SectionId = 0;
             CreatedItem.StartTime = DateTime.Now.AddDays(-140);
             CreatedItem.EndTime = DateTime.Now;
-            ((GoalTrackerModel)CreatedItem).ListOfData = new byte[2000];
+            ((GoalTrackerModel)CreatedItem).ListOfData = new int[100];
             await service.Create((GoalTrackerModel)CreatedItem);
 
             return (GoalTrackerModel)CreatedItem;

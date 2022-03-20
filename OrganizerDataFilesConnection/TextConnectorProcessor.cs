@@ -76,7 +76,7 @@ namespace OrganizerDataFilesConnection
 
 
 
-        public static void SaveToSubListFile(this List<SectionModel> listOfModels, string fileName)
+        public static void SaveToSectiontFile(this List<SectionModel> listOfModels, string fileName)
         {
             List<string> lines = new List<string>();
 
@@ -136,7 +136,7 @@ namespace OrganizerDataFilesConnection
 
         public static string GetGoalTrackerModelLine(this GoalTrackerModel p)
         {
-            return $"{p.Id};{p.StartTime.ToString("yyyyMMddHHmmss")};{p.EndTime.ToString("yyyyMMddHHmmss")};{p.ListModelId};{p.SectionId};{p.Name}";
+            return $"{p.Id};{p.StartTime.ToString("yyyyMMddHHmmss")};{p.EndTime.ToString("yyyyMMddHHmmss")};{p.ListModelId};{p.SectionId};{p.Name};{(p.CheckboxOn ? 1 : 0)}";
         }
 
         private static string GetTimeTrackerModelLine(this TimeTrackerModel p)
@@ -148,6 +148,79 @@ namespace OrganizerDataFilesConnection
         {        
             return $"{p.Id};{p.StartTime.ToString("yyyyMMddHHmmss")};{p.EndTime.ToString("yyyyMMddHHmmss")};{p.ListModelId};{p.SectionId};{p.Title}";
         }
+
+
+        public static void SaveGoalTrackerText(this BaseItemModel model, string folderName)
+        {
+            string fullfilename = folderName.FullFilePath() + "\\" + model.Id.ToString().PadLeft(4, '0') + ".txt";
+
+            int[] arrayOfData = ((GoalTrackerModel)model).ListOfData;
+            int numberOfDays = (int)(((GoalTrackerModel)model).EndTime - ((GoalTrackerModel)model).StartTime).TotalDays;
+
+            List<string> lines = new List<string>();
+            if(File.Exists(fullfilename))
+            {
+                lines = File.ReadAllLines(fullfilename).ToList();
+            }
+
+            string s = "";
+            for(int i=0;i<20;i++)
+            {
+                s = s + "    0";
+            }
+
+            for(int i = lines.Count; i < numberOfDays/20+1;i++)
+            {
+                lines.Add(s);
+            }
+
+            for (int i=0;i< (arrayOfData.Length/20);i++)
+            {
+                string line = "";
+                for(int j=0;j<20;j++)
+                {
+                    if (i == 0 && j< arrayOfData.Length%20 )
+                    {
+                        line = line + "    0";
+                    }
+                    else
+                    {
+                        line = line + arrayOfData[i * 20 + j - arrayOfData.Length % 20].ToString().PadLeft(5, ' ');
+                    }
+                }
+                lines[(numberOfDays / 20) - (arrayOfData.Length / 20)+i] = line;
+            }
+
+            File.WriteAllLines(fullfilename, lines);
+        }
+
+
+        public static int[] ReadGoalTrackerText(this BaseItemModel model, string folderName)
+        {
+            string fullfilename = folderName.FullFilePath() + "\\" + model.Id.ToString().PadLeft(4, '0') + ".txt";
+            int[] arrayOfData = new int[100];
+            int numberOfDays = (int)(DateTime.Now - ((GoalTrackerModel)model).StartTime).TotalDays;
+
+            List<string> lines = new List<string>();
+            if (File.Exists(fullfilename))
+            {
+                lines = File.ReadAllLines(fullfilename).ToList();
+            }
+
+            for (int i = 0;i<5;i++)
+            {
+                if(lines.Count > (numberOfDays/20)-5+i)
+                {
+                    for(int j=0;j<20;j++)
+                    {
+                        arrayOfData[20 * i + j] = Int32.Parse(lines[(numberOfDays / 20) - 5 + i].Substring(5 * j, 5));
+                    }
+                }
+            }
+
+            return arrayOfData;
+        }
+
 
         public static void SaveNoteText(this BaseItemModel model, string folderName)
         {
@@ -230,7 +303,7 @@ namespace OrganizerDataFilesConnection
 
 
 
-        public static List<SectionModel> ConvertToSubListModels(this List<string> lines)
+        public static List<SectionModel> ConvertToSectionModels(this List<string> lines)
         {
             List<SectionModel> output = new List<SectionModel>();
 
@@ -283,6 +356,7 @@ namespace OrganizerDataFilesConnection
                     case ItemType.GoalTracker:
                         h = BaseItemModelWithAssignedValues(cols, new GoalTrackerModel(), fileList);
                         ((GoalTrackerModel)h).Name = cols[5];
+                        h.EndTime = DateTime.Now;
                         output.Add(h);
                         break;
                     case ItemType.TimeTracker:

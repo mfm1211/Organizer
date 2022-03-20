@@ -5,11 +5,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OrganizerLibrary.Models
 {
-    public class SectionModel:DomainObject
+    public class SectionModel: DomainObject
     {
-        private string shortName;
-        private string name;
+        private string _shortName;
+        private string _name;
 
+      
         /// <summary>
         /// Represents the name of given Section
         /// </summary>
@@ -17,11 +18,11 @@ namespace OrganizerLibrary.Models
         [MaxLength(100)]
         public string Name
         {
-            get { return name; }
+            get { return _name; }
             set
             {
-                name = value;
-                shortName = name.Length > 12 ? (name.Substring(0, 10) + "..") : name;
+                _name = value;
+                _shortName = _name.Length > 12 ? (_name.Substring(0, 10) + "..") : _name;
             }
         }
 
@@ -31,7 +32,7 @@ namespace OrganizerLibrary.Models
         /// </summary>
         public string ShortName
         {
-            get { return shortName; }
+            get { return _shortName; }
 
         }
 
@@ -42,6 +43,18 @@ namespace OrganizerLibrary.Models
         /// </summary>
         [Required]
         public int ListModelId { get; set; }
+
+
+        public SectionModel(string name, int listModelId)
+        {
+            Name = name;
+            ListModelId = listModelId;
+        }
+
+        public SectionModel()
+        {
+         
+        }
 
     }
 }

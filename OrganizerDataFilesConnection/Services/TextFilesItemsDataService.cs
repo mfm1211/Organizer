@@ -15,9 +15,10 @@ namespace OrganizerDataFilesConnection.Services
         private const string fileOfLists = "ListObjFile.csv";
         private const string fileOfEvents = "EventObjFile.csv";
         private const string fileOfNotes = "NotesFile.csv";
-        private const string fileOfSections = "SubListFile.csv";
+
         private const string fileOfTimeTrackers = "TimeTrackerFile.csv";
         private const string folderOfTimeTracker = "TimeTrackerFolder";
+        private const string folderOfGoalTracker = "GoalTrackerFolder";
         private const string folderOfNotes = "NotesFolder";
 
         public async Task<T> Create(T entity)
@@ -34,6 +35,8 @@ namespace OrganizerDataFilesConnection.Services
 
             if(itemType == ItemType.Notes)
                 entity.SaveNoteText(folderOfNotes);
+            if (itemType == ItemType.GoalTracker)
+                entity.SaveGoalTrackerText(folderOfGoalTracker);
 
             return entity;
         }
@@ -68,18 +71,30 @@ namespace OrganizerDataFilesConnection.Services
             (string fileName, ItemType itemType) = GetFileNameAndType(typeof(T));
             IEnumerable<BaseItemModel> temp = await Task.Run(()=> fileName.FullFilePath().LoadFile().GetItemList(fileOfLists, itemType));
            
-
             foreach (BaseItemModel d in temp)
             {
                 result.Add((T)d);
             }
-
+          
             return result;
         }
 
-        public Task<IEnumerable<T>> GetAllExtended()
+        public async Task<IEnumerable<T>> GetAllExtended()
         {
-            throw new NotImplementedException();
+            List<T> result = new List<T>();
+            (string fileName, ItemType itemType) = GetFileNameAndType(typeof(T));
+            IEnumerable<BaseItemModel> temp = await Task.Run(() => fileName.FullFilePath().LoadFile().GetItemList(fileOfLists, itemType));
+
+            foreach (BaseItemModel d in temp)
+            {
+                if (itemType == ItemType.GoalTracker)
+                {
+                    ((GoalTrackerModel)d).ListOfData = d.ReadGoalTrackerText(folderOfGoalTracker);
+                }
+                result.Add((T)d);
+            }
+
+            return result;
         }
 
         public async Task<T> GetExtended(int id)
@@ -94,6 +109,10 @@ namespace OrganizerDataFilesConnection.Services
             if (itemType == ItemType.Notes)
             {
                 ((NotesModel)result).Text = result.ReadNoteText(folderOfNotes);
+            }
+            if (itemType == ItemType.GoalTracker)
+            {
+                ((GoalTrackerModel)result).ListOfData = result.ReadGoalTrackerText(folderOfGoalTracker);
             }
             
 
@@ -110,6 +129,9 @@ namespace OrganizerDataFilesConnection.Services
             items.Add(entity);
 
             await Task.Run(() => items.SaveItemToFile(fileName, itemType));
+
+            if (itemType == ItemType.GoalTracker)
+                await Task.Run(() => entity.SaveGoalTrackerText(folderOfGoalTracker));
 
             return entity;
         }

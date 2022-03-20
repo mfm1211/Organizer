@@ -20,14 +20,21 @@ namespace OrganizerWPF.Controls
     /// </summary>
     public partial class GoalTrackerCounterUC : UserControl
     {
-        public static DependencyProperty DisplayedNumberProperty =
+        public static DependencyProperty DisplayNumberProperty =
         DependencyProperty.Register(
             "DisplayedNumber",
             typeof(int),
             typeof(GoalTrackerCounterUC),
             new PropertyMetadata(null));
 
-      
+        public static DependencyProperty IndexNumberProperty =
+       DependencyProperty.Register(
+           "IndexNumber",
+           typeof(int),
+           typeof(GoalTrackerCounterUC),
+           new PropertyMetadata(null));
+
+
 
         public static DependencyProperty ChangeDisplayedNumberProperty =
     DependencyProperty.Register(
@@ -37,7 +44,7 @@ namespace OrganizerWPF.Controls
       new PropertyMetadata(default(ICommand)));
 
 
-    
+
 
         public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.RegisterAttached(
     "CommandParameter",
@@ -47,12 +54,7 @@ namespace OrganizerWPF.Controls
 
 
 
-        public static DependencyProperty CheckboxVisibilityProperty =
-        DependencyProperty.Register(
-            "CheckboxVisibility",
-            typeof(bool),
-            typeof(GoalTrackerCounterUC),
-            new PropertyMetadata(null));
+
 
 
         public GoalTrackerCounterUC()
@@ -63,7 +65,7 @@ namespace OrganizerWPF.Controls
 
 
 
-     
+
 
 
         public GoalTrackerViewModel CommandParameter
@@ -80,41 +82,32 @@ namespace OrganizerWPF.Controls
         }
 
 
+        public int IndexNumber
+        {
+            get
+            {
+                return (int)GetValue(IndexNumberProperty);
+            }
+
+            set
+            {
+                SetValue(IndexNumberProperty, value);
+            }
+        }
+
 
         public int DisplayedNumber
         {
             get
             {
-                return (int)GetValue(DisplayedNumberProperty);
+                return (int)GetValue(DisplayNumberProperty);
             }
 
             set
             {
-                SetValue(DisplayedNumberProperty, value);
+                SetValue(DisplayNumberProperty, value);
             }
         }
-
-
-
-        public bool CheckboxVisibility
-        {
-            get
-            {
-                return (bool)GetValue(CheckboxVisibilityProperty);
-            }
-
-            set
-            {
-                SetValue(CheckboxVisibilityProperty, value);
-            }
-        }
-
-
-
-    
-
-
-      
 
         public ICommand ChangeDisplayedNumber
         {
@@ -130,7 +123,7 @@ namespace OrganizerWPF.Controls
         }
 
 
-       
+
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -151,20 +144,22 @@ namespace OrganizerWPF.Controls
             }
         }
 
-      
 
-       
+
+
         private void LeftButton_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                DisplayedNumber = DisplayedNumber - 1;       
+                DisplayedNumber = DisplayedNumber - 1;
             }
             else
             {
                 DisplayedNumber = DisplayedNumber - 10;
             }
+            //     textBox.Text = DisplayedNumber.ToString();
 
+            CommandParameter.GoalTracker.ListOfData[IndexNumber] = DisplayedNumber;
 
             ChangeDisplayedNumber.Execute(CommandParameter);
         }
@@ -179,8 +174,8 @@ namespace OrganizerWPF.Controls
             {
                 DisplayedNumber = DisplayedNumber + 10;
             }
-
-
+            //    textBox.Text = DisplayedNumber.ToString();
+            CommandParameter.GoalTracker.ListOfData[IndexNumber] = DisplayedNumber;
             ChangeDisplayedNumber.Execute(CommandParameter);
         }
 

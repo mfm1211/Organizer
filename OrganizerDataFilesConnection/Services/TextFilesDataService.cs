@@ -116,28 +116,6 @@ namespace OrganizerDataFilesConnection.Services
         }
 
 
-        private SectionModel CreateSubList(SectionModel model)
-        {
-            List<SectionModel> Sublists = fileOfSections.FullFilePath().LoadFile().ConvertToSubListModels();
-
-            model.Id = fileOfSections.FindEmptyId(); 
-
-            Sublists.Add(model);
-
-            Sublists.SaveToSubListFile(fileOfSections);
-
-            return model;
-        }
-
-
-    
-
-
-    
-
-
-    
-
 
         public List<ListModel> GetAllListObj()
         {
@@ -149,21 +127,6 @@ namespace OrganizerDataFilesConnection.Services
             return fileOfLists.FullFilePath().LoadFile().ConvertToSingleListObjModel(id);
         }
 
-
-     
-
-        public List<SectionModel> GetAllSubList()
-        {
-            return fileOfSections.FullFilePath().LoadFile().ConvertToSubListModels();
-        }
-
-
-     
-
-      
-     
-
-      
 
 
         //public List<SectionModel>[] GetAllSubListSortedByListId()
