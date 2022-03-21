@@ -8,6 +8,7 @@ using OrganizerLibrary.Services;
 using OrganizerWPF.State.ItemListStates;
 using OrganizerWPF.State.Navigators;
 using OrganizerWPF.ViewModels;
+using OrganizerWPF.ViewModels.EditingPanels;
 using OrganizerWPF.ViewModels.Factories;
 using OrganizerWPF.ViewModels.MainViewModels;
 using OrganizerWPF.ViewModels.RetractableViewModels;
@@ -94,8 +95,10 @@ namespace OrganizerWPF
 
             services.AddScoped<RetractableWindow>(s => new RetractableWindow(s.GetRequiredService<RetractableMainViewModel>()));
 
-
-
+            services.AddTransient<EventsEditingPanelViewModel>();
+            services.AddTransient<CheckBoxesEditingPanelViewModel>();
+            services.AddTransient<GoalTrackersEditingPanelViewModel>();
+            services.AddTransient<NotesEditingPanelViewModel>();
 
 
             services.AddSingleton<CreateViewModel<ListOfListsViewModel>>(services =>
@@ -109,14 +112,16 @@ namespace OrganizerWPF
                 return () => new EventListViewModel(services.GetRequiredService<IDataService<EventModel>>(),
                      services.GetRequiredService<IDataService<ListModel>>(),
                     services.GetRequiredService<INavigator>(),
-                    services.GetRequiredService<IChosenIndexesStore>());
+                    services.GetRequiredService<IChosenIndexesStore>(),
+                    services.GetRequiredService<EventsEditingPanelViewModel>());
             });
             services.AddSingleton<CreateViewModel<CheckBoxListViewModel>>(services =>
             {
                 return () => new CheckBoxListViewModel(services.GetRequiredService<IDataService<CheckBoxModel>>(),
                     services.GetRequiredService<IDataService<ListModel>>(),
                     services.GetRequiredService<INavigator>(), 
-                    services.GetRequiredService<IChosenIndexesStore>());
+                    services.GetRequiredService<IChosenIndexesStore>(),
+                    services.GetRequiredService<CheckBoxesEditingPanelViewModel>());
             });
             services.AddSingleton<CreateViewModel<TimeTrackerListViewModel>>(services =>
             {
@@ -130,14 +135,16 @@ namespace OrganizerWPF
                 return () => new GoalTrackerListViewModel(services.GetRequiredService<IDataService<GoalTrackerModel>>(),
                     services.GetRequiredService<IDataService<ListModel>>(),
                     services.GetRequiredService<INavigator>(),
-                    services.GetRequiredService<IChosenIndexesStore>());
+                    services.GetRequiredService<IChosenIndexesStore>(),
+                    services.GetRequiredService<GoalTrackersEditingPanelViewModel>());
             });
             services.AddSingleton<CreateViewModel<NotesListViewModel>>(services =>
             {
                 return () => new NotesListViewModel(services.GetRequiredService<IDataService<NotesModel>>(),
                     services.GetRequiredService<IDataService<ListModel>>(),
                     services.GetRequiredService<INavigator>(),
-                    services.GetRequiredService<IChosenIndexesStore>());
+                    services.GetRequiredService<IChosenIndexesStore>(),
+                    services.GetRequiredService<NotesEditingPanelViewModel>());
             });
             services.AddSingleton<CreateViewModel<SelectionBarViewModel>>(services =>
             {

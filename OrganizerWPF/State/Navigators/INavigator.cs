@@ -24,7 +24,7 @@ namespace OrganizerWPF.State.Navigators
         bool ScreenIsExpanded { get; set; }
         bool RetractableScreenIsVisible { get; set; }
         ViewModelBase CurrentRetractableViewModel { get; set; }
-
+        Tuple<bool,bool> EditingPanelIsVIsible { get; set; }
 
         event Action CurrentViewModelChanged;
 
@@ -33,5 +33,7 @@ namespace OrganizerWPF.State.Navigators
         event Action ScreenExpansionChanged;
 
         event Action RetractableScreenVisibilityChanged;
+
+        public event Action<bool> EditigPanelEnded;
     }
 }

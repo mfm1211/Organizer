@@ -2,6 +2,7 @@
 using OrganizerLibrary.Models;
 using OrganizerLibrary.Services;
 using OrganizerWPF.Commands;
+using OrganizerWPF.State.Navigators;
 using OrganizerWPF.ViewModels.WrappedModels;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,6 @@ namespace OrganizerWPF.ViewModels.EditingPanels
 
         public ICommand CancelCommand { get; set; }
 
-        private Action<bool> _action;
-
         public BaseItemModel CreatedItem { get; set; }
 
         public string MainTextString { get; set; }
@@ -30,6 +29,8 @@ namespace OrganizerWPF.ViewModels.EditingPanels
         private bool ListOfListsIsEmpty = false;
 
         protected IDataService<T> _service;
+
+        private INavigator _navigator;
 
         public List<ListModel> ListOfListObjsForCombobox { get; set; } = new List<ListModel>();
 
@@ -45,15 +46,20 @@ namespace OrganizerWPF.ViewModels.EditingPanels
         }
 
 
-        public AddBaseListItemPanelViewModel(Action<bool> action, IDataService<ListModel> listModelsService, IDataService<T> service)
+        public AddBaseListItemPanelViewModel(IDataService<ListModel> listModelsService, IDataService<T> service, INavigator navigator)
         {
             _listModelsService = listModelsService;
             GetLists(listModelsService);
             CancelCommand = new RelayCommand(TriggerCancelEvent);
-            _action = action;
+            _navigator = navigator;
             _service = service;
             AddItemCommand = new RelayCommand(() => CreateNewItem(service));
         }
+        ~AddBaseListItemPanelViewModel()
+        {
+
+        }
+
 
 
         private async void GetLists(IDataService<ListModel> listModelsService)
@@ -85,7 +91,8 @@ namespace OrganizerWPF.ViewModels.EditingPanels
             else if (typeof(T) == typeof(GoalTrackerModel))
                 await CreateNewGoal(service as IDataService<GoalTrackerModel>);
 
-            _action.Invoke(true);
+           // _action.Invoke(true);
+            _navigator.EditingPanelIsVIsible = new Tuple<bool, bool>(false, true);
         }
 
 
@@ -156,7 +163,8 @@ namespace OrganizerWPF.ViewModels.EditingPanels
 
         private void TriggerCancelEvent()
         {
-            _action.Invoke(false);
+           // _action.Invoke(false);
+            _navigator.EditingPanelIsVIsible = new Tuple<bool, bool>(false,false);
         }
 
 

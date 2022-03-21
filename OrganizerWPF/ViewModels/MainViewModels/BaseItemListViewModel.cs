@@ -28,19 +28,29 @@ namespace OrganizerWPF.ViewModels.MainViewModels
 
         public bool AddItemPanelVisibility { get; set; } = false;
 
+        protected Action<bool> editigPanelEndedAction;
+
         public ObservableCollection<BaseItemViewModel> DisplayedListOfItems { get; set; } = new ObservableCollection<BaseItemViewModel>();
+
+        private Action screenExpansionChangedAction;
 
         public BaseItemListViewModel(INavigator navigator, IDataService<ListModel> listModelsService, IChosenIndexesStore chosenIndexesStore)
         {
             _navigator = navigator;
             _listModelsService = listModelsService;
             _chosenIndexesStore = chosenIndexesStore;
-            _navigator.ScreenExpansionChanged += () => OnPropertyChanged(nameof(PanelSizeIsExpanded));
+            screenExpansionChangedAction = () => OnPropertyChanged(nameof(PanelSizeIsExpanded));
+            _navigator.ScreenExpansionChanged += screenExpansionChangedAction;
 
-            ShowAddItemPanelCommand = new RelayCommand(() => AddItemPanelVisibility = true);
-            
+            ShowAddItemPanelCommand = new RelayCommand(ShowAddItemPanel);    
         }
 
+
+        private void ShowAddItemPanel()
+        {
+            AddItemPanelVisibility = true;
+            _navigator.EditingPanelIsVIsible = new Tuple<bool, bool>(true, false);
+        }
 
 
         protected async void DeleteItem<T>(BaseItemViewModel model, IDataService<T> dataService)
@@ -67,6 +77,13 @@ namespace OrganizerWPF.ViewModels.MainViewModels
         protected void UpdateDisplayedList(IEnumerable<BaseItemViewModel> list)
         {
             DisplayedListOfItems = new ObservableCollection<BaseItemViewModel>(list);
+        }
+
+
+        public override void Dispose()
+        {
+            _navigator.ScreenExpansionChanged -= screenExpansionChangedAction;
+            base.Dispose();
         }
     }
 }

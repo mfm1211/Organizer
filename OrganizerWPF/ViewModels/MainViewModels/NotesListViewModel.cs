@@ -17,14 +17,17 @@ namespace OrganizerWPF.ViewModels.MainViewModels
 
         public NotesEditingPanelViewModel AddItemPanel { get; set; }
 
-        public NotesListViewModel(IDataService<NotesModel> notesModelsService, IDataService<ListModel> listModelsService, INavigator navigator, IChosenIndexesStore chosenIndexesStore) :
+        public NotesListViewModel(IDataService<NotesModel> notesModelsService, IDataService<ListModel> listModelsService, INavigator navigator, 
+            IChosenIndexesStore chosenIndexesStore, NotesEditingPanelViewModel addItemPanel) :
             base(navigator, listModelsService, chosenIndexesStore)
         {
             _notesModelsService = notesModelsService;
             chosenIndexesStore.ChosenListIdChanged += GetNotes;
+            editigPanelEndedAction = (param) => AddPanelAction((bool)param);
+            navigator.EditigPanelEnded += editigPanelEndedAction;
             GetNotes();
 
-            AddItemPanel = new NotesEditingPanelViewModel((param) => AddPanelAction((bool)param), listModelsService, _notesModelsService);
+            AddItemPanel = addItemPanel;
             EditItemCommand = new RelayCommandWithParameter((param) => { AddItemPanelVisibility = true; AddItemPanel.PopulatePanelVithData((NotesViewModel)param); });
         }
 
@@ -50,10 +53,17 @@ namespace OrganizerWPF.ViewModels.MainViewModels
         {
             if (eventCreted)
             {
-              //  GetEvents();
+                  GetNotes();
             }
 
             AddItemPanelVisibility = false;
+        }
+
+        public override void Dispose()
+        {
+            _chosenIndexesStore.ChosenListIdChanged -= GetNotes;
+            _navigator.EditigPanelEnded -= editigPanelEndedAction;
+            base.Dispose();
         }
     }
 }

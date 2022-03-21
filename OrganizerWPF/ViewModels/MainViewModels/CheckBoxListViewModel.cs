@@ -24,7 +24,10 @@ namespace OrganizerWPF.ViewModels.MainViewModels
 
         public CheckBoxesEditingPanelViewModel AddItemPanel { get; set; }
 
-        public CheckBoxListViewModel(IDataService<CheckBoxModel> checkboxModelsService, IDataService<ListModel> listModelsService, INavigator navigator, IChosenIndexesStore chosenIndexesStore) : 
+       
+
+        public CheckBoxListViewModel(IDataService<CheckBoxModel> checkboxModelsService, IDataService<ListModel> listModelsService, INavigator navigator, 
+            IChosenIndexesStore chosenIndexesStore, CheckBoxesEditingPanelViewModel addItemPanel) : 
             base(navigator, listModelsService, chosenIndexesStore)
         {
             
@@ -36,7 +39,10 @@ namespace OrganizerWPF.ViewModels.MainViewModels
 
             DeleteItemCommand = new RelayCommandWithParameter((param) => DeleteItem<CheckBoxModel>((CheckBoxViewModel)param, checkboxModelsService));
             
-            AddItemPanel = new CheckBoxesEditingPanelViewModel((param) => AddPanelAction((bool)param), listModelsService, checkboxModelsService);
+            AddItemPanel = addItemPanel;
+
+            editigPanelEndedAction = (param) => AddPanelAction((bool)param);
+            navigator.EditigPanelEnded += editigPanelEndedAction;
 
         }
 
@@ -96,7 +102,8 @@ namespace OrganizerWPF.ViewModels.MainViewModels
 
         public override void Dispose()
         {
-            //  _chosenIndexesStore.ChosenListIdChanged -= GetEvents;
+            _chosenIndexesStore.ChosenListIdChanged -= GetCheckBoxes;
+            _navigator.EditigPanelEnded -= editigPanelEndedAction;
             base.Dispose();
         }
 

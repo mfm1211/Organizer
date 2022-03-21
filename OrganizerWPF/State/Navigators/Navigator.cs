@@ -15,6 +15,8 @@ namespace OrganizerWPF.State.Navigators
 
         private bool _screenIsExpanded;
 
+        private Tuple<bool, bool> _editingPanelIsVIsible;
+
         private bool _retractableScreenIsVisible;
 
         public ViewModelBase CurrentViewModel
@@ -66,8 +68,23 @@ namespace OrganizerWPF.State.Navigators
             }
             set
             {
+                _currentRetractableViewModel?.Dispose();
                 _currentRetractableViewModel = value;
                 CurrentRetractableViewModelChanged?.Invoke();
+            }
+        }
+
+        public Tuple<bool, bool> EditingPanelIsVIsible
+        {
+            get
+            {
+                return _editingPanelIsVIsible;
+            }
+            set
+            {
+                _editingPanelIsVIsible = value;
+                if(_editingPanelIsVIsible.Item1==false)
+                    EditigPanelEnded?.Invoke(_editingPanelIsVIsible.Item2);
             }
         }
 
@@ -76,5 +93,6 @@ namespace OrganizerWPF.State.Navigators
         public event Action ScreenExpansionChanged;
         public event Action RetractableScreenVisibilityChanged;
         public event Action CurrentRetractableViewModelChanged;
+        public event Action<bool> EditigPanelEnded;
     }
 }

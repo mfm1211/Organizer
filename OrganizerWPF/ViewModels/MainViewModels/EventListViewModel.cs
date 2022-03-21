@@ -25,16 +25,24 @@ namespace OrganizerWPF.ViewModels.MainViewModels
 
         public EventsEditingPanelViewModel AddItemPanel { get; set; }
 
-        public EventListViewModel(IDataService<EventModel> eventModelsService, IDataService<ListModel> listModelsService, INavigator navigator, IChosenIndexesStore chosenIndexesStore) :
+        public EventListViewModel(IDataService<EventModel> eventModelsService, IDataService<ListModel> listModelsService, INavigator navigator, 
+            IChosenIndexesStore chosenIndexesStore, EventsEditingPanelViewModel localAddItemPanel) :
             base(navigator, listModelsService, chosenIndexesStore)
         {
             _eventModelsService = eventModelsService; 
             GetEvents();
 
             chosenIndexesStore.ChosenListIdChanged += GetEvents;
-            
-            AddItemPanel = new EventsEditingPanelViewModel((param) => AddPanelAction((bool)param), listModelsService, eventModelsService);
+            editigPanelEndedAction = (param) => AddPanelAction((bool)param);
+            navigator.EditigPanelEnded += editigPanelEndedAction;
+            AddItemPanel = localAddItemPanel;
             DeleteItemCommand = new RelayCommandWithParameter((param) => DeleteItem<EventModel>((EventViewModel)param, eventModelsService));
+
+        }
+
+        ~EventListViewModel()
+        {
+
         }
 
         private async void GetEvents()
@@ -87,13 +95,13 @@ namespace OrganizerWPF.ViewModels.MainViewModels
             {
                 GetEvents();
             }
-
             AddItemPanelVisibility = false;
         }
 
         public override void Dispose()
         {
             _chosenIndexesStore.ChosenListIdChanged -= GetEvents;
+            _navigator.EditigPanelEnded -= editigPanelEndedAction;
             base.Dispose();
         }
 

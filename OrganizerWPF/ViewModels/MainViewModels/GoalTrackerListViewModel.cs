@@ -25,15 +25,19 @@ namespace OrganizerWPF.ViewModels.MainViewModels
         public ObservableCollection<string> ListOfDayNames { get; set; } = new ObservableCollection<string>();
 
 
-        public GoalTrackerListViewModel(IDataService<GoalTrackerModel> goalTrackerModelsService, IDataService<ListModel> listModelsService, INavigator navigator, IChosenIndexesStore chosenIndexesStore) :
+        public GoalTrackerListViewModel(IDataService<GoalTrackerModel> goalTrackerModelsService, IDataService<ListModel> listModelsService, INavigator navigator, 
+            IChosenIndexesStore chosenIndexesStore, GoalTrackersEditingPanelViewModel addItemPanel) :
             base(navigator, listModelsService, chosenIndexesStore)
         {
             _goalTrackerModelsService = goalTrackerModelsService;
             GetGoalTrackers();
 
             UpdateGoalTrackerCommand = new RelayCommandWithParameter((param) => UpdateTracker(param as GoalTrackerViewModel));
+            chosenIndexesStore.ChosenListIdChanged += GetGoalTrackers;
+            editigPanelEndedAction = (param) => AddPanelAction((bool)param);
+            navigator.EditigPanelEnded += editigPanelEndedAction;
 
-            AddItemPanel = new GoalTrackersEditingPanelViewModel((param) => AddPanelAction((bool)param), listModelsService, _goalTrackerModelsService);
+            AddItemPanel = addItemPanel;
 
             SetDayNames();
         }
@@ -79,6 +83,14 @@ namespace OrganizerWPF.ViewModels.MainViewModels
 
                 ListOfDayNames.Add(s);
             }
+        }
+
+
+        public override void Dispose()
+        {
+            _chosenIndexesStore.ChosenListIdChanged -= GetGoalTrackers;
+            _navigator.EditigPanelEnded -= editigPanelEndedAction;
+            base.Dispose();
         }
     }
 }
