@@ -19,6 +19,7 @@ namespace OrganizerWPF.ViewModels.Factories
         private readonly CreateViewModel<NotesListViewModel> _createNotesListViewModel;
         private readonly CreateViewModel<SelectionBarViewModel> _createSelectionBarViewModel;
         private readonly CreateViewModel<RetractableListOfListsViewModel> _createRetractableListOfListViewModel;
+        private readonly CreateViewModel<RetractableListDataViewModel> _createRetractableListDataViewModel;
 
         public OrganizerViewModelFactory(CreateViewModel<ListOfListsViewModel> createListOfListsModel, 
             CreateViewModel<EventListViewModel> createEventListViewModel,
@@ -27,7 +28,8 @@ namespace OrganizerWPF.ViewModels.Factories
             CreateViewModel<GoalTrackerListViewModel> createGoalTrackerListViewModel,
             CreateViewModel<NotesListViewModel> createNotesListViewModel,
             CreateViewModel<SelectionBarViewModel> createSelectionBarViewModel,
-            CreateViewModel<RetractableListOfListsViewModel> createRetractableListOfListViewModel)
+            CreateViewModel<RetractableListOfListsViewModel> createRetractableListOfListViewModel,
+            CreateViewModel<RetractableListDataViewModel> createRetractableListDataViewModel)
         {
             _createListOfListsViewModel = createListOfListsModel;
             _createEventListViewModel = createEventListViewModel;
@@ -37,6 +39,7 @@ namespace OrganizerWPF.ViewModels.Factories
             _createNotesListViewModel = createNotesListViewModel;
             _createSelectionBarViewModel = createSelectionBarViewModel;
             _createRetractableListOfListViewModel = createRetractableListOfListViewModel;
+            _createRetractableListDataViewModel = createRetractableListDataViewModel;
         }
 
         public ViewModelBase CreateViewModel(ViewType viewType)
@@ -65,6 +68,8 @@ namespace OrganizerWPF.ViewModels.Factories
                 //    return _createRetractableTimeTrackerListViewModel();
                 case ViewType.RetractableListOfLists:
                     return _createRetractableListOfListViewModel();
+                case ViewType.RetractableList:
+                    return _createRetractableListDataViewModel();
                 default:
                     throw new ArgumentException("The ViewType does not have a ViewModel.", "viewType");
             }

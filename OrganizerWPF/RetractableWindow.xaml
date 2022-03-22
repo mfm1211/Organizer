@@ -10,6 +10,7 @@
         xmlns:viewModels="clr-namespace:OrganizerWPF.ViewModels" 
         xmlns:views="clr-namespace:OrganizerWPF.Views"
         xmlns:viewModelsMain="clr-namespace:OrganizerWPF.ViewModels.MainViewModels"
+        xmlns:viewModelsRetractable="clr-namespace:OrganizerWPF.ViewModels.RetractableViewModels"
         xmlns:viewsRetractable="clr-namespace:OrganizerWPF.Views.RetractableViews"
         mc:Ignorable="d"
         Title="RetractableWindow" 
@@ -39,6 +40,10 @@
 
         <DataTemplate DataType="{x:Type viewModelsMain:TimeTrackerListViewModel}">
             <viewsRetractable:RetractableTimeTrackerListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModelsRetractable:RetractableListDataViewModel}">
+            <viewsRetractable:RetractableListDataView/>
         </DataTemplate>
 
     </Window.Resources>

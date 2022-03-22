@@ -104,7 +104,8 @@ namespace OrganizerWPF
             services.AddSingleton<CreateViewModel<ListOfListsViewModel>>(services =>
             {
                 return () => new ListOfListsViewModel(services.GetRequiredService<IDataService<ListModel>>(), 
-                    services.GetRequiredService<INavigator>());
+                    services.GetRequiredService<INavigator>(),
+                     services.GetRequiredService<IOrganizerViewModelFactory>());
             });
 
             services.AddSingleton<CreateViewModel<EventListViewModel>>(services =>
@@ -153,14 +154,18 @@ namespace OrganizerWPF
                 services.GetRequiredService<INavigator>(), services.GetRequiredService<IChosenIndexesStore>()
                 );
             });
+            services.AddSingleton<CreateViewModel<RetractableListDataViewModel>>(services =>
+            {
+                return () => new RetractableListDataViewModel();
+            });
 
 
 
-          
             services.AddSingleton<CreateViewModel<RetractableListOfListsViewModel>>(services =>
             {
                 return () => new RetractableListOfListsViewModel(services.GetRequiredService<IDataService<ListModel>>(),
-                    services.GetRequiredService<INavigator>());
+                    services.GetRequiredService<INavigator>(),
+                     services.GetRequiredService<IOrganizerViewModelFactory>());
             });
 
             return services.BuildServiceProvider();

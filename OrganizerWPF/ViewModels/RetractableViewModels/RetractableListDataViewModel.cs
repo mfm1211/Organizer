@@ -4,7 +4,10 @@ using System.Text;
 
 namespace OrganizerWPF.ViewModels.RetractableViewModels
 {
-    class RetractableListDataViewModel
+    public class RetractableListDataViewModel : ViewModelBase
     {
+        public RetractableListDataViewModel()
+        {
+        }
     }
 }

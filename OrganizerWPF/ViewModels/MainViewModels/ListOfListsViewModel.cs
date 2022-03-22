@@ -9,6 +9,9 @@ using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Windows.Input;
+using OrganizerWPF.Commands;
+using OrganizerWPF.ViewModels.Factories;
 
 namespace OrganizerWPF.ViewModels.MainViewModels
 {
@@ -22,13 +25,23 @@ namespace OrganizerWPF.ViewModels.MainViewModels
     
         public bool PanelSizeIsExpanded => _navigator.ScreenIsExpanded;
 
+        public ICommand OpenListDataCommand { get; set; }
 
-        public ListOfListsViewModel(IDataService<ListModel> listModelsService, INavigator navigator)
+        IOrganizerViewModelFactory _viewModelFactory;
+
+        public ListOfListsViewModel(IDataService<ListModel> listModelsService, INavigator navigator, IOrganizerViewModelFactory viewModelFactory)
         {
             _navigator = navigator;
             _listModelsService = listModelsService;
+            _viewModelFactory = viewModelFactory;
             _navigator.ScreenExpansionChanged += () => OnPropertyChanged(nameof(PanelSizeIsExpanded));
+            OpenListDataCommand = new RelayCommandWithParameter((param) => OpenListDataScreen((int)param));
             GetLists();
+        }
+
+        private void OpenListDataScreen(int n)
+        {
+            _navigator.CurrentRetractableViewModel = _viewModelFactory.CreateViewModel(ViewType.RetractableList);
         }
 
         protected async void GetLists()

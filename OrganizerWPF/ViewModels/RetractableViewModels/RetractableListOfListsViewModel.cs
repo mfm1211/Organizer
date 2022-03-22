@@ -2,6 +2,7 @@
 using OrganizerLibrary.Services;
 using OrganizerWPF.Commands;
 using OrganizerWPF.State.Navigators;
+using OrganizerWPF.ViewModels.Factories;
 using OrganizerWPF.ViewModels.MainViewModels;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,8 @@ namespace OrganizerWPF.ViewModels.RetractableViewModels
 
         public ICommand DeleteListCommand { get; set; }
 
-        public RetractableListOfListsViewModel(IDataService<ListModel> listModelsService, INavigator navigator) : base(listModelsService, navigator)
+        public RetractableListOfListsViewModel(IDataService<ListModel> listModelsService, INavigator navigator, IOrganizerViewModelFactory viewModelFactory) : 
+            base(listModelsService, navigator, viewModelFactory)
         {
             AddListPanel = new AddListPanelViewModel((param) => AddPanelAction((bool)param), listModelsService);
 
