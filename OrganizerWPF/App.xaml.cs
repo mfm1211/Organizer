@@ -156,7 +156,8 @@ namespace OrganizerWPF
             });
             services.AddSingleton<CreateViewModel<RetractableListDataViewModel>>(services =>
             {
-                return () => new RetractableListDataViewModel();
+                return () => new RetractableListDataViewModel(services.GetRequiredService<INavigator>(),
+                     services.GetRequiredService<IOrganizerViewModelFactory>());
             });
 
 

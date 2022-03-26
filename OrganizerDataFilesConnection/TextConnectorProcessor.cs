@@ -174,19 +174,15 @@ namespace OrganizerDataFilesConnection
                 lines.Add(s);
             }
 
-            for (int i=0;i< (arrayOfData.Length/20);i++)
+            for (int i=1;i< (arrayOfData.Length/20)+1;i++)
             {
                 string line = "";
                 for(int j=0;j<20;j++)
                 {
-                    if (i == 0 && j< arrayOfData.Length%20 )
-                    {
-                        line = line + "    0";
-                    }
+                    if (i * 20 + j - numberOfDays % 20 < arrayOfData.Length)
+                        line = line + arrayOfData[i * 20 + j - numberOfDays % 20].ToString().PadLeft(5, ' ');
                     else
-                    {
-                        line = line + arrayOfData[i * 20 + j - arrayOfData.Length % 20].ToString().PadLeft(5, ' ');
-                    }
+                        line = line + "    0";
                 }
                 lines[(numberOfDays / 20) - (arrayOfData.Length / 20)+i] = line;
             }
@@ -211,9 +207,17 @@ namespace OrganizerDataFilesConnection
             {
                 if(lines.Count > (numberOfDays/20)-5+i)
                 {
-                    for(int j=0;j<20;j++)
+                    for(int j=0;j<20 - numberOfDays%20; j++)
                     {
-                        arrayOfData[20 * i + j] = Int32.Parse(lines[(numberOfDays / 20) - 5 + i].Substring(5 * j, 5));
+                        arrayOfData[20 * i + j] = Int32.Parse(lines[(numberOfDays / 20) - 5 + i].Substring(5 * (j + numberOfDays % 20), 5));
+                    }             
+                }
+                if (lines.Count > (numberOfDays / 20) - 5 + i+1)
+                {
+                  
+                    for (int j = 20 - numberOfDays % 20; j < 20; j++)
+                    {
+                        arrayOfData[20 * i + j] = Int32.Parse(lines[(numberOfDays / 20) - 5 + i+1].Substring(5 * (j-20+ numberOfDays % 20), 5));
                     }
                 }
             }

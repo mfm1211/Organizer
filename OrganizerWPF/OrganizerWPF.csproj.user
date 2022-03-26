@@ -40,6 +40,9 @@
     <Compile Update="Views\RetractableViews\AddListPanelView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\RetractableViews\OptionsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\RetractableViews\RetractableCheckBoxListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -53,6 +56,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\RetractableViews\RetractableListOfListsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\RetractableViews\RetractableListStatsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\RetractableViews\RetractableNotesListView.xaml.cs">
@@ -132,6 +138,9 @@
     <Page Update="Views\RetractableViews\AddListPanelView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\RetractableViews\OptionsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\RetractableViews\RetractableCheckBoxListView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -145,6 +154,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\RetractableViews\RetractableListOfListsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\RetractableViews\RetractableListStatsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\RetractableViews\RetractableNotesListView.xaml">
